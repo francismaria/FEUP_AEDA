@@ -17,7 +17,7 @@ class Client{
 	long int NIF;
 	std::string name;
 	Address address;
-	Date joiningDate; // --> inicializador de membro obrigatório!!
+	Date joiningDate;
 	//Histórico dos serviços contratados    vector<Service*> ??
 	static int numberOfClients;
 public:
@@ -32,8 +32,8 @@ public:
 	const Date& getJoiningDate() const;
 	static int getNumberOfClients();
 	friend std::ostream& operator<<(std::ostream& o, const Client & c1){
-		o << "Client's Info:\n\t" << "Name: " << c1.getName() << "\n\tID:" << c1.getId() << "\n\t" <<
-					c1.getAddress() << "\n" << std::endl;
+		o << "Client's Info:\n\t" << "Name: " << c1.getName() << "\n\tID: " << c1.getId()
+				<< "\n\tRegistered in: " << c1.getJoiningDate() << "\n\t" << c1.getAddress() << "\n" << std::endl;
 		return o;
 	}
 };

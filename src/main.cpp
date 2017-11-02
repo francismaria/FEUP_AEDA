@@ -9,7 +9,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "MovingCompany.h"
+#include "Interface.h"
 //Include Interface [{while user !pressed exit... }
 
 void importClients(){
@@ -24,20 +24,15 @@ void importInfo(){
 	//import
 }
 
-void run(){}
-
 int main() {
 	MovingCompany company("EletroMoving, S.A.", "Great company with moving.", 10, 9, 1995);
-	Client* c1 = new Client("Francisco Maria", 275254976, "Rua Isabel de Carvalho, n7, 2Direito", "4420-603", 1, 11, 2017);
 
+	Company* c1 = new Company("Eletrodomesticos Flavienses", 154654896, "Parque Industrial de Chaves, lote 75, II", "4400-589", 25,5,2016);
 	company.addClient(c1);
-	//Company c();
 
-	//importInfo();
+	importInfo();
 
-	//run();
-	std::cout << *c1;
-	//std::cout << company.getClients()[0];
+	run(company);
 
 	return 0;
 }

@@ -23,6 +23,7 @@ public:
 	const Date& getFoundingDate() const;
 	std::vector<Client*> getClients() const;
 	void addClient(Client* c);
+	void removeClient(std::string name);
 };
 
 

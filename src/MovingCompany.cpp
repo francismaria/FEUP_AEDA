@@ -22,6 +22,19 @@ std::vector<Client*> MovingCompany::getClients() const{ return clients; }
 
 void MovingCompany::addClient(Client* c){ clients.push_back(c); }
 
+void MovingCompany::removeClient(std::string name){
+	unsigned int i;
+
+	for(i = 0; i < clients.size(); i++){
+		if(clients[i]->getName() == name){
+			clients.erase(clients.begin()+i);
+			break;
+		}
+	}
+
+	throw NonExistingClient(name);
+}
+
 
 
 
