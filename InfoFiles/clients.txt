@@ -1,7 +1,6 @@
-José Henrique Martins / 42 / 5024624965 / Rua Mouzinho Outeiro, n 5, 2 Frente / 4424-203 / Porto / Portugal
-August Roger Smith / 52 / (NIF ALEMÃO) / (ADRESS ALEMÃO) / (ZIPCODE ALEMÃO) / Munique / Alemanha
-Rui Almeida Rodrigues da Silva / 37 / 603215243 / Rua da Certidão, n 8 / 4000-625 / Porto / Portugal
-Carlos Alberto Martinho Guilherme / 38 / 542135632 / Rua Carlos Mardel, n 14 / 3000-542 / Coimbra / Portugal
-Maria da Silva Freitas Antunes / 30 / 501326458 / Avenida da Bratislava, n 8, 1 Direito / 1452-365 / Lisboa / Portugal
-António Rui Marques de Andrade / 33 / 403126563 / Rua dos Olivais, n 7, 5 Esquerdo Frente / 2645-645 / Sintra / Portugal
+José Henrique Martins/42/5024624965/Rua Mouzinho Outeiro, n 5, 2 Frente/4424-203/Porto/Portugal
+Rui Almeida Rodrigues da Silva/37/603215243/Rua da Certidão, n 8/4000-625/Porto/Portugal
+Carlos Alberto Martinho Guilherme/38/542135632/Rua Carlos Mardel, n 14/3000-542/Coimbra/Portugal
+Maria da Silva Freitas Antunes/30/501326458/Avenida da Bratislava, n 8, 1 Direito/1452-365/Lisboa/Portugal
+António Rui Marques de Andrade/33/403126563/Rua dos Olivais, n 7, 5 Esquerdo Frente/2645-645/Sintra/Portugal
 

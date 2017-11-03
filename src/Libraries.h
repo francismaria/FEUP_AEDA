@@ -11,5 +11,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <sstream>
 
 #endif /* LIBRARIES_H_ */

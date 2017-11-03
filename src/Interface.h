@@ -16,11 +16,11 @@ int showMenu(MovingCompany& company);
 
 bool showClientsMenu(MovingCompany& company);
 
-void checkClient(MovingCompany& company);
+bool checkClient(MovingCompany& company);
 
-void addNewClient(MovingCompany& company);
+bool addNewClient(MovingCompany& company);
 
-void removeClient(MovingCompany& company);
+bool removeClient(MovingCompany& company);
 
 bool showServicesMenu(MovingCompany& company);
 
