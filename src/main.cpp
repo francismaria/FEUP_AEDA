@@ -105,11 +105,7 @@ int main() {
 
 	importInfo(company);
 
-	//run(company);
-
-	for(unsigned int i = 0; i < company.getClients().size(); i++){
-		std::cout << *company.getClients()[i];
-	}
+	run(company);
 
 	terminateProgram();
 

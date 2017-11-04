@@ -54,6 +54,9 @@ bool showClientsMenu(MovingCompany& company){
 	std::cout << "1 - Check client" << std::endl;
 	std::cout << "2 - Add client" << std::endl;
 	std::cout << "3 - Remove client" << std::endl;
+	std::cout << "4 - Print particular clients" << std::endl;
+	std::cout << "5 - Print company clients" << std::endl;
+	std::cout << "6 - Print all clients" << std::endl;
 	std::cout << "0 - Go back" << std::endl;
 	std::cout << "-1 - Exit program.\n" << std::endl;
 
@@ -72,6 +75,15 @@ bool showClientsMenu(MovingCompany& company){
 				break;
 			case 3:
 				//instruction = removeClient(company);
+				break;
+			case 4:
+				//instruction = printParticulars();
+				break;
+			case 5:
+				//instruction = printCompanies();
+				break;
+			case 6:
+				instruction = printClients(company);
 				break;
 			case 0:
 				instruction = 0;
@@ -123,6 +135,51 @@ bool checkClient(MovingCompany& company){
 		}
 	*/
 }
+
+int printClients(MovingCompany& company){
+	int option;
+
+	std::cout << "\tPrint All Clients" << std::endl;
+	std::cout << "How would you like to print the clients?\n" << std::endl;
+	std::cout << "1 - By name" << std::endl;
+	std::cout << "2 - By ID" << std::endl;
+	std::cout << "3 - By joining date" << std::endl;
+	std::cout << "0 - Go back" << std::endl;
+	std::cout << "-1 - Exit program.\n" << std::endl;
+
+	while(option != -1){
+		int instruction;
+
+		std::cout << "Please insert your option: ";
+		std::cin >> option;
+
+		switch (option){
+			case 1:
+				//instruction = printClientsByName(company);
+				break;
+			case 2:
+				//instruction = printClientsByID(company);
+				break;
+			case 3:
+				//instruction = printClientsByDate(company);
+				break;
+			case 0:
+				return 0;
+			case -1:
+				return 1;
+			default:
+				std::cout << "Please insert a valid option.\n" << std::endl;
+				break;
+		}
+
+		if(instruction == 0 || instruction == -1) return instruction;
+
+	}
+}
+
+
+
+
 
 
 bool showServicesMenu(MovingCompany& company){

@@ -22,6 +22,8 @@ bool addNewClient(MovingCompany& company);
 
 bool removeClient(MovingCompany& company);
 
+int printClients(MovingCompany& company);
+
 bool showServicesMenu(MovingCompany& company);
 
 #endif /* INTERFACE_H_ */
