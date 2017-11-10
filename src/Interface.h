@@ -18,7 +18,7 @@ bool showClientsMenu(MovingCompany& company);
 
 bool checkClient(MovingCompany& company);
 
-bool addNewClient(MovingCompany& company);
+int addNewClient(MovingCompany& company);
 
 bool removeClient(MovingCompany& company);
 

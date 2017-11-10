@@ -50,15 +50,15 @@ int showMenu(MovingCompany& company){
 bool showClientsMenu(MovingCompany& company){
 	int option;
 
-	std::cout <<"\tClients:\n" << std::endl;
-	std::cout << "1 - Check client" << std::endl;
-	std::cout << "2 - Add client" << std::endl;
-	std::cout << "3 - Remove client" << std::endl;
-	std::cout << "4 - Print particular clients" << std::endl;
-	std::cout << "5 - Print company clients" << std::endl;
-	std::cout << "6 - Print all clients" << std::endl;
-	std::cout << "0 - Go back" << std::endl;
-	std::cout << "-1 - Exit program.\n" << std::endl;
+	std::cout <<"\t\t\tClients:\n" << std::endl;
+	std::cout << "\t1 - Check client" << std::endl;
+	std::cout << "\t2 - Add client" << std::endl;
+	std::cout << "\t3 - Remove client" << std::endl;
+	std::cout << "\t4 - Print particular clients" << std::endl;
+	std::cout << "\t5 - Print company clients" << std::endl;
+	std::cout << "\t6 - Print all clients\n" << std::endl;
+	std::cout << "\t0 - Go back" << std::endl;
+	std::cout << "\t-1 - Exit program.\n" << std::endl;
 
 	while(option != -1){
 		int instruction;
@@ -71,7 +71,7 @@ bool showClientsMenu(MovingCompany& company){
 				instruction = checkClient(company);
 				break;
 			case 2:
-				//instruction = addNewClient(company);
+				instruction = addNewClient(company);
 				break;
 			case 3:
 				//instruction = removeClient(company);
@@ -101,6 +101,8 @@ bool showClientsMenu(MovingCompany& company){
 	}
 	return false;
 }
+
+
 
 bool checkClient(MovingCompany& company){
 	int option;
@@ -134,6 +136,96 @@ bool checkClient(MovingCompany& company){
 			break;
 		}
 	*/
+}
+
+int newParticularClient(MovingCompany& company){
+
+	std::cout << "\t\t\t NEW PARTICULAR\n" << std::endl;
+	std::cout << "\t0 - Cancel\t-1 - Exit program\n" << std::endl;
+
+	std::string input;
+	std::stringstream ss;
+
+	std::cout <<"\tPlease fill out this form in order to add the new client."<< std::endl;
+		//-- NAME
+	std::cout << "\tName: ";
+	std::getline(std::cin, input);
+
+	if(input == "-1") return -1;
+	else if(input == "0") return 0;
+
+	std::string name = input;
+
+		//-- NIF
+	std::cout << "\n\tNIF: ";
+	std::getline(std::cin, input);
+
+	if(input == "-1") return -1;
+	else if(input == "0") return 0;
+
+	long int nif;
+
+	ss << input;
+	ss >> nif;
+
+		//-- ADDRESS
+	std::cout << "\n\tAdress: ";
+	std::getline(std::cin, input);
+
+	if(input == "-1") return -1;
+	else if(input == "0") return 0;
+
+	std::string address = input;
+
+		//--ZipCode
+	std::cout << "\n\tZip Code: ";
+	std::getline(std::cin, input);
+
+	if(input == "-1") return -1;
+	else if(input == "0") return 0;
+
+	std::string zipCode = input;
+
+	Client* c = new Client(name, nif, address, zipCode, 12,12,2016);
+	company.addClient(c);
+
+	std::cout << "\n\n\t" << name << " has been added to the company." << std::endl;
+
+	return 0;
+
+}
+
+
+
+int addNewClient(MovingCompany& company){
+
+	int option, instruction;
+
+	while(option != -1){
+		std::cout << "\t\tNew Client Form\n" << std::endl;
+		std::cout << "\t1 - Add new Particular Client" << std::endl;
+		std::cout << "\t2 - Add new Company Client" << std::endl;
+		std::cout << "0 - Go back\t\t\t\t-1 - Exit Program\n" << std::endl;
+
+		std::cout << "Please insert your option: ";
+		std::cin >> option;
+
+		switch(option){
+			case 1:
+				instruction = newParticularClient(company);
+				break;
+			case 2:
+				//instruction = newCompanyClient(company);
+				break;
+			case 0:
+				return 0;
+			case -1:
+				break;
+				//return -1;
+		}
+		if(instruction == 0 || instruction == -1) return instruction;
+	}
+	return -1;
 }
 
 int printClients(MovingCompany& company){
