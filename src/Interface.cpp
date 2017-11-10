@@ -84,6 +84,8 @@ bool showClientsMenu(MovingCompany& company){
 				break;
 			case 6:
 				instruction = printClients(company);
+				//if(printClients(company)){
+					//continue;  //GO BACK da função
 				break;
 			case 0:
 				instruction = 0;
@@ -147,18 +149,21 @@ int newParticularClient(MovingCompany& company){
 	std::stringstream ss;
 
 	std::cout <<"\tPlease fill out this form in order to add the new client."<< std::endl;
+
 		//-- NAME
 	std::cout << "\tName: ";
-	std::getline(std::cin, input);
+	std::cin >> input;
 
 	if(input == "-1") return -1;
 	else if(input == "0") return 0;
 
 	std::string name = input;
 
+	input.clear();
+
 		//-- NIF
 	std::cout << "\n\tNIF: ";
-	std::getline(std::cin, input);
+	std::cin >> input;
 
 	if(input == "-1") return -1;
 	else if(input == "0") return 0;
@@ -168,25 +173,29 @@ int newParticularClient(MovingCompany& company){
 	ss << input;
 	ss >> nif;
 
+	input.clear();
+
 		//-- ADDRESS
 	std::cout << "\n\tAdress: ";
-	std::getline(std::cin, input);
+	std::cin >> input;
 
 	if(input == "-1") return -1;
 	else if(input == "0") return 0;
 
 	std::string address = input;
 
-		//--ZipCode
+	input.clear();
+
+		//-- ZIPCODE
 	std::cout << "\n\tZip Code: ";
-	std::getline(std::cin, input);
+	std::cin >> input;
 
 	if(input == "-1") return -1;
 	else if(input == "0") return 0;
 
 	std::string zipCode = input;
 
-	Client* c = new Client(name, nif, address, zipCode, 12,12,2016);
+	Client* c = new Client(name, nif, address, zipCode, 12,12,2016);		//tem que ser uma data real!!!
 	company.addClient(c);
 
 	std::cout << "\n\n\t" << name << " has been added to the company." << std::endl;
@@ -227,30 +236,38 @@ int addNewClient(MovingCompany& company){
 	}
 	return -1;
 }
+/*
+void printClientsByID(MovingCompany& company){
+	unsigned int i;
+
+	for(i = 0; i < company.getClients().size(); i++){
+		std::cout << *company.getClients()[i];
+	}
+}*/
 
 int printClients(MovingCompany& company){
 	int option;
 
 	std::cout << "\tPrint All Clients" << std::endl;
 	std::cout << "How would you like to print the clients?\n" << std::endl;
-	std::cout << "1 - By name" << std::endl;
-	std::cout << "2 - By ID" << std::endl;
-	std::cout << "3 - By joining date" << std::endl;
+	std::cout << "1 - By ID" << std::endl;
+	std::cout << "2 - By Name" << std::endl;
+	std::cout << "3 - By joining date\n" << std::endl;
 	std::cout << "0 - Go back" << std::endl;
 	std::cout << "-1 - Exit program.\n" << std::endl;
 
 	while(option != -1){
-		int instruction;
+		int instruction = 1;
 
 		std::cout << "Please insert your option: ";
 		std::cin >> option;
 
 		switch (option){
 			case 1:
-				//instruction = printClientsByName(company);
+				company.printClientsByID();
 				break;
-			case 2:
-				//instruction = printClientsByID(company);
+			case 2:								//This function prints clients by name using BUBBLE SORT!
+				company.printClientsByName();
 				break;
 			case 3:
 				//instruction = printClientsByDate(company);

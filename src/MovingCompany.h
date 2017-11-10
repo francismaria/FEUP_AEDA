@@ -24,6 +24,9 @@ public:
 	std::vector<Client*> getClients() const;
 	void addClient(Client* c);
 	void removeClient(std::string name);
+	void printClientsByName() const;
+	void printClientsByID() const;
+	void printClientsByJoiningDate() const;
 };
 
 
