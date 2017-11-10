@@ -138,6 +138,7 @@ bool checkClient(MovingCompany& company){
 			break;
 		}
 	*/
+	return true;
 }
 
 int newParticularClient(MovingCompany& company){
@@ -269,8 +270,8 @@ int printClients(MovingCompany& company){
 			case 2:								//This function prints clients by name using BUBBLE SORT!
 				company.printClientsByName();
 				break;
-			case 3:
-				//instruction = printClientsByDate(company);
+			case 3:								//This function prints clients by joining date using SELECTION SORT!
+				company.printClientsByJoiningDate();
 				break;
 			case 0:
 				return 0;

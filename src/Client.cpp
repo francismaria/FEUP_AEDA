@@ -14,7 +14,7 @@ int Client::numberOfClients = 0;
  */
 
 Client::Client(std::string name, long int nif, std::string address, std::string zipCode, int firstDay, int firstMonth, int firstYear):
-				joiningDate(Date(firstDay, firstMonth, firstYear)), address(Address(address, zipCode, "Porto", "Portugal")){
+				address(Address(address, zipCode, "Porto", "Portugal")), joiningDate(Date(firstDay, firstMonth, firstYear)){
 	numberOfClients++;
 	this->id = numberOfClients;
 	this->name = name;
