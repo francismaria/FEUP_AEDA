@@ -6,6 +6,7 @@
  */
 
 #include "Interface.h"
+#include <ctime>
 
 void run(MovingCompany& company){
 	bool exit = false;
@@ -151,9 +152,11 @@ int newParticularClient(MovingCompany& company){
 
 	std::cout <<"\tPlease fill out this form in order to add the new client."<< std::endl;
 
+	std::cin.ignore();
+
 		//-- NAME
 	std::cout << "\tName: ";
-	std::cin >> input;
+	std::getline(std::cin, input);
 
 	if(input == "-1") return -1;
 	else if(input == "0") return 0;
@@ -163,16 +166,12 @@ int newParticularClient(MovingCompany& company){
 	input.clear();
 
 		//-- NIF
-	std::cout << "\n\tNIF: ";
-	std::cin >> input;
-
-	if(input == "-1") return -1;
-	else if(input == "0") return 0;
-
 	long int nif;
+	std::cout << "\n\tNIF: ";
+	std::cin >> nif;//input;
 
-	ss << input;
-	ss >> nif;
+	if(nif == -1) return -1;
+	else if(nif == 0) return 0;
 
 	input.clear();
 
@@ -186,17 +185,41 @@ int newParticularClient(MovingCompany& company){
 	std::string address = input;
 
 	input.clear();
+	std::cin.ignore();
 
 		//-- ZIPCODE
 	std::cout << "\n\tZip Code: ";
-	std::cin >> input;
+	std::getline(std::cin, input);
 
 	if(input == "-1") return -1;
 	else if(input == "0") return 0;
 
 	std::string zipCode = input;
 
-	Client* c = new Client(name, nif, address, zipCode, 12,12,2016);		//tem que ser uma data real!!!
+		//-- DATE
+	time_t rawtime;
+	struct tm* timeinfo;
+	char buffer[80];
+
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+	strftime(buffer, sizeof(buffer), "%d %m %y", timeinfo);
+
+	int day, month, year;
+	std::string bufs(buffer);
+	std::stringstream aux;
+
+	aux << bufs;
+
+	aux >> day;
+	aux >> month;
+	aux >> year;
+
+	year += 2000;
+
+	std::cout << day << " " << month << " " << year;
+
+	Client* c = new Client(name, nif, address, zipCode, day, month, year);		//tem que ser uma data real!!!
 	company.addClient(c);
 
 	std::cout << "\n\n\t" << name << " has been added to the company." << std::endl;
@@ -204,7 +227,6 @@ int newParticularClient(MovingCompany& company){
 	return 0;
 
 }
-
 
 
 int addNewClient(MovingCompany& company){
@@ -237,14 +259,7 @@ int addNewClient(MovingCompany& company){
 	}
 	return -1;
 }
-/*
-void printClientsByID(MovingCompany& company){
-	unsigned int i;
 
-	for(i = 0; i < company.getClients().size(); i++){
-		std::cout << *company.getClients()[i];
-	}
-}*/
 
 int printClients(MovingCompany& company){
 	int option;

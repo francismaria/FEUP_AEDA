@@ -44,13 +44,9 @@ void MovingCompany::printClientsByID() const{
 	}
 }
 
-// Uses Bubble Sort
-void MovingCompany::printClientsByName() const{
-	//Copies clients vector to another so it doesn't corrupt the original vector!!
+void bubbleSort(std::vector<Client*>& clients_aux){
 
-	std::vector<Client*> clients_aux = clients;
-
-	for(unsigned int j=clients_aux.size()-1; j>0; j--)
+	for(unsigned int j=clients_aux.size()-1; j > 0; j--)
 	{
 		bool change = false;
 		for(unsigned int i = 0; i < j; i++)
@@ -60,49 +56,24 @@ void MovingCompany::printClientsByName() const{
 			}
 		if (!change) return;
 	}
+}
+
+// Uses Bubble Sort
+void MovingCompany::printClientsByName() const{
+	//Copies clients vector to another so it doesn't corrupt the original vector!!
+
+	std::vector<Client*> clients_aux = clients;
+
+	bubbleSort(clients_aux);
 
 	for(unsigned int k = 0; k < clients_aux.size(); k++){
 		std::cout << *clients_aux[k];
 	}
 }
-/*
-Client* median(std::vector<Client*>& c_aux, int left, int right){
-	int center = (left+right) /2;
-
-	if (c_aux[center]->getJoiningDate() < c_aux[left]->joiningDate)
-		std::swap(c_aux[left], c_aux[center]);
-
-	if (c_aux[right]->getJoiningDate() < c_aux[left]->getJoiningDate())
-		std::swap(c_aux[left], c_aux[right]);
-
-	if (c_aux[right]->getJoiningDate() < c_aux[center]->getJoiningDate())
-		std::swap(c_aux[center], c_aux[right]);
-
-	std::swap(c_aux[center], c_aux[right-1]);
-	return c_aux[right-1];
-}
-
-void quicksort(std::vector<Client*>& c_aux, int left, int right){
-	Client* c = median(c_aux, left, right);
-
-	int i = left; int j = right-1; // passo de partição
-	for(; ; ) {
-		while (c_aux[++i] < c) ;
-		while (c < c_aux[--j]) ;
-		if (i < j)
-			std::swap(c_aux[i], c_aux[j]);
-		else break;
-	}
-
-	std::swap(c_aux[i], c_aux[right-1]); //repoe pivot
-	quicksort(c_aux, left, i-1);
-	quicksort(c_aux, i+1, right);
-}*/
 
 void selectionSort(std::vector<Client*> &c_aux )
 {
-	int min_idx, j;
-	unsigned int i;
+	int j, i;
 	std::vector<Client*>::iterator it;
 
 	for(i = 0; i < c_aux.size(); i++){
