@@ -11,11 +11,15 @@
 #include "MovingCompany.h"
 #include <ctime>
 
-bool checkClient(MovingCompany& company);
+int checkClient(MovingCompany& company);
 
 int addNewClient(MovingCompany& company);
 
-bool removeClient(MovingCompany& company);
+int removeClient(MovingCompany& company);
+
+int printParticulars(MovingCompany& company);
+
+int printCompanies(MovingCompany& company);
 
 int printClients(MovingCompany& company);
 

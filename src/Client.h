@@ -30,6 +30,7 @@ public:
 	std::string getZipCode() const;
 	bool operator ==(const Client& c1);
 	const Date& getJoiningDate() const;
+	virtual bool isParticular() {};
 	static int getNumberOfClients();
 	friend std::ostream& operator<<(std::ostream& o, const Client & c1){
 		o << "Client's Info:\n\t" << "Name: " << c1.getName() << "\n\tID: " << c1.getId()
@@ -43,6 +44,7 @@ class Company: public Client{
 public:
 	Company(std::string name, long int nif, std::string address, std::string zipCode, int firstDay, int firstMonth, int firstYear);
 	static int getNumberOfCompanies();
+	bool isParticular();
 };
 
 class Particular: public Client{
@@ -51,6 +53,7 @@ class Particular: public Client{
 public:
 	Particular(std::string name, int age, long int nif, std::string address, std::string zipCode, int firstDay, int firstMonth, int firstYear);
 	int getAge() const;
+	bool isParticular();
 	static int getNumberOfParticulars();
 };
 

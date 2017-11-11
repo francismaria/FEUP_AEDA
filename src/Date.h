@@ -25,7 +25,11 @@ public:
 	void setMonth(int m);
 	void setYear(int y);
 	//bool operator <(const Date& d1);
-	bool operator ==(const Date& d1);
+	friend bool operator ==(const Date& d, const Date& d1){
+		if(d.day == d1.getDay() && d.month == d1.getMonth() && d.year == d1.getYear())
+			return true;
+		return false;
+	}
 	friend std::ostream& operator <<(std::ostream& o, const Date& d){
 		o << d.day << "/" << d.month << "/" << d.year;
 		return o;
@@ -45,6 +49,15 @@ public:
 				return true;
 			return false;
 	}
+};
+
+class NonExistingDate{
+public:
+	int day, month, year;
+	NonExistingDate(int d, int m, int y);
+	int getDay() const;
+	int getMonth() const;
+	int getYear() const;
 };
 
 

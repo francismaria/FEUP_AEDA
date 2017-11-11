@@ -21,20 +21,80 @@ const Date& MovingCompany::getFoundingDate() const{ return foundingDate; }
 
 std::vector<Client*> MovingCompany::getClients() const{ return clients; }
 
+std::vector<Client*> MovingCompany::getParticularClients() const{ return particulars; }
+
+std::vector<Client*> MovingCompany::getCompaniesClients() const{ return companies; }
+
 void MovingCompany::addClient(Client* c){ clients.push_back(c); }
 
-void MovingCompany::removeClient(std::string name){
+void MovingCompany::addParticularClient(Particular* p){ particulars.push_back(p); }
+
+int binarySearch(const std::vector<Client*> &v, int x)
+{
+	int left = 0, right = v.size() - 1;
+
+	while (left <= right)
+	{
+		int middle = (left + right) / 2;
+
+		if (v[middle]->getId() < x)
+			left = middle + 1;
+		else if (x < v[middle]->getId())
+			right = middle-1;
+		else
+			return middle; // encontrou
+	}
+	return -1; // não encontrou
+}
+
+void MovingCompany::removeClientByID(int id){
+
+	int index = binarySearch(clients, id);
+
+	if(index == -1){
+		//throw NonExisting Client();
+		std::cout << "NÃO EXISTE!" << std::endl;
+	}
+	clients.erase(clients.begin()+index);
+}
+
+void MovingCompany::removeClientByName(std::string name){
+	bool found = false;
 	unsigned int i;
 
 	for(i = 0; i < clients.size(); i++){
 		if(clients[i]->getName() == name){
-			clients.erase(clients.begin()+i);
+			found = true;
 			break;
 		}
 	}
 
-	throw NonExistingClient(name);
+	if(found) std::cout << "ENCOTROU!";
+	else std::cout << "NÃO ENCONTROU!";
+	//if(found) clients.erase(clients.begin()+i);
+	//else std::cout << "nao encontrou";
+
+	//throw NonExistingClient(name);
 }
+
+
+void MovingCompany::removeClientByJoiningDate(int d, int m, int y){
+
+	//int n;
+	unsigned int i;
+	Date date(d, m, y);
+
+	for(i = 0; i < clients.size(); i++){
+		if(clients[i]->getJoiningDate() == date){
+			clients.erase(clients.begin()+i);
+			return;
+		}
+	}
+
+	//throw NonExistingDate(d, m, y);
+	//std::cout << "Data nao existente";
+}
+
 
 void MovingCompany::printClientsByID() const{
 	unsigned int i = 0;
@@ -100,6 +160,35 @@ void MovingCompany::printClientsByJoiningDate() const{
 }
 
 
+void MovingCompany::printParticularClientsByID() const{
+	unsigned int i;
 
+	for(i = 0; i < particulars.size(); i++){
+		std::cout << *particulars[i];
+	}
+}
+
+void MovingCompany::printParticularClientsByName() const{
+
+	std::vector<Client*> particulars_aux = particulars;
+
+	bubbleSort(particulars_aux);
+
+	for(unsigned int k = 0; k < particulars_aux.size(); k++){
+		std::cout << *particulars_aux[k];
+	}
+}
+
+void MovingCompany::printParticularClientsByJoiningDate() const{
+
+	std::vector<Client*> particulars_aux = particulars;
+
+	selectionSort(particulars_aux);
+
+	for(unsigned int i = 0; i < particulars_aux.size(); i++){
+		std::cout << *particulars_aux[i];
+	}
+
+}
 
 

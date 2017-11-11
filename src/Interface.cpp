@@ -6,7 +6,6 @@
  */
 
 #include "Interface.h"
-#include <ctime>
 
 void run(MovingCompany& company){
 	bool exit = false;
@@ -69,22 +68,22 @@ bool showClientsMenu(MovingCompany& company){
 
 		switch(option){
 			case 1:
-				instruction = checkClient(company);
+				instruction = checkClient(company);			//To be done
 				break;
 			case 2:
-				instruction = addNewClient(company);
+				instruction = addNewClient(company);		// To be done company
 				break;
 			case 3:
-				//instruction = removeClient(company);
+				instruction = removeClient(company);
 				break;
 			case 4:
-				//instruction = printParticulars();
+				instruction = printParticulars(company);
 				break;
 			case 5:
-				//instruction = printCompanies();
+				instruction = printCompanies(company);
 				break;
 			case 6:
-				instruction = printClients(company);
+				instruction = printClients(company);		//DONE!!
 				//if(printClients(company)){
 					//continue;  //GO BACK da função
 				break;

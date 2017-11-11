@@ -53,6 +53,7 @@ Company::Company(std::string name, long int nif, std::string address, std::strin
 
 int Company::getNumberOfCompanies(){ return numberOfCompanies; }
 
+bool Company::isParticular(){ return false; }
 
 
 /*
@@ -69,7 +70,11 @@ Particular::Particular(std::string name, int age, long int nif, std::string addr
 
 int Particular::getAge() const{ return age; }
 
+bool Particular::isParticular(){ return true; }
+
 int Particular::getNumberOfParticulars(){ return numberOfParticulars; }
+
+
 
 
 

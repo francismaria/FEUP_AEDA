@@ -7,7 +7,7 @@
 
 #include "ClientsInterface.h"
 
-bool checkClient(MovingCompany& company){
+int checkClient(MovingCompany& company){
 	int option;
 
 	std::cout << "\tSearch Client:" << std::endl;
@@ -39,7 +39,7 @@ bool checkClient(MovingCompany& company){
 			break;
 		}
 	*/
-	return true;
+	return 1;
 }
 
 int newParticularClient(MovingCompany& company){
@@ -119,13 +119,15 @@ int newParticularClient(MovingCompany& company){
 
 	std::cout << day << " " << month << " " << year;
 
-	Client* c = new Client(name, nif, address, zipCode, day, month, year);		//tem que ser uma data real!!!
+	//ADICIONAR IDADE					AQUI
+	Particular* c = new Particular(name, 0, nif, address, zipCode, day, month, year);		//tem que ser uma data real!!!
+	company.addParticularClient(c);
 	company.addClient(c);
+
 
 	std::cout << "\n\n\t" << name << " has been added to the company." << std::endl;
 
 	return 0;
-
 }
 
 
@@ -145,6 +147,7 @@ int addNewClient(MovingCompany& company){
 		switch(option){
 			case 1:
 				instruction = newParticularClient(company);
+				if(!instruction) continue;
 				break;
 			case 2:
 				//instruction = newCompanyClient(company);
@@ -160,6 +163,180 @@ int addNewClient(MovingCompany& company){
 	return -1;
 }
 
+int removeClientByID(MovingCompany& company){
+
+	int enteredID;
+
+	std::cout << "0 - Go Back and Cancel\t\t-1 - Exit Program" << std::endl;
+	std::cout << "Please enter the ID of the client you would like to remove:" << std::endl;
+	std::cout << "\t-----> ";
+
+	std::cin >> enteredID;
+
+	if(enteredID == 0 || enteredID == -1) return enteredID;
+
+	company.removeClientByID(enteredID);
+
+	std::cout << "\tClient successfully removed." << std::endl;
+
+	return 0;
+}
+
+
+int removeClientByName(MovingCompany& company){
+
+	std::string enteredName;
+
+	std::cout << "0 - Go Back and Cancel\t\t-1 - Exit Program" << std::endl;
+	std::cout << "Please enter the name of the client you would like to remove:" << std::endl;
+	std::cout << "\t-----> ";
+
+
+	//ERRRROOOOOOORRRRRRRRRRRRRRRRRRRRRRR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+	std::cin.ignore();
+	std::getline(std::cin, enteredName);
+
+	// ERRRRRRRRRRRRRRRRRRRRRRRRRRRRROOOOOOOOOOOOOOOOOORRRRRRRRRRRRRRRRRRR!!!!!!!!!!!
+
+	if(enteredName == "0") return 0;
+	if(enteredName == "-1") return -1;
+
+	//company.removeClientByName(enteredName);
+
+	std::cout << "\tClient successfully removed." << std::endl;
+
+	return 0;
+}
+
+int removeClientByJoiningDate(MovingCompany& company){
+
+	int day, year, month;
+
+	std::cout << "Please enter the joining date of the client you would like to remove:" << std::endl;
+	std::cout << "\tDay: ";
+	std::cin >> day;
+
+	std::cout << "\tMonth: ";
+	std::cin >> month;
+
+	std::cout << "\tYear: ";
+	std::cin >> year;
+
+	if(year < company.getFoundingDate().getYear())
+		std::cout << "Invalid year." << std::endl;
+	else if(month < 1 || month > 12)
+		std::cout << "Invalid Month." << std::endl;
+
+	company.removeClientByJoiningDate(day, month, year);
+
+	std::cout << "Client successfully removed.";
+}
+
+int removeClient(MovingCompany& company){
+	int option, instruction;
+
+	while(option != -1){
+		//try{
+			std::cout << "\t\t\tRemove Client Form\n" << std::endl;
+			std::cout << "\tHow would you like to remove the client?\n" << std::endl;
+			std::cout << "\t1 - By ID" << std::endl;
+			std::cout << "\t2 - By Name" << std::endl;
+			std::cout << "\t3 - By Address" << std::endl;
+			std::cout << "\t4 - By Joining Date\n" << std::endl;	//Se aparecerem varios imprimem-se e pergunta-se qual quer remover
+			std::cout << "\t0 - Go Back\t\t\t-1 - Exit Program" << std::endl;
+
+			std::cout << "Please insert your option: ";
+			std::cin >> option;
+
+			switch(option){
+				case 1:
+					instruction = removeClientByID(company);		//Binary Search algorithm
+					break;
+				case 2:
+					//instruction = removeClientByName(company);		//Sequential Search algorithm
+					break;
+				case 3:
+					//instruction = removeClientByAddress(company);			//getline error
+					break;
+				case 4:
+					instruction = removeClientByJoiningDate(company);	//Sequential Search algorithm
+					break;
+				case 0:
+					return 0;
+				case -1:
+					return -1;
+					//break;
+				default:
+					std::cout << "Please insert a valid option.";
+					break;
+			}
+			if(instruction == 0) continue;
+			if(instruction == 1) return -1;
+		}
+		//catch(NonExistingDate& d){
+		//	std::cout << "There is no client with that joining date." << std::endl;
+			//break;
+		//}
+	//}
+}
+
+
+int printParticulars(MovingCompany& company){
+	/*
+	std::vector<Particular *> particulars = company.getParticularClients();
+
+	if(particulars.size() == 0){
+		std::cout << "There are no particular clients." << std::endl;
+		return 0;
+	}*/
+
+	int option;
+
+	while(option != -1){
+		std::cout << "\tPrint Particular Clients" << std::endl;
+		std::cout << "How would you like to print the particular clients?\n" << std::endl;
+		std::cout << "1 - By ID" << std::endl;
+		std::cout << "2 - By Name" << std::endl;
+		std::cout << "3 - By joining date\n" << std::endl;
+		std::cout << "0 - Go back" << std::endl;
+		std::cout << "-1 - Exit program.\n" << std::endl;
+
+		std::cout << "Please insert your option: ";
+		std::cin >> option;
+
+		switch(option){
+			case 1:
+				company.printParticularClientsByID();
+				break;
+			case 2:
+				company.printParticularClientsByName();
+				break;
+			case 3:
+				company.printParticularClientsByJoiningDate();
+				break;
+			case 0:
+				return 0;
+			case -1:
+				return -1;
+		}
+	}
+
+	return 0;
+
+}
+
+int printCompanies(MovingCompany& company){
+	int option;
+
+	std::cout << "\tPrint All Clients" << std::endl;
+	std::cout << "How would you like to print the Companie clients?\n" << std::endl;
+	std::cout << "1 - By ID" << std::endl;
+	std::cout << "2 - By Name" << std::endl;
+	std::cout << "3 - By joining date\n" << std::endl;
+	std::cout << "0 - Go back" << std::endl;
+	std::cout << "-1 - Exit program.\n" << std::endl;
+}
 
 int printClients(MovingCompany& company){
 	int option;

@@ -36,13 +36,24 @@ b ool Date::operator <(const Date& d1){
 		return true;
 	return false;
 }*/
-
+/*
 bool Date::operator ==(const Date& d1){
 	if(day == d1.getDay() && month == d1.getMonth() && year == d1.getYear())
 		return true;
 	return false;
 
+}*/
+
+NonExistingDate::NonExistingDate(int d, int m, int y){
+	day = d;
+	month = m;
+	year = y;
 }
 
+int NonExistingDate::getDay() const{ return day; }
+
+int NonExistingDate::getMonth() const{ return month; }
+
+int NonExistingDate::getYear() const{ return year; }
 
 
