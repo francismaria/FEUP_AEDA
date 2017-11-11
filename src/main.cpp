@@ -83,7 +83,6 @@ void importClients(MovingCompany& company){
 		auxSS.str(std::string());*/
 
 		Particular* c = new Particular(name, age, nif, address, zipCode, 1, 12, 2015);
-		company.addParticularClient(c);
 		company.addClient(c);
 	}
 

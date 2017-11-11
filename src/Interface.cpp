@@ -10,7 +10,7 @@
 void run(MovingCompany& company){
 	bool exit = false;
 
-	std::cout << "\t\t\t\tWelcome to this Software.\n" << std::endl;
+	std::cout << "\t\t\t\t\t\t\tWelcome to this Software.\n" << std::endl;
 
 	while(!exit){
 		int option = showMenu(company);
@@ -37,11 +37,11 @@ void run(MovingCompany& company){
 int showMenu(MovingCompany& company){
 	int option;
 
-	std::cout << "\t\t\t\t\t\tMENU\n" << std::endl;
-	std::cout << "\t\t\t1 - Clients" << std::endl;
-	std::cout << "\t\t\t2 - Services" << std::endl;
-	std::cout << "\n\t\t\t-1 - Exit Program" << std::endl;
-	std::cout << "\t\t\nPlease enter an option: ";
+	std::cout << "\t\t\t\t\t\t\t\tMENU\n" << std::endl;
+	std::cout << "\t\t\t\t\t\t\t1 - Clients" << std::endl;
+	std::cout << "\t\t\t\t\t\t\t2 - Services" << std::endl;
+	std::cout << "\n\t\t\t\t\t\t       -1 - Exit Program\n\n" << std::endl;
+	std::cout << "\n\t\t\t\t\tPlease enter an option: ";
 
 	std::cin >> option;
 	return option;
@@ -50,20 +50,21 @@ int showMenu(MovingCompany& company){
 bool showClientsMenu(MovingCompany& company){
 	int option;
 
-	std::cout <<"\t\t\tClients:\n" << std::endl;
-	std::cout << "\t1 - Check client" << std::endl;
-	std::cout << "\t2 - Add client" << std::endl;
-	std::cout << "\t3 - Remove client" << std::endl;
-	std::cout << "\t4 - Print particular clients" << std::endl;
-	std::cout << "\t5 - Print company clients" << std::endl;
-	std::cout << "\t6 - Print all clients\n" << std::endl;
-	std::cout << "\t0 - Go back" << std::endl;
-	std::cout << "\t-1 - Exit program.\n" << std::endl;
+	std::cout <<"\n\n\t\t\t\t\t\t\t\tCLIENTS\n" << std::endl;
+	std::cout << "\t\t\t\t\t\t\t1 - Check client" << std::endl;
+	std::cout << "\t\t\t\t\t\t\t2 - Add client" << std::endl;
+	std::cout << "\t\t\t\t\t\t\t3 - Remove client" << std::endl;
+	std::cout << "\t\t\t\t\t\t\t4 - Print particular clients" << std::endl;
+	std::cout << "\t\t\t\t\t\t\t5 - Print company clients" << std::endl;
+	std::cout << "\t\t\t\t\t\t\t6 - Print all clients" << std::endl;
+	std::cout << "\t\t\t\t\t\t\t7 - Update Client's Info\n" << std::endl;
+	std::cout << "\t\t\t\t\t\t\t0 - Go back" << std::endl;
+	std::cout << "\t\t\t\t\t\t       -1 - Exit program.\n" << std::endl;
 
 	while(option != -1){
 		int instruction;
 
-		std::cout << "\nPlease insert your option: ";
+		std::cout << "\n\t\t\t\t\tPlease enter an option: ";
 		std::cin >> option;
 
 		switch(option){
@@ -103,9 +104,6 @@ bool showClientsMenu(MovingCompany& company){
 	}
 	return false;
 }
-
-
-
 
 
 bool showServicesMenu(MovingCompany& company){

@@ -21,13 +21,42 @@ const Date& MovingCompany::getFoundingDate() const{ return foundingDate; }
 
 std::vector<Client*> MovingCompany::getClients() const{ return clients; }
 
-std::vector<Client*> MovingCompany::getParticularClients() const{ return particulars; }
+std::vector<Client*> MovingCompany::getParticularClients() const{
 
-std::vector<Client*> MovingCompany::getCompaniesClients() const{ return companies; }
+	unsigned int i;
+	std::vector<Client*> particulars_aux;
+
+	for(i = 0; i < clients.size(); i++){
+		if(clients[i]->isParticular()){
+			particulars_aux.push_back(clients[i]);
+		}
+	}
+	return particulars_aux;
+}
+
+std::vector<Client*> MovingCompany::getCompaniesClients() const{
+	unsigned int i;
+	std::vector<Client*> companies_aux;
+
+	for(i = 0; i < clients.size(); i++){
+		if(!clients[i]->isParticular()){
+			companies_aux.push_back(clients[i]);
+		}
+	}
+	return companies_aux;
+}
+
+
+/*
+ * NÃO E PRECISO 2 VETORES DESTES POIS VAI OCUPAR MAIS ESPAÇO E AS OPERAÇÕES A REALIZAR VÃO SER IDENTICAS!!!!
+ */
+//std::vector<Client*> MovingCompany::getParticularClients() const{ return particulars; }
+
+//std::vector<Client*> MovingCompany::getCompaniesClients() const{ return companies; }
 
 void MovingCompany::addClient(Client* c){ clients.push_back(c); }
 
-void MovingCompany::addParticularClient(Particular* p){ particulars.push_back(p); }
+/*void MovingCompany::addParticularClient(Particular* p){ particulars.push_back(p); }*/
 
 int binarySearch(const std::vector<Client*> &v, int x)
 {
@@ -96,13 +125,8 @@ void MovingCompany::removeClientByJoiningDate(int d, int m, int y){
 }
 
 
-void MovingCompany::printClientsByID() const{
-	unsigned int i = 0;
 
-	for(i = 0; i < clients.size(); i++){
-		std::cout << *clients[i];
-	}
-}
+// ----- PRINT CLIENTS INFO
 
 void bubbleSort(std::vector<Client*>& clients_aux){
 
@@ -118,18 +142,6 @@ void bubbleSort(std::vector<Client*>& clients_aux){
 	}
 }
 
-// Uses Bubble Sort
-void MovingCompany::printClientsByName() const{
-	//Copies clients vector to another so it doesn't corrupt the original vector!!
-
-	std::vector<Client*> clients_aux = clients;
-
-	bubbleSort(clients_aux);
-
-	for(unsigned int k = 0; k < clients_aux.size(); k++){
-		std::cout << *clients_aux[k];
-	}
-}
 
 void selectionSort(std::vector<Client*> &c_aux )
 {
@@ -148,9 +160,28 @@ void selectionSort(std::vector<Client*> &c_aux )
 	}
 }
 
-void MovingCompany::printClientsByJoiningDate() const{
 
-	std::vector<Client*> clients_aux = clients;
+//  GENERAL PRINT
+void MovingCompany::printByID(std::vector<Client*>& clients_aux) const{
+	unsigned int i;
+
+	for(i = 0; i < clients_aux.size(); i++){
+		std::cout << *clients_aux[i];
+	}
+}
+
+// Uses Bubble Sort
+void MovingCompany::printByName(std::vector<Client*>& clients_aux) const{
+
+	bubbleSort(clients_aux);
+
+	for(unsigned int k = 0; k < clients_aux.size(); k++){
+		std::cout << *clients_aux[k];
+	}
+}
+
+// Uses Selection Sort
+void MovingCompany::printByJoiningDate(std::vector<Client*>& clients_aux) const{
 
 	selectionSort(clients_aux);
 
@@ -160,35 +191,75 @@ void MovingCompany::printClientsByJoiningDate() const{
 }
 
 
-void MovingCompany::printParticularClientsByID() const{
-	unsigned int i;
+// ---- ALL CLIENTS ----- //
 
-	for(i = 0; i < particulars.size(); i++){
-		std::cout << *particulars[i];
-	}
+void MovingCompany::printClientsByID() const{
+
+	std::vector<Client*> clients_aux = clients;
+
+	printByID(clients_aux);
+}
+
+
+void MovingCompany::printClientsByName() const{
+
+	std::vector<Client*> clients_aux = clients;
+
+	printByName(clients_aux);
+}
+
+void MovingCompany::printClientsByJoiningDate() const{
+
+	std::vector<Client*> clients_aux = clients;
+
+	printByJoiningDate(clients_aux);
+
+}
+
+// ----- PARTICULAR CLIENTS ------- //
+
+void MovingCompany::printParticularClientsByID() const{
+
+	std::vector<Client*> particulars_aux = getParticularClients();
+
+	printByID(particulars_aux);
 }
 
 void MovingCompany::printParticularClientsByName() const{
 
-	std::vector<Client*> particulars_aux = particulars;
+	std::vector<Client*> particulars_aux = getParticularClients();
 
-	bubbleSort(particulars_aux);
-
-	for(unsigned int k = 0; k < particulars_aux.size(); k++){
-		std::cout << *particulars_aux[k];
-	}
+	printByName(particulars_aux);
 }
 
 void MovingCompany::printParticularClientsByJoiningDate() const{
 
-	std::vector<Client*> particulars_aux = particulars;
+	std::vector<Client*> particulars_aux = getParticularClients();
 
-	selectionSort(particulars_aux);
-
-	for(unsigned int i = 0; i < particulars_aux.size(); i++){
-		std::cout << *particulars_aux[i];
-	}
-
+	printByJoiningDate(particulars_aux);
 }
 
+// ----- COMPANIES CLIENTS ------ //
+
+void MovingCompany::printCompanyClientsByID() const{
+
+	std::vector<Client*> companies_aux = getCompaniesClients();
+
+	printByID(companies_aux);
+}
+
+void MovingCompany::printCompanyClientsByName() const{
+
+	std::vector<Client*> companies_aux = getCompaniesClients();
+
+	printByName(companies_aux);
+}
+
+void MovingCompany::printCompanyClientsByJoiningDate() const{
+
+	std::vector<Client*> companies_aux = getCompaniesClients();
+
+	printByJoiningDate(companies_aux);
+}
+/*
 

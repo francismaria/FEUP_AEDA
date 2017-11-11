@@ -9,53 +9,57 @@
 
 int checkClient(MovingCompany& company){
 	int option;
+/*
+	while(option != -1){
 
-	std::cout << "\tSearch Client:" << std::endl;
-	std::cout << "How would you like to search the client?" << std::endl;
-	std::cout << "1 - Name1\n" << "2 - ID\n" << "3 - NIF\n" << "4 - Address" << "5 - First registration date\n" << std::endl;
-	std::cout << "\nOption: ";
+		std::cout << "\tSearch Client:" << std::endl;
+		std::cout << "How would you like to search the client?" << std::endl;
+		std::cout << "1 - Name1\n" << "2 - ID\n" << "3 - NIF\n" << "4 - Address" << "5 - First registration date\n" << std::endl;
+		std::cout << "\nOption: ";
 
-	std::cin >> option;
-	/*
-	while(instruction != -1)
-	switch(option){
-		case 1:
-			searchClientName();
-			break;
-		case 2:
-			searchClientID();
-			break;
-		case 3:
-			searchClientNIF();
-			break;
-		case 4:
-			searchClientAddress();
-			break;
-		case 5:
-			searchClientDate();
-			break;
-		default:
-			//Please insert a valid option  ---> std::cout <<"Please insert a valid option.";
-			break;
+		std::cin >> option;
+
+
+		switch(option){
+			case 1:
+				searchClientByName();
+				break;
+			case 2:
+				searchClientByID();
+				break;
+			case 3:
+				searchClientByNIF();
+				break;
+			case 4:
+				searchClientByAddress();
+				break;
+			case 5:
+				searchClientByDate();
+				break;
+			default:
+				//Please insert a valid option  ---> std::cout <<"Please insert a valid option.";
+				break;
+			}
 		}
-	*/
+		*/
 	return 1;
 }
 
 int newParticularClient(MovingCompany& company){
 
-	std::cout << "\t\t\t NEW PARTICULAR\n" << std::endl;
-	std::cout << "\t0 - Cancel\t-1 - Exit program\n" << std::endl;
+	std::cout << "\n\t\t\t\t\t\t     NEW PARTICULAR CLIENT FORM\n" << std::endl;
+	std::cout << "\t\t\t\t\t\t0 - Cancel\t-1 - Exit program\n" << std::endl;
 
 	std::string input;
 	std::stringstream ss;
 
-	std::cout <<"\tPlease fill out this form in order to add the new client."<< std::endl;
+	std::cout <<"\t\t\t\t\tPlease fill out this form in order to add the new client.\n\t\t\t\t\tYou can cancel or exit the "
+			"program at any time just enter 0 to cancel or -1 to exit.\n\n"<< std::endl;
 
 	std::cin.ignore();
 
 		//-- NAME
-	std::cout << "\tName: ";
+	std::cout << "\t\t\t\tFull Name: ";
 	std::getline(std::cin, input);
 
 	if(input == "-1") return -1;
@@ -67,7 +71,7 @@ int newParticularClient(MovingCompany& company){
 
 		//-- NIF
 	long int nif;
-	std::cout << "\n\tNIF: ";
+	std::cout << "\n\t\t\t\tNIF: ";
 	std::cin >> nif;//input;
 
 	if(nif == -1) return -1;
@@ -76,7 +80,7 @@ int newParticularClient(MovingCompany& company){
 	input.clear();
 
 		//-- ADDRESS
-	std::cout << "\n\tAdress: ";
+	std::cout << "\n\t\t\t\tAdress: ";
 	std::cin >> input;
 
 	if(input == "-1") return -1;
@@ -88,7 +92,8 @@ int newParticularClient(MovingCompany& company){
 	std::cin.ignore();
 
 		//-- ZIPCODE
-	std::cout << "\n\tZip Code: ";
+	std::cout << "\n\t\t\t\tZip Code: ";
+	std::cin.ignore();
 	std::getline(std::cin, input);
 
 	if(input == "-1") return -1;
@@ -121,11 +126,11 @@ int newParticularClient(MovingCompany& company){
 
 	//ADICIONAR IDADE					AQUI
 	Particular* c = new Particular(name, 0, nif, address, zipCode, day, month, year);		//tem que ser uma data real!!!
-	company.addParticularClient(c);
+	//company.addParticularClient(c);
 	company.addClient(c);
 
 
-	std::cout << "\n\n\t" << name << " has been added to the company." << std::endl;
+	std::cout << "\n\n\t\t\t\t" << name << " has been added to the company." << std::endl;
 
 	return 0;
 }
@@ -136,12 +141,13 @@ int addNewClient(MovingCompany& company){
 	int option, instruction;
 
 	while(option != -1){
-		std::cout << "\t\tNew Client Form\n" << std::endl;
-		std::cout << "\t1 - Add new Particular Client" << std::endl;
-		std::cout << "\t2 - Add new Company Client" << std::endl;
-		std::cout << "0 - Go back\t\t\t\t-1 - Exit Program\n" << std::endl;
+		std::cout << "\n\n\t\t\t\t\t\t\t      NEW CLIENT FORM\n" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t1 - Add new Particular Client" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t2 - Add new Company Client\n" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t0 - Go back" << std::endl;
+		std::cout << "\t\t\t\t\t\t       -1 - Exit Program\n" << std::endl;
 
-		std::cout << "Please insert your option: ";
+		std::cout << "\n\t\t\t\t\tPlease enter an option: ";
 		std::cin >> option;
 
 		switch(option){
@@ -238,6 +244,7 @@ int removeClient(MovingCompany& company){
 
 	while(option != -1){
 		//try{
+
 			std::cout << "\t\t\tRemove Client Form\n" << std::endl;
 			std::cout << "\tHow would you like to remove the client?\n" << std::endl;
 			std::cout << "\t1 - By ID" << std::endl;
@@ -283,17 +290,16 @@ int removeClient(MovingCompany& company){
 
 
 int printParticulars(MovingCompany& company){
-	/*
-	std::vector<Particular *> particulars = company.getParticularClients();
-
-	if(particulars.size() == 0){
-		std::cout << "There are no particular clients." << std::endl;
-		return 0;
-	}*/
 
 	int option;
 
 	while(option != -1){
+
+		if(company.getParticularClients().size() == 0){
+			std::cout << "There are no particular clients registered." << std::endl;
+			break;
+		}
+
 		std::cout << "\tPrint Particular Clients" << std::endl;
 		std::cout << "How would you like to print the particular clients?\n" << std::endl;
 		std::cout << "1 - By ID" << std::endl;
@@ -319,6 +325,9 @@ int printParticulars(MovingCompany& company){
 				return 0;
 			case -1:
 				return -1;
+			default:
+				std::cout << "\nPlease insert a valid option." << std::endl;
+				break;
 		}
 	}
 
@@ -329,28 +338,64 @@ int printParticulars(MovingCompany& company){
 int printCompanies(MovingCompany& company){
 	int option;
 
-	std::cout << "\tPrint All Clients" << std::endl;
-	std::cout << "How would you like to print the Companie clients?\n" << std::endl;
-	std::cout << "1 - By ID" << std::endl;
-	std::cout << "2 - By Name" << std::endl;
-	std::cout << "3 - By joining date\n" << std::endl;
-	std::cout << "0 - Go back" << std::endl;
-	std::cout << "-1 - Exit program.\n" << std::endl;
+	while(option != -1){
+
+		if(company.getCompaniesClients().size() == 0){
+			std::cout << "There are no company clients registered." << std::endl;
+			break;
+		}
+
+		std::cout << "\tPrint Company Clients" << std::endl;
+		std::cout << "How would you like to print the company clients?\n" << std::endl;
+		std::cout << "1 - By ID" << std::endl;
+		std::cout << "2 - By Name" << std::endl;
+		std::cout << "3 - By joining date\n" << std::endl;
+		std::cout << "0 - Go back" << std::endl;
+		std::cout << "-1 - Exit program.\n" << std::endl;
+
+		std::cout << "Please insert your option: ";
+		std::cin >> option;
+
+		switch(option){
+			case 1:
+				company.printCompanyClientsByID();
+				break;
+			case 2:
+				company.printCompanyClientsByName();
+				break;
+			case 3:
+				company.printCompanyClientsByJoiningDate();
+				break;
+			case 0:
+				return 0;
+			case -1:
+				return -1;
+			default:
+				std::cout << "\nPlease insert a valid option.\n" << std::endl;
+				break;
+		}
+	}
+
+	return 0;
 }
 
 int printClients(MovingCompany& company){
 	int option;
 
-	std::cout << "\tPrint All Clients" << std::endl;
-	std::cout << "How would you like to print the clients?\n" << std::endl;
-	std::cout << "1 - By ID" << std::endl;
-	std::cout << "2 - By Name" << std::endl;
-	std::cout << "3 - By joining date\n" << std::endl;
-	std::cout << "0 - Go back" << std::endl;
-	std::cout << "-1 - Exit program.\n" << std::endl;
-
 	while(option != -1){
-		int instruction = 1;
+
+		if(company.getClients().size() == 0){
+			std::cout << "There are no client registered." << std::endl;
+			break;
+		}
+
+		std::cout << "\tPrint All Clients" << std::endl;
+		std::cout << "How would you like to print the clients?\n" << std::endl;
+		std::cout << "1 - By ID" << std::endl;
+		std::cout << "2 - By Name" << std::endl;
+		std::cout << "3 - By joining date\n" << std::endl;
+		std::cout << "0 - Go back" << std::endl;
+		std::cout << "-1 - Exit program.\n" << std::endl;
 
 		std::cout << "Please insert your option: ";
 		std::cin >> option;
@@ -373,10 +418,9 @@ int printClients(MovingCompany& company){
 				std::cout << "Please insert a valid option.\n" << std::endl;
 				break;
 		}
-
-		if(instruction == 0 || instruction == -1) return instruction;
-
 	}
+
+	return 0;
 }
 
 
