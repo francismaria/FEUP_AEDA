@@ -9,20 +9,13 @@
 #define INTERFACE_H_
 
 #include "MovingCompany.h"
+#include "ClientsInterface.h"
 
 void run(MovingCompany& company);
 
 int showMenu(MovingCompany& company);
 
 bool showClientsMenu(MovingCompany& company);
-
-bool checkClient(MovingCompany& company);
-
-int addNewClient(MovingCompany& company);
-
-bool removeClient(MovingCompany& company);
-
-int printClients(MovingCompany& company);
 
 bool showServicesMenu(MovingCompany& company);
 
