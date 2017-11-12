@@ -8,41 +8,90 @@
 #include "ClientsInterface.h"
 
 int checkClient(MovingCompany& company){
-	int option;
-/*
+	int option, instruction;
+
 	while(option != -1){
 
 		std::cout << "\tSearch Client:" << std::endl;
 		std::cout << "How would you like to search the client?" << std::endl;
-		std::cout << "1 - Name1\n" << "2 - ID\n" << "3 - NIF\n" << "4 - Address" << "5 - First registration date\n" << std::endl;
-		std::cout << "\nOption: ";
+		std::cout << "1 - By Name" << std::endl;
+		std::cout << "2 - By ID" << std::endl;
+		std::cout << "3 - By NIF" << std::endl;
+		std::cout << "4 - By Joining Date\n" << std::endl;
+		std::cout << "0 - Go Back" << std::endl;
+		std::cout << "-1 - Exit Program" << std::endl;
 
+		std::cout << "\nPlease enter an option: ";
 		std::cin >> option;
-
 
 		switch(option){
 			case 1:
-				searchClientByName();
+				instruction = searchClientByName(company);
 				break;
 			case 2:
-				searchClientByID();
+				instruction = searchClientByID(company);
 				break;
 			case 3:
-				searchClientByNIF();
+				//instruction = searchClientByNIF(company);
 				break;
 			case 4:
-				searchClientByAddress();
+				//instruction = searchClientByAddress(company);
 				break;
 			case 5:
-				searchClientByDate();
+				//instruction = searchClientByJoiningDate(company);
 				break;
+			case 0:
+				return 0;
+			case -1:
+				return -1;
 			default:
-				//Please insert a valid option  ---> std::cout <<"Please insert a valid option.";
+				std::cout <<"Please insert a valid option.\n" << std::endl;
 				break;
 			}
+		if(instruction == 0) continue;
+		if(instruction == -1) return -1;
 		}
-		*/
+
 	return 1;
+}
+
+int searchClientByName(MovingCompany& company){
+
+	std::string name;
+
+	std::cout << "0 - Go Back" << std::endl;
+	std::cout << "-1 - Exit Program\n" << std::endl;
+	std::cout << "Please enter the client's name." <<std::endl;
+	std::cout << "Name: " << std::endl;
+
+	std::cin.ignore();
+	std::getline(std::cin, name);
+
+	if(name == "0") return 0;
+	if(name == "-1") return -1;
+
+	company.printClient(name);
+
+	return 0;
+}
+
+int searchClientByID(MovingCompany& company){
+
+	int id;
+
+	std::cout << "0 - Go Back" << std::endl;
+	std::cout << "-1 - Exit Program\n" << std::endl;
+	std::cout << "Please enter the client's ID." <<std::endl;
+	std::cout << "ID: " << std::endl;
+
+	std::cin >> id;
+
+	if(id == 0) return 0;
+	if(id == -1) return -1;
+
+	company.printClient(id);
+
+	return 0;
 }
 
 int newParticularClient(MovingCompany& company){

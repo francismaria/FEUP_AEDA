@@ -13,6 +13,12 @@
 
 int checkClient(MovingCompany& company);
 
+int searchClientByName(MovingCompany& company);
+
+int searchClientByID(MovingCompany& company);
+
+int searchClientByNIF(MovingCompany& company);
+
 int addNewClient(MovingCompany& company);
 
 int removeClient(MovingCompany& company);

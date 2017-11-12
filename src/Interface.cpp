@@ -89,8 +89,9 @@ bool showClientsMenu(MovingCompany& company){
 					//continue;  //GO BACK da função
 				break;
 			case 0:
-				instruction = 0;
-				break;
+				//instruction = 0;
+				return false;
+				//break;
 			case -1:
 				instruction = -1;
 				break;
@@ -100,7 +101,7 @@ bool showClientsMenu(MovingCompany& company){
 		}
 
 		if(instruction == -1) return true;
-		else if(instruction == 0) return false;
+		else if(instruction == 0) continue;//return false;
 	}
 	return false;
 }

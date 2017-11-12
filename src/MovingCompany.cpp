@@ -46,18 +46,9 @@ std::vector<Client*> MovingCompany::getCompaniesClients() const{
 	return companies_aux;
 }
 
-
-/*
- * NÃO E PRECISO 2 VETORES DESTES POIS VAI OCUPAR MAIS ESPAÇO E AS OPERAÇÕES A REALIZAR VÃO SER IDENTICAS!!!!
- */
-//std::vector<Client*> MovingCompany::getParticularClients() const{ return particulars; }
-
-//std::vector<Client*> MovingCompany::getCompaniesClients() const{ return companies; }
-
 void MovingCompany::addClient(Client* c){ clients.push_back(c); }
 
-/*void MovingCompany::addParticularClient(Particular* p){ particulars.push_back(p); }*/
-
+//  -- BINARY SEARCH
 int binarySearch(const std::vector<Client*> &v, int x)
 {
 	int left = 0, right = v.size() - 1;
@@ -69,6 +60,24 @@ int binarySearch(const std::vector<Client*> &v, int x)
 		if (v[middle]->getId() < x)
 			left = middle + 1;
 		else if (x < v[middle]->getId())
+			right = middle-1;
+		else
+			return middle; // encontrou
+	}
+	return -1; // não encontrou
+}
+
+int binarySearch(const std::vector<Client*> &v, std::string x)
+{
+	int left = 0, right = v.size() - 1;
+
+	while (left <= right)
+	{
+		int middle = (left + right) / 2;
+
+		if (v[middle]->getName() < x)
+			left = middle + 1;
+		else if (x < v[middle]->getName())
 			right = middle-1;
 		else
 			return middle; // encontrou
@@ -124,6 +133,22 @@ void MovingCompany::removeClientByJoiningDate(int d, int m, int y){
 	//std::cout << "Data nao existente";
 }
 
+void MovingCompany::printClient(std::string name) const{
+
+	int index = binarySearch(clients, name);
+
+	if(index == -1){
+		//throw...
+		std::cout << "There is no client with that name." << std::endl;
+	}
+
+	std::cout << *clients[index];
+}
+
+void MovingCompany::printClient(int id) const{
+
+	std::cout << *clients[id-1];
+}
 
 
 // ----- PRINT CLIENTS INFO
@@ -261,5 +286,5 @@ void MovingCompany::printCompanyClientsByJoiningDate() const{
 
 	printByJoiningDate(companies_aux);
 }
-/*
+
 
