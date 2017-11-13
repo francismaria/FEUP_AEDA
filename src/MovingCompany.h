@@ -10,20 +10,28 @@
 
 #include "Libraries.h"
 #include "Client.h"
+#include "Country.h"
 
 class MovingCompany{
 	std::string name;
 	std::string description;
 	Date foundingDate;
 	std::vector<Client*> clients;
+	std::vector<Country*> countriesToOperate;
 public:
 	MovingCompany(std::string n, std::string d, int fd, int fm, int fy);
+	//MovingCompany(std::string n, std::string d, int fd, int fm, int fy, std::vector<Country*> countries);
 	std::string getName() const;
 	std::string getDescription() const;
 	const Date& getFoundingDate() const;
 	std::vector<Client*> getClients() const;
 	std::vector<Client*> getParticularClients() const;
 	std::vector<Client*> getCompaniesClients() const;
+
+	std::vector<Country*> getCountriesToOperate() const;
+	void addCountry(Country* c);
+	void printAllCountriesToOperate() const;
+
 	void addClient(Client* c);
 	void removeClientByID(int id);
 	void removeClientByName(std::string name);

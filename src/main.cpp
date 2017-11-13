@@ -10,8 +10,10 @@
 #include <fstream>
 
 #include "Interface.h"
+#include "Country.h"		//Tem que sair daqui!!!
 
 void importClients(MovingCompany& company){
+
 	std::ifstream clientsFile;
 	clientsFile.open("InfoFiles/clients.txt");
 
@@ -90,10 +92,88 @@ void importClients(MovingCompany& company){
 
 }
 
+void importCountries(MovingCompany& company){
+
+	std::ifstream countriesFile;
+	countriesFile.open("InfoFiles/countries.txt");
+
+	if(!countriesFile.good())
+		std::cout << "Couldn't access countries.txt file. Error reading from File." << std::endl;
+
+	std::string line;
+
+	while(std::getline(countriesFile, line)){
+		Country* c = new Country(line);
+
+		company.addCountry(c);
+	}
+
+	countriesFile.close();
+}
+
+void importCountriesZones(MovingCompany& company){
+
+	std::ifstream countriesZonesFile;
+	countriesZonesFile.open("InfoFiles/countriesZones.txt");
+
+	if(!countriesZonesFile.good())
+		std::cout << "Couldn't access countriesZones.txt file. Error reading from File." << std::endl;
+
+	int i = -1;
+	unsigned int j;
+	std::string line;
+
+	while(std::getline(countriesZonesFile, line)){
+		std::stringstream ss(line);
+		std::string aux;
+
+		std::getline(ss, aux, ' ');
+
+		if(aux == "C"){
+			i++;
+		}
+		else if(aux == "1"){
+			//zone1
+			std::string name;
+			std::getline(ss, name, '\n');
+
+			for(j = 0; j < company.getCountriesToOperate().size(); j++){
+				if(company.getCountriesToOperate()[j]->getName() == name){
+					company.getCountriesToOperate()[i]->addZone1Country(company.getCountriesToOperate()[j]);
+				}
+			}
+		}
+		else{
+			//zone2
+			int index;
+			std::string name;
+			std::getline(ss, name, '\n');
+
+			for(j = 0; j < company.getCountriesToOperate().size(); j++){
+				if(company.getCountriesToOperate()[j]->getName() == name){
+					company.getCountriesToOperate()[i]->addZone2Country(company.getCountriesToOperate()[j]);
+				}
+			}
+
+		}
+	}
+/*
+	for(unsigned int k = 0; k < company.getCountriesToOperate().size(); k++){
+		for(unsigned int l = 0; l < company.getCountriesToOperate()[k]->getZone2().size(); l++){
+			std::cout << company.getCountriesToOperate()[k]->getZone1()[l]->getName() << "ACABOU";
+		}
+		std::cout << "DONE IT" << std::endl;
+	}
+*/
+	countriesZonesFile.close();
+}
+
 void importInfo(MovingCompany& company){
-	//importCountries();
+
+	importCountries(company);
+	importCountriesZones(company);
 	importClients(company);
-	//import
+
 }
 
 void terminateProgram(){
@@ -101,10 +181,14 @@ void terminateProgram(){
 }
 
 int main() {
+
+	//int numberofExistentClients;  --> Esta variaável tem o valor de quantos clientes existiam no fich antes da exec do prog de forma a saber quantos novos foram criados e quais sao precisos escrever
 	MovingCompany company("EletroMoving, S.A.", "Great company with moving.", 10, 9, 1995);
 
 	importInfo(company);
 
+
+	//testServices(company);
 	run(company);
 
 	terminateProgram();

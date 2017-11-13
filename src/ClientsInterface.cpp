@@ -389,10 +389,10 @@ int printCompanies(MovingCompany& company){
 
 	while(option != -1){
 
-		if(company.getCompaniesClients().size() == 0){
+		/*if(company.getCompaniesClients().size() == 0){
 			std::cout << "There are no company clients registered." << std::endl;
 			break;
-		}
+		}*/
 
 		std::cout << "\tPrint Company Clients" << std::endl;
 		std::cout << "How would you like to print the company clients?\n" << std::endl;

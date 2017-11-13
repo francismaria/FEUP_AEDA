@@ -12,6 +12,12 @@ MovingCompany::MovingCompany(std::string n, std::string d, int fd, int fm, int f
 	this->name = n;
 	this->description = d;
 }
+/*
+MovingCompany::MovingCompany(std::string n, std::string d, int fd, int fm, int fy, std::vector<Country*> countries):
+		foundingDate(Date(fd,fm,fy)), countriesToOperate(countries){
+	this->name = n;
+	this->description = d;
+}*/
 
 std::string MovingCompany::getName() const{ return name; }
 
@@ -47,6 +53,17 @@ std::vector<Client*> MovingCompany::getCompaniesClients() const{
 }
 
 void MovingCompany::addClient(Client* c){ clients.push_back(c); }
+
+void MovingCompany::addCountry(Country* c){ countriesToOperate.push_back(c); }
+
+std::vector<Country*> MovingCompany::getCountriesToOperate() const{ return countriesToOperate; }
+
+void MovingCompany::printAllCountriesToOperate() const{
+
+	for(unsigned int i = 0; i < countriesToOperate.size(); i++){
+		std::cout << "\t\t\t\t\t\t\t" << i+1 << " - " << countriesToOperate[i] << std::endl;
+	}
+}
 
 //  -- BINARY SEARCH
 int binarySearch(const std::vector<Client*> &v, int x)

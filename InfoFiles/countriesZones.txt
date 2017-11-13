@@ -1,0 +1,9 @@
+C Portugal
+1 Espanha
+2 Franca
+C Espanha 
+1 Portugal
+1 Franca
+C Franca 
+2 Portugal
+1 Espanha

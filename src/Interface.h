@@ -10,6 +10,7 @@
 
 #include "MovingCompany.h"
 #include "ClientsInterface.h"
+#include "ServicesInterface.h"
 
 void run(MovingCompany& company);
 
@@ -18,5 +19,7 @@ int showMenu(MovingCompany& company);
 bool showClientsMenu(MovingCompany& company);
 
 bool showServicesMenu(MovingCompany& company);
+
+void testServices(MovingCompany& company);
 
 #endif /* INTERFACE_H_ */

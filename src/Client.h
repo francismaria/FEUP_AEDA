@@ -11,6 +11,7 @@
 #include "Libraries.h"
 #include "Date.h"
 #include "Address.h"
+#include "Service.h"
 
 class Client{
 	int id;		//o id é sequencial
@@ -18,7 +19,7 @@ class Client{
 	std::string name;
 	Address address;
 	Date joiningDate;
-	//Histórico dos serviços contratados    vector<Service*> ??
+	std::vector<Service*> servicesRequested;
 	static int numberOfClients;
 public:
 	Client(){};
@@ -30,6 +31,8 @@ public:
 	std::string getZipCode() const;
 	bool operator ==(const Client& c1);
 	const Date& getJoiningDate() const;
+	std::vector<Service*> getServicesRequested();
+	void addNewService(Transport* t);
 	virtual bool isParticular() {};
 	static int getNumberOfClients();
 	friend std::ostream& operator<<(std::ostream& o, const Client & c1){
