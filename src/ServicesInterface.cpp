@@ -68,9 +68,11 @@ int newRegisteredClientService(MovingCompany& company){
 	std::cout << "\n\t\t\t\tZip Code: ";
 	std::getline(std::cin, zipCode);
 
-	Address destination(address, zipCode, city, company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination));
+	int zone = 0;
 
-	std::cout << company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination-1)->getName();
+	Address destination(address, zipCode, city, company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination, zone));
+
+	std::cout << company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination-1, zone)->getName();
 
 	int day, month, year;
 	std::cout << "\n\n\t\t\t\tDATE INFO:" << std::endl;
@@ -84,11 +86,13 @@ int newRegisteredClientService(MovingCompany& company){
 	Date dB(day,month,year);
 
 	Packaging* p = new Packaging(dB);
-	Shipping* s = new Shipping(origin, destination);
+	Shipping* s = new Shipping(origin, destination, zone);
 
 	Transport* t = new Transport(p, s, weight);
 
 	std::cout << t->getPackingBeggining();
+
+	std::cout << "SHIPPING COST "<< t->getShippingCost();
 
 	company.getClients()[idClient-1]->addNewService(t);
 

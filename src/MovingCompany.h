@@ -32,7 +32,7 @@ public:
 	void addCountry(Country* c);
 	void printAllCountriesToOperate() const;
 	void printCountriesToOperateFrom(Country* c);
-	Country* getCountryDestination(Country* c, int id);
+	Country* getCountryDestination(Country* c, int id, int& zone1);
 
 	void addClient(Client* c);
 	void removeClientByID(int id);

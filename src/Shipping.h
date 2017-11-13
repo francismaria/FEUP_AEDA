@@ -17,15 +17,15 @@ class Shipping{
 	Address destination;
 	Date beggining;
 	Date end;
-	//float price;
+	float cost;
 public:
 	Shipping(){};
-	//Shipping(std::string streetB, std::string zipCodeB, std::string cityB, std::string countryB, std::string streetE, std::string zipCodeE, std::string cityE, std::string countryE);
-	Shipping(Address& o, Address& d/*, Date& b, Date& e*/);
+	Shipping(Address& o, Address& d, int zone/*, Date& b, Date& e*/);
 	void setOrigin(std::string street, std::string zipCode, std::string city, std::string country);
 	void setDestination(std::string street, std::string zipCode, std::string city, std::string country);
 	void setBeggining();
 	void setEnd();
+	float getCost() const;
 	const Address& getOrigin() const;
 	const Address& getDestination() const;
 	const Date& getBeggining() const;

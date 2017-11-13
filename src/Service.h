@@ -54,6 +54,7 @@ public:
 	void setDeliveryBeggining();
 	void setDeliveryEnd();
 	void setShippingOrigin();
+	float getShippingCost() const;
 };
 
 class Warehousing: public Service{

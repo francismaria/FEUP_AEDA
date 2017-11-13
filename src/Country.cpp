@@ -36,13 +36,15 @@ void Country::printZoneCountries() const{
 	}
 }
 
-Country* Country::getDestination(int id){
+Country* Country::getDestination(int id, int& zoneOne){
 
 	if(id <= (zone1.size()-1)){
+		zoneOne = 1;
 		std::cout << "\n\t\t\t\t\t  Estimated Delivery (ZONE 1): 7 - 10 working days." << std::endl;
 		return zone1[id];
 	}
 	else{
+		zoneOne = 2;
 		std::cout << "\n\t\t\t\t\t  Estimated Delivery (ZONE 2): 15 - 22 working days." << std::endl;
 		return zone2[id-zone1.size()];
 	}

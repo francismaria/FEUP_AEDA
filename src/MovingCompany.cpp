@@ -67,7 +67,7 @@ void MovingCompany::printAllCountriesToOperate() const{
 
 void MovingCompany::printCountriesToOperateFrom(Country* c){ c->printZoneCountries(); }
 
-Country* MovingCompany::getCountryDestination(Country* c, int id){ return c->getDestination(id); }
+Country* MovingCompany::getCountryDestination(Country* c, int id, int& zone1){ return c->getDestination(id, zone1); }
 
 //  -- BINARY SEARCH
 int binarySearch(const std::vector<Client*> &v, int x)

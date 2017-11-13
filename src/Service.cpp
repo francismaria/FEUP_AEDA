@@ -19,3 +19,5 @@ float Service::getWeight() const{ return weight; }
 Transport::Transport(Packaging* p, Shipping* s, float weight): packaging(p), shipping(s), Service(weight){}
 
 const Date& Transport::getPackingBeggining() const{ return this->packaging->getBegginingDate(); }
+
+float Transport::getShippingCost() const{ return shipping->getCost(); }
