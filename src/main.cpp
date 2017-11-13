@@ -11,6 +11,7 @@
 
 #include "Interface.h"
 #include "Country.h"		//Tem que sair daqui!!!
+//#include "CountryConnectionInfo.h"
 
 void importClients(MovingCompany& company){
 
@@ -104,7 +105,6 @@ void importCountries(MovingCompany& company){
 
 	while(std::getline(countriesFile, line)){
 		Country* c = new Country(line);
-
 		company.addCountry(c);
 	}
 
@@ -135,36 +135,59 @@ void importCountriesZones(MovingCompany& company){
 		else if(aux == "1"){
 			//zone1
 			std::string name;
-			std::getline(ss, name, '\n');
+			float baseRate;
+			std::stringstream auxSS;
+
+			std::getline(ss, name, ' ');
+			aux.clear();
+
+			std::getline(ss, aux, '\n');
+			auxSS << aux;
+			auxSS >> baseRate;
+
 
 			for(j = 0; j < company.getCountriesToOperate().size(); j++){
 				if(company.getCountriesToOperate()[j]->getName() == name){
-					company.getCountriesToOperate()[i]->addZone1Country(company.getCountriesToOperate()[j]);
+					//company.getCountriesToOperate()[i]->addZone1Country(company.getCountriesToOperate()[j]);
+					ConnectionCountryInfo ci(company.getCountriesToOperate()[j], 1, baseRate);
+					company.getCountriesToOperate()[i]->addCountryConnection(ci);
 				}
 			}
 		}
 		else{
 			//zone2
-			int index;
 			std::string name;
-			std::getline(ss, name, '\n');
+			float baseRate;
+			std::stringstream auxSS;
+
+			std::getline(ss, name, ' ');
+			aux.clear();
+
+			std::getline(ss, aux, '\n');
+			auxSS << aux;
+			auxSS >> baseRate;
 
 			for(j = 0; j < company.getCountriesToOperate().size(); j++){
 				if(company.getCountriesToOperate()[j]->getName() == name){
-					company.getCountriesToOperate()[i]->addZone2Country(company.getCountriesToOperate()[j]);
+					//company.getCountriesToOperate()[i]->addZone2Country(company.getCountriesToOperate()[j]);
+					ConnectionCountryInfo ci(company.getCountriesToOperate()[j], 2, baseRate);
+					company.getCountriesToOperate()[i]->addCountryConnection(ci);
 				}
 			}
 
 		}
 	}
-/*
-	for(unsigned int k = 0; k < company.getCountriesToOperate().size(); k++){
-		for(unsigned int l = 0; l < company.getCountriesToOperate()[k]->getZone2().size(); l++){
-			std::cout << company.getCountriesToOperate()[k]->getZone1()[l]->getName() << "ACABOU";
-		}
-		std::cout << "DONE IT" << std::endl;
-	}
-*/
+
+	/*for(unsigned int k = 0; k < company.getCountriesToOperate().size(); k++){
+		std::cout << company.getCountriesToOperate()[k]->getName() << std::endl;
+			for(unsigned int l = 0; l < company.getCountriesToOperate()[k]->getCountriesInfo().size(); l++){
+				std::cout << company.getCountriesToOperate()[k]->getCountriesInfo()[l].getName() << " ";
+				std::cout << company.getCountriesToOperate()[k]->getCountriesInfo()[l].getZone() << " ";
+				std::cout << company.getCountriesToOperate()[k]->getCountriesInfo()[l].getBaseRate() << "ACABOU";
+			}
+		std::cout << std::endl << std::endl;
+	}*/
+
 	countriesZonesFile.close();
 }
 
@@ -192,7 +215,7 @@ int main() {
 
 	importInfo(company);
 
-	run(company);
+	//run(company);
 
 	terminateProgram();
 	//DELETE DE TUDO!!!!!

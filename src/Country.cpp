@@ -50,5 +50,7 @@ Country* Country::getDestination(int id, int& zoneOne){
 	}
 }
 
+void Country::addCountryConnection(ConnectionCountryInfo& ci){ countriesInfo.push_back(ci); }
 
+std::vector<ConnectionCountryInfo> Country::getCountriesInfo() const{ return countriesInfo; }
 

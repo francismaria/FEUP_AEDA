@@ -1,9 +1,9 @@
 C Portugal
-1 Espanha
-2 Franca
+1 Espanha 4.60
+2 Franca 5.20
 C Espanha 
-1 Portugal
-1 Franca
+1 Portugal 4.60
+1 Franca 3.40
 C Franca 
-2 Portugal
-1 Espanha
+2 Portugal 5.20
+1 Espanha 3.60

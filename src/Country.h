@@ -9,11 +9,13 @@
 #define COUNTRY_H_
 
 #include "Libraries.h"
+#include"ConnectionCountryInfo.h"
 
 class Country{
 	std::string name;
 	std::vector<Country*> zone1;
 	std::vector<Country*> zone2;
+	std::vector<ConnectionCountryInfo> countriesInfo;
 public:
 	Country(std::string n);
 	std::string getName() const;
@@ -21,6 +23,9 @@ public:
 	void addZone2Country(Country* c);
 	std::vector<Country*> getZone1() const;
 	std::vector<Country*> getZone2() const;
+	//void addCountryConnetion(Country* c, int zone, float bR);
+	void addCountryConnection(ConnectionCountryInfo& ci);
+	std::vector<ConnectionCountryInfo> getCountriesInfo() const;
 	Country* getDestination(int id, int& zone1);
 	void printZoneCountries() const;
 	friend std::ostream& operator <<(std::ostream& o, const Country* c){
@@ -28,6 +33,17 @@ public:
 		return o;
 	}
 };
+/*
+class ConnectionCountryInfo{
+	Country* country;
+	int zone;
+	float baseRate;
+public:
+	ConnectionCountryInfo(){};
+	ConnectionCountryInfo(Country* c, int z, float bR);
+	int getZone() const;
+	float getBaseRate() const;
+};*/
 
 
 
