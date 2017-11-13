@@ -9,58 +9,68 @@
 
 int newRegisteredClientService(MovingCompany& company){
 
-	int id;
+	int idClient;
 
 	std::cout << "\n\n\t\t\t\t\t     REQUEST SERVICE TO REGISTERED CLIENT\n" << std::endl;
 
 	std::cout << "\t\t\t\t    Enter the ID of the client to add a new service: ";
-	std::cin >> id;
+	std::cin >> idClient;
 
 	std::cout << "\n\n\t\t\t\t    Fill out this form in order to create a new service.\n" << std::endl;
 	std::cout << "\t\t\t\t    ORIGIN INFO:\n";
 
-	//LIST COUNTRIES!!!!
+	int weight;
+	std::cout << "\n\t\t\t\tEnter the total weight of the volumes (KG): ";
+	std::cin >> weight;
+
 	std::cout << "\n\t\t\tSelect from the list of Countries the one where the package will be sent.\n\n";
 	company.printAllCountriesToOperate();
 
+	int idOrigin;
 	std::cout << "\n\n\t\t\t\tCountry: ";
-	std::string country;
 	std::cin.ignore();
-	std::getline(std::cin, country);
+	std::cin >> idOrigin;
 
-	std::cout << "\n\n\t\t\t\tCity: ";
+	std::cout << "\n\t\t\t\tCity: ";
 	std::string city;
+	std::cin.ignore();
 	std::getline(std::cin, city);
 
-	std::cout << "\n\n\t\t\t\tStreet Address: ";
+	std::cout << "\n\t\t\t\tStreet Address: ";
 	std::string address;
 	std::getline(std::cin, address);
 
-	std::cout << "\n\n\t\t\t\tZip Code: ";
+	std::cout << "\n\t\t\t\tZip Code: ";
 	std::string zipCode;
 	std::getline(std::cin, zipCode);
 
-	Address origin(address, zipCode, city, country);
+	Address origin(address, zipCode, city, company.getCountriesToOperate()[idOrigin-1]);
 	address.clear();
 	zipCode.clear();
 	city.clear();
-	country.clear();
 
-	std::cout << "\n\n\t\t\t\tDESTINATION INFO:\n";
+	std::cout << "\n\n\t\t\t\t     DESTINATION INFO:\n";
 
+	std::cout << "\n\t\t\tSelect from the list of Countries the one where the package will be received.\n\n";
+	company.printCountriesToOperateFrom(company.getCountriesToOperate()[idOrigin-1]);
+
+	int idDestination;
 	std::cout << "\n\n\t\t\t\tCountry: ";
-	std::getline(std::cin, country);
+	std::cin >> idDestination;
 
-	std::cout << "\n\n\t\t\t\tCity: ";
+	std::cout << "\n\t\t\t\tCity: ";
+	std::cin.ignore();
 	std::getline(std::cin, city);
 
-	std::cout << "\n\n\t\t\t\tStreet Address: ";
+	std::cout << "\n\t\t\t\tStreet Address: ";
 	std::getline(std::cin, address);
 
-	std::cout << "\n\n\t\t\t\tZip Code: ";
+	std::cout << "\n\t\t\t\tZip Code: ";
 	std::getline(std::cin, zipCode);
 
-	Address destination(address, zipCode, city, country);
+	Address destination(address, zipCode, city, company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination));
+
+	std::cout << company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination-1)->getName();
 
 	int day, month, year;
 	std::cout << "\n\n\t\t\t\tDATE INFO:" << std::endl;
@@ -76,17 +86,18 @@ int newRegisteredClientService(MovingCompany& company){
 	Packaging* p = new Packaging(dB);
 	Shipping* s = new Shipping(origin, destination);
 
-	Transport* t = new Transport(p, s);
+	Transport* t = new Transport(p, s, weight);
 
 	std::cout << t->getPackingBeggining();
 
-	company.getClients()[id-1]->addNewService(t);
+	company.getClients()[idClient-1]->addNewService(t);
 
-	std::cout << company.getClients()[id-1]->getServicesRequested().size();
+	return 0;
 }
 
 int newUnregisteredClientService(MovingCompany& company){
 
+	return 0;
 }
 
 int newService(MovingCompany& company){

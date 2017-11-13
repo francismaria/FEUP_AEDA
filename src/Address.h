@@ -9,19 +9,23 @@
 #define ADDRESS_H_
 
 #include "Libraries.h"
+#include "Country.h"
 
 class Address{
 	std::string street;
 	std::string zipCode;
 	std::string city;
-	std::string country;
+	std::string country_aux;
+	Country* country;
 public:
 	Address(){}
 	Address(std::string street, std::string zipCode, std::string city, std::string country);
+	Address(std::string street, std::string zipCode, std::string city, Country* c);
 	std::string getStreet() const;
 	std::string getZipCode() const;
 	std::string getCity() const;
-	std::string getCountry() const;
+	std::string getCountryAux() const;
+	Country* getCountry();
 	void setStreet(std::string s);
 	void setZipCode(std::string z);
 	void setCity(std::string c);

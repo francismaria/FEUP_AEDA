@@ -168,11 +168,16 @@ void importCountriesZones(MovingCompany& company){
 	countriesZonesFile.close();
 }
 
+void importServices(MovingCompany& company){
+
+}
+
 void importInfo(MovingCompany& company){
 
 	importCountries(company);
 	importCountriesZones(company);
 	importClients(company);
+	importServices(company);
 
 }
 
@@ -187,11 +192,10 @@ int main() {
 
 	importInfo(company);
 
-
-	//testServices(company);
 	run(company);
 
 	terminateProgram();
+	//DELETE DE TUDO!!!!!
 
 	return 0;
 }

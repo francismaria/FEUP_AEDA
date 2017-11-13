@@ -31,6 +31,8 @@ public:
 	std::vector<Country*> getCountriesToOperate() const;
 	void addCountry(Country* c);
 	void printAllCountriesToOperate() const;
+	void printCountriesToOperateFrom(Country* c);
+	Country* getCountryDestination(Country* c, int id);
 
 	void addClient(Client* c);
 	void removeClientByID(int id);

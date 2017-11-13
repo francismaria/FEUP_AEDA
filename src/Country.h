@@ -21,6 +21,8 @@ public:
 	void addZone2Country(Country* c);
 	std::vector<Country*> getZone1() const;
 	std::vector<Country*> getZone2() const;
+	Country* getDestination(int id);
+	void printZoneCountries() const;
 	friend std::ostream& operator <<(std::ostream& o, const Country* c){
 		o << c->getName();
 		return o;

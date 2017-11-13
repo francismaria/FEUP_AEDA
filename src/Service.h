@@ -28,6 +28,7 @@ public:
 	int getID() const;
 	float getTotalCost() const;
 	float getWeight() const;
+	void setWeight() const;
 	Status getStatus() const;
 };
 
@@ -38,7 +39,7 @@ class Transport: public Service{
 	float cost;
 public:
 	Transport(){};
-	Transport(Packaging* p, Shipping* s);
+	Transport(Packaging* p, Shipping* s, float weight);
 	float getTransportCost() const;
 	const Date& getPackingBeggining() const;
 	const Date& getPackingEnd() const;
