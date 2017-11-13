@@ -2,7 +2,7 @@
  * Country.h
  *
  *  Created on: 12/11/2017
- *      Author: Francisco
+ *      Author: Francisco Maria / João Gama Amaral
  */
 
 #ifndef COUNTRY_H_
@@ -23,11 +23,11 @@ public:
 	void addZone2Country(Country* c);
 	std::vector<Country*> getZone1() const;
 	std::vector<Country*> getZone2() const;
-	//void addCountryConnetion(Country* c, int zone, float bR);
 	void addCountryConnection(ConnectionCountryInfo& ci);
 	std::vector<ConnectionCountryInfo> getCountriesInfo() const;
-	Country* getDestination(int id, int& zone1);
-	void printZoneCountries() const;
+	ConnectionCountryInfo& getDestination(int id);
+	//void printZoneCountries() const;
+	void printCountriesTo() const;
 	friend std::ostream& operator <<(std::ostream& o, const Country* c){
 		o << c->getName();
 		return o;

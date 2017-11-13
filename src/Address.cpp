@@ -19,7 +19,15 @@ Address::Address(std::string street, std::string zipCode, std::string city, Coun
 	this->street = street;
 	this->zipCode = zipCode;
 	this->city = city;
+	//this->country = c;
+}
+
+Address::Address(std::string street, std::string zipCode, std::string city, ConnectionCountryInfo& c){
+	this->street = street;
+	this->zipCode = zipCode;
+	this->city = city;
 	this->country = c;
+	//this->country = c;
 }
 
 std::string Address::getStreet() const{ return street; }
@@ -30,7 +38,7 @@ std::string Address::getCity() const{ return city; }
 
 std::string Address::getCountryAux() const{ return country_aux; }
 
-Country* Address::getCountry(){ return country; }
+ConnectionCountryInfo& Address::getCountry(){ return country; }
 
 void Address::setStreet(std::string s){ street = s; }
 

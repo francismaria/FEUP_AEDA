@@ -19,23 +19,21 @@ std::vector<Country*> Country::getZone1() const{ return zone1; }
 
 std::vector<Country*> Country::getZone2() const{ return zone2; }
 
-void Country::printZoneCountries() const{
+void Country::printCountriesTo() const{
+	unsigned int i;
 
-	unsigned int i, j;
+	for(i = 0; i < countriesInfo.size(); i++){
 
-	std::cout << "\t\t\t\t\t    ZONE 1:\n" << std::endl;
-
-	for(i = 0; i < zone1.size(); i++){
-		std::cout << "\t\t\t\t\t\t\t" << i+1 << " - " << zone1[i] << std::endl;
-	}
-
-	std::cout << "\n\t\t\t\t\t    ZONE 2:\n" << std::endl;
-
-	for(j = 0; j < zone2.size(); j++){
-		std::cout << "\t\t\t\t\t\t\t" << j+i+1 << " - " << zone2[j] << std::endl;
+		if(countriesInfo[i].getZone() == 1){
+			std::cout << "\n\t\t\t\t\t\t( ZONE 1 ) ";
+		}
+		if(countriesInfo[i].getZone() == 2){
+			std::cout << "\n\t\t\t\t\t\t( ZONE 2 ) ";
+		}
+		std::cout << i+1 << " - " << countriesInfo[i].getCountry()->getName();
 	}
 }
-
+/*
 Country* Country::getDestination(int id, int& zoneOne){
 
 	if(id <= (zone1.size()-1)){
@@ -48,7 +46,9 @@ Country* Country::getDestination(int id, int& zoneOne){
 		std::cout << "\n\t\t\t\t\t  Estimated Delivery (ZONE 2): 15 - 22 working days." << std::endl;
 		return zone2[id-zone1.size()];
 	}
-}
+}*/
+
+ConnectionCountryInfo& Country::getDestination(int id){ return countriesInfo[id-1]; }
 
 void Country::addCountryConnection(ConnectionCountryInfo& ci){ countriesInfo.push_back(ci); }
 

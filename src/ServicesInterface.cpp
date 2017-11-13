@@ -49,7 +49,7 @@ int newRegisteredClientService(MovingCompany& company){
 	zipCode.clear();
 	city.clear();
 
-	std::cout << "\n\n\t\t\t\t     DESTINATION INFO:\n";
+	std::cout << "\n\n\t\t\t\t\t     DESTINATION INFO:\n";
 
 	std::cout << "\n\t\t\tSelect from the list of Countries the one where the package will be received.\n\n";
 	company.printCountriesToOperateFrom(company.getCountriesToOperate()[idOrigin-1]);
@@ -70,12 +70,12 @@ int newRegisteredClientService(MovingCompany& company){
 
 	int zone = 0;
 
-	Address destination(address, zipCode, city, company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination, zone));
+	Address destination(address, zipCode, city, company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination));
 
-	std::cout << company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination-1, zone)->getName();
+	std::cout << company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getName();
 
 	int day, month, year;
-	std::cout << "\n\n\t\t\t\tDATE INFO:" << std::endl;
+	std::cout << "\n\n\t\t\t\t\t\tDATE INFO:" << std::endl;
 	std::cout << "\n\n\t\t\t\tDay: ";
 	std::cin >> day;
 	std::cout << "\n\n\t\t\t\tMonth: ";
@@ -85,16 +85,13 @@ int newRegisteredClientService(MovingCompany& company){
 
 	Date dB(day,month,year);
 
-	Packaging* p = new Packaging(dB);
-	Shipping* s = new Shipping(origin, destination, zone);
+	Transport* t = new Transport(origin, destination, weight);
 
-	Transport* t = new Transport(p, s, weight);
-
-	std::cout << t->getPackingBeggining();
-
-	std::cout << "SHIPPING COST "<< t->getShippingCost();
+	std::cout << t->getOrigin();
 
 	company.getClients()[idClient-1]->addNewService(t);
+
+	std::cout << company.getClients()[idClient-1]->getServicesRequested().size();
 
 	return 0;
 }

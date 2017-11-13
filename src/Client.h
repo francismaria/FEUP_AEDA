@@ -32,7 +32,8 @@ public:
 	bool operator ==(const Client& c1);
 	const Date& getJoiningDate() const;
 	std::vector<Service*> getServicesRequested();
-	void addNewService(Transport* t);
+	//void addNewService(Transport* t);
+	void addNewService(Service* s);
 	virtual bool isParticular() {};
 	static int getNumberOfClients();
 	friend std::ostream& operator<<(std::ostream& o, const Client & c1){

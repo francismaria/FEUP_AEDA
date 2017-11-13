@@ -14,6 +14,8 @@ int ConnectionCountryInfo::getZone() const{ return zone; }
 
 float ConnectionCountryInfo::getBaseRate() const{ return baseRate; }
 
+Country* ConnectionCountryInfo::getCountry() const{ return country; }
+
 std::string ConnectionCountryInfo::getName() const{ return country->getName(); }
 
 

@@ -19,9 +19,10 @@ class ConnectionCountryInfo{
 public:
 	ConnectionCountryInfo(){};
 	ConnectionCountryInfo(Country* c, int z, float bR);
-	std::string getName() const;
 	int getZone() const;
 	float getBaseRate() const;
+	std::string getName() const;
+	Country* getCountry() const;
 };
 
 

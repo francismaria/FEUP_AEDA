@@ -9,13 +9,74 @@
 #define SERVICE_H_
 
 #include "Libraries.h"
-#include "Packaging.h"
-#include "Shipping.h"
-#include "Delivery.h"
+#include "Address.h"
+#include "Date.h"
 
 typedef enum status {RECEIVED, PACKING, SHIPPED, ARRIVED_DEST, DELIVERED} Status;
 
+class Service{
+	int ID;
+	float weight;
+	Address origin;
+	Address destination;
+	Date beggining;
+	Date end;
+	Status status;
+	static int numberOfServices;
+public:
+	Service(){}
+	Service(int id);
+	Service(Address& o, Address& d, float w);
+	Service(Address& o, Address& d, float w, int id);
+	Service(Address& o, Address& d, float w, Date& b, Date& e, int id);
+	int getID() ;
+	float getWeight() ;
+	Address& getOrigin() ;
+	Address& getDestination() ;
+	Date& getBeggining() ;
+	Date& getEnd() ;
+	Status getStatus() ;
+	static int getNumberOfServices();
+};
 
+class Transport: public Service{
+public:
+	Transport(Address& o, Address& d, float w);
+	float getWeight() const;
+};
+
+class Warehousing: public Transport{
+	int daysWarehouse;
+	float weight;
+public:
+	Warehousing(Address& o, Address& d, float weight, int daysWarehouse);
+	int getDaysWarehouse() const;
+};
+
+class Packaging: public Service{
+public:
+	Packaging(Date& b, int id);
+	void setBegginingDate(Date& d);
+	void setEndDate(Date& d);
+};
+
+class Shipping: public Service{
+	float tax;
+public:
+	Shipping(){};
+	Shipping(Address& o, Address& d, float w, int id);
+	Shipping(Address& o, Address& d, float w, Date& b, Date& e, int id);
+	float getTax() const;
+};
+
+class Delivery: public Service{
+public:
+	Delivery(int id);
+};
+
+
+
+/*
 class Service{
 	int ID;
 	Status status;
@@ -36,10 +97,13 @@ class Transport: public Service{
 	Packaging* packaging;
 	Shipping* shipping;
 	Delivery* delivery;
+	//Warehousing* now;
+	Address origin;
+	Address destination;
+	// ------------------
 	float cost;
 public:
-	Transport(){};
-	Transport(Packaging* p, Shipping* s, float weight);
+	Transport(Address& o, Address& d, float weight);
 	float getTransportCost() const;
 	const Date& getPackingBeggining() const;
 	const Date& getPackingEnd() const;
@@ -57,9 +121,9 @@ public:
 	float getShippingCost() const;
 };
 
-class Warehousing: public Service{
+class Warehousing: public Transport{
 
-};
+};*/
 
 
 

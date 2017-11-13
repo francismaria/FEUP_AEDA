@@ -20,7 +20,6 @@ class MovingCompany{
 	std::vector<Country*> countriesToOperate;
 public:
 	MovingCompany(std::string n, std::string d, int fd, int fm, int fy);
-	//MovingCompany(std::string n, std::string d, int fd, int fm, int fy, std::vector<Country*> countries);
 	std::string getName() const;
 	std::string getDescription() const;
 	const Date& getFoundingDate() const;
@@ -32,7 +31,7 @@ public:
 	void addCountry(Country* c);
 	void printAllCountriesToOperate() const;
 	void printCountriesToOperateFrom(Country* c);
-	Country* getCountryDestination(Country* c, int id, int& zone1);
+	ConnectionCountryInfo& getCountryDestination(Country* c, int idDestination);
 
 	void addClient(Client* c);
 	void removeClientByID(int id);

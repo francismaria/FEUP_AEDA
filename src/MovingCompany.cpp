@@ -12,12 +12,6 @@ MovingCompany::MovingCompany(std::string n, std::string d, int fd, int fm, int f
 	this->name = n;
 	this->description = d;
 }
-/*
-MovingCompany::MovingCompany(std::string n, std::string d, int fd, int fm, int fy, std::vector<Country*> countries):
-		foundingDate(Date(fd,fm,fy)), countriesToOperate(countries){
-	this->name = n;
-	this->description = d;
-}*/
 
 std::string MovingCompany::getName() const{ return name; }
 
@@ -65,9 +59,11 @@ void MovingCompany::printAllCountriesToOperate() const{
 	}
 }
 
-void MovingCompany::printCountriesToOperateFrom(Country* c){ c->printZoneCountries(); }
+void MovingCompany::printCountriesToOperateFrom(Country* c){ c->printCountriesTo(); }//c->printZoneCountries(); }
 
-Country* MovingCompany::getCountryDestination(Country* c, int id, int& zone1){ return c->getDestination(id, zone1); }
+//Country* MovingCompany::getCountryDestination(Country* c, int id, int& zone1){ return c->getDestination(id, zone1); }
+
+ConnectionCountryInfo& MovingCompany::getCountryDestination(Country* c, int idDestination){ return c->getDestination(idDestination); }
 
 //  -- BINARY SEARCH
 int binarySearch(const std::vector<Client*> &v, int x)

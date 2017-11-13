@@ -40,7 +40,7 @@ const Date& Client::getJoiningDate() const{ return joiningDate; }
 
 std::vector<Service*> Client::getServicesRequested(){ return servicesRequested; }
 
-void Client::addNewService(Transport* t){ servicesRequested.push_back(t); }
+void Client::addNewService(Service* s){ servicesRequested.push_back(s); }
 
 int Client::getNumberOfClients(){ return numberOfClients; }
 

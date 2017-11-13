@@ -215,7 +215,7 @@ int main() {
 
 	importInfo(company);
 
-	//run(company);
+	run(company);
 
 	terminateProgram();
 	//DELETE DE TUDO!!!!!

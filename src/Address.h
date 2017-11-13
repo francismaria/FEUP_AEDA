@@ -16,23 +16,25 @@ class Address{
 	std::string zipCode;
 	std::string city;
 	std::string country_aux;
-	Country* country;
+	ConnectionCountryInfo country;
 public:
 	Address(){}
 	Address(std::string street, std::string zipCode, std::string city, std::string country);
 	Address(std::string street, std::string zipCode, std::string city, Country* c);
+	Address(std::string street, std::string zipCode, std::string city, ConnectionCountryInfo& c);
 	std::string getStreet() const;
 	std::string getZipCode() const;
 	std::string getCity() const;
 	std::string getCountryAux() const;
-	Country* getCountry();
+	//Country* getCountry();
+	ConnectionCountryInfo& getCountry();
 	void setStreet(std::string s);
 	void setZipCode(std::string z);
 	void setCity(std::string c);
 	void setCountry(std::string cnt);		//Não será melhor ter uma class Country que guarda todos os paises que a empresa de mudanças opera e a sua distancia??
 	bool operator ==(const Address& a1);
 	friend std::ostream& operator <<(std::ostream& o, const Address a){
-		o << "Address: " << a.street << ", " << a.zipCode << "\n\t\t " << a.city << ", " << a.country;
+		o << "Address: " << a.street << ", " << a.zipCode << "\n\t\t " << a.city << ", " << a.country_aux;
 		return o;
 	}
 };
