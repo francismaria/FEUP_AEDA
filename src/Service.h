@@ -39,6 +39,10 @@ public:
 	Date& getEnd() ;
 	Status getStatus() ;
 	static int getNumberOfServices();
+	friend std::ostream& operator <<(std::ostream& o, const Service& s){
+		o << "Service Info:\n" << "ID: " << s.ID << "\nOrigin: " << s.end;
+		return o;
+	}
 };
 
 class Transport: public Service{
@@ -51,7 +55,7 @@ class Warehousing: public Transport{
 	int daysWarehouse;
 	float weight;
 public:
-	Warehousing(Address& o, Address& d, float weight, int daysWarehouse);
+	Warehousing(Address& o, Address& d, Date& b, Date& e, float w, int daysWarehouse);
 	int getDaysWarehouse() const;
 };
 
@@ -84,60 +88,5 @@ public:
 	void setBegginingDate(Date& d);
 	void setEndDate(Date& d);
 };
-
-
-
-/*
-class Service{
-	int ID;
-	Status status;
-	float totalCost;
-	float weight;
-	//static int numberOfServicesDiff;		//WAREHOUSING NÃO E UM SERVIÇO DIFERENTE
-public:
-	Service(){};
-	Service(int w);
-	int getID() const;
-	float getTotalCost() const;
-	float getWeight() const;
-	void setWeight() const;
-	Status getStatus() const;
-};
-
-class Transport: public Service{
-	Packaging* packaging;
-	Shipping* shipping;
-	Delivery* delivery;
-	//Warehousing* now;
-	Address origin;
-	Address destination;
-	// ------------------
-	float cost;
-public:
-	Transport(Address& o, Address& d, float weight);
-	float getTransportCost() const;
-	const Date& getPackingBeggining() const;
-	const Date& getPackingEnd() const;
-	const Date& getServiceBeggining() const;
-	const Date& getServiceEnd() const;
-	const Date& getDeliveryBeggining() const;
-	const Date& getDeliveryEnd() const;
-	void setPackingBeggining();
-	void setPackingEnd();
-	void setServiceBeggining();
-	void setServiceEnd();
-	void setDeliveryBeggining();
-	void setDeliveryEnd();
-	void setShippingOrigin();
-	float getShippingCost() const;
-};
-
-class Warehousing: public Transport{
-
-};*/
-
-
-
-
 
 #endif /* SERVICE_H_ */

@@ -94,7 +94,11 @@ int Service::getNumberOfServices(){
 
 Transport::Transport(Address& o, Address& d, float w, Date& b, Date& e): Service(o,d,w,b,e){}
 
+/******************* WAREHOUSING ************************/
 
+Warehousing::Warehousing(Address& o, Address& d, Date& b, Date& e, float w, int daysWarehouse): Transport(o,d,w,b,e){
+	this->daysWarehouse = daysWarehouse;
+}
 
 /************SHIPPING*****************/
 

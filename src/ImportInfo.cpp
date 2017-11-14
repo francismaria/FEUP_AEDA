@@ -396,6 +396,153 @@ void importServices(MovingCompany& company){
 			auxSS.str(std::string());
 
 			//------------------AUXILIAR
+			/*std::cout << begginingTransport;
+			std::cout << endTransport;
+			std::cout << origin.getCity();
+			std::cout << destination.getCity();
+			std::cout << "\nEND TIME: " << endTransport.getHour()<<" "<< endTransport.getMinute();
+			std::cout <<"PACKAGING" << packagingB.getDay() << packagingB.getMinute();
+			std::cout <<"PACKAGING" << packagingE.getDay() << packagingE.getMinute();
+			std::cout << "\nSHIPPING" << shippingB.getDay() << shippingE.getMinute();
+			std::cout << "\nDELIVERY" << deliveryB.getDay() << deliveryE.getMinute();*/
+			//--------------------------
+
+
+			Transport* svcT = new Transport(origin, destination, weight, begginingTransport, endTransport);
+
+			company.getClients()[idClient]->addNewService(svcT);
+
+			//std::cout << company.getClients()[idClient]->getServicesRequested().size();
+
+		}
+		if(aux == "W"){
+
+			aux.clear();
+			int daysWarehousing;
+
+			std::getline(ss, aux, '/');
+
+			auxSS << aux;
+			auxSS >> daysWarehousing;
+
+			aux.clear();
+			auxSS.clear();
+			auxSS.str(std::string());
+
+			std::getline(ss, aux, '/');
+			auxSS << aux;					//WEIGHT
+			auxSS >> weight;
+
+			aux.clear();
+			auxSS.clear();				//Clear buffers
+			auxSS.str(std::string());
+
+			/************** DATES *****************/
+			Date begginingWarehousing;
+			Date endWarehousing;
+
+			std::getline(ss, aux, '/');
+			auxSS << aux;
+			readDate(auxSS, begginingWarehousing);			//beggining Date Transport
+
+			aux.clear();
+			auxSS.clear();				//Clear buffers
+			auxSS.str(std::string());
+
+			std::getline(ss, aux, '[');
+			auxSS << aux;
+			readDate(auxSS, endWarehousing);					//ending Date Transport
+
+			aux.clear();
+			auxSS.clear();				//Clear buffers
+			auxSS.str(std::string());
+
+			/************* ADDRESS ***************/
+			std::getline(ss, aux, ']');
+			auxSS << aux;
+			Address origin;
+			readAddress(company, auxSS, origin);			// Origin Address
+
+			aux.clear();
+			auxSS.clear();				//Clear buffers
+			auxSS.str(std::string());
+
+			std::getline(ss, aux, ']');
+			auxSS << aux;
+			Address destination;							// Destination Address
+			readAddress(company, auxSS, destination);
+
+			aux.clear();
+			auxSS.clear();				//Clear buffers
+			auxSS.str(std::string());
+
+			/************ PACKAGING ***************/
+			Packaging p;
+			ss.ignore(line.length(), '/');
+			std::getline(ss, aux, '/');
+			auxSS << aux;
+
+			Date packagingB, packagingE;
+			readDate(auxSS, packagingB);
+
+			aux.clear();
+			auxSS.clear();				//Clear buffers
+			auxSS.str(std::string());
+
+			std::getline(ss, aux, '/');
+			auxSS << aux;
+
+			readDate(auxSS, packagingE);
+
+			aux.clear();
+			auxSS.clear();				//Clear buffers
+			auxSS.str(std::string());
+
+			/*********** SHIPPING ***********/
+			Shipping s;
+			ss.ignore(line.length(), '/');
+			std::getline(ss, aux, '/');
+			auxSS << aux;
+
+			Date shippingB, shippingE;
+			readDate(auxSS, shippingB);
+
+			aux.clear();
+			auxSS.clear();				//Clear buffers
+			auxSS.str(std::string());
+
+			std::getline(ss, aux, '/');
+			auxSS << aux;
+
+			readDate(auxSS, shippingE);
+
+			aux.clear();
+			auxSS.clear();				//Clear buffers
+			auxSS.str(std::string());
+
+			/*********** DELIVERY ***********/
+			Delivery d;
+			ss.ignore(line.length(), '/');
+			std::getline(ss, aux, '/');
+			auxSS << aux;
+
+			Date deliveryB, deliveryE;
+			readDate(auxSS, deliveryB);
+
+			aux.clear();
+			auxSS.clear();				//Clear buffers
+			auxSS.str(std::string());
+
+			std::getline(ss, aux, '/');
+			auxSS << aux;
+
+			readDate(auxSS, deliveryE);
+
+			aux.clear();
+			auxSS.clear();				//Clear buffers
+			auxSS.str(std::string());
+/*
+			//------------------AUXILIAR
 			std::cout << begginingTransport;
 			std::cout << endTransport;
 			std::cout << origin.getCity();
@@ -406,27 +553,10 @@ void importServices(MovingCompany& company){
 			std::cout << "\nSHIPPING" << shippingB.getDay() << shippingE.getMinute();
 			std::cout << "\nDELIVERY" << deliveryB.getDay() << deliveryE.getMinute();
 			//--------------------------
+*/
+			Warehousing* svcW = new Warehousing(origin, destination, begginingWarehousing, endWarehousing, weight, daysWarehousing);
 
-
-			Transport svc(origin, destination, weight, begginingTransport, endTransport);
-
-			std::cout << "SERVICE: " << svc.getID();
-
-		}
-		if(aux == "W"){
-			aux.clear();
-			int daysWarehousing;
-
-			std::getline(ss, aux, '/');
-
-			auxSS << aux;
-			auxSS >> daysWarehousing;
-
-			/*
-			auxSS << aux;
-			auxSS >> weight;
-			*/
-
+			company.getClients()[idClient]->addNewService(svcW);
 		}
 	}
 }

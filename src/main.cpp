@@ -31,6 +31,7 @@ int main() {
 
 	importInfo(company);
 
+	//company.printClientServices(1);
 	run(company);
 
 	terminateProgram();
