@@ -44,6 +44,14 @@ void Client::addNewService(Service* s){ servicesRequested.push_back(s); }
 
 int Client::getNumberOfClients(){ return numberOfClients; }
 
+void Client::printServices() const{
+
+	unsigned int i;
+
+	for(i = 0; i < servicesRequested.size(); i++){
+		std::cout << servicesRequested[i]->getOrigin();
+	}
+}
 /*
  * Company Constructor
  */

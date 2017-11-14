@@ -34,6 +34,7 @@ public:
 	std::vector<Service*> getServicesRequested();
 	//void addNewService(Transport* t);
 	void addNewService(Service* s);
+	void printServices() const;
 	virtual bool isParticular() {};
 	static int getNumberOfClients();
 	friend std::ostream& operator<<(std::ostream& o, const Client & c1){

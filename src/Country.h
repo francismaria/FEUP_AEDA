@@ -25,27 +25,12 @@ public:
 	std::vector<Country*> getZone2() const;
 	void addCountryConnection(ConnectionCountryInfo& ci);
 	std::vector<ConnectionCountryInfo> getCountriesInfo() const;
-	ConnectionCountryInfo& getDestination(int id);
-	//void printZoneCountries() const;
+	ConnectionCountryInfo& getDestination(int id);		//getDestinationCountry ---> RENAME!!
 	void printCountriesTo() const;
 	friend std::ostream& operator <<(std::ostream& o, const Country* c){
 		o << c->getName();
 		return o;
 	}
 };
-/*
-class ConnectionCountryInfo{
-	Country* country;
-	int zone;
-	float baseRate;
-public:
-	ConnectionCountryInfo(){};
-	ConnectionCountryInfo(Country* c, int z, float bR);
-	int getZone() const;
-	float getBaseRate() const;
-};*/
-
-
-
 
 #endif /* COUNTRY_H_ */

@@ -46,6 +46,17 @@ std::vector<Client*> MovingCompany::getCompaniesClients() const{
 	return companies_aux;
 }
 
+Country* MovingCompany::getCountry(std::string name) const{
+
+	std::vector<Country*>::const_iterator it;
+
+	for(it = countriesToOperate.begin(); it != countriesToOperate.end(); it++){
+		if((*it)->getName() == name)
+			return *it;
+	}
+	//throw NonExistingClient
+}
+
 void MovingCompany::addClient(Client* c){ clients.push_back(c); }
 
 void MovingCompany::addCountry(Country* c){ countriesToOperate.push_back(c); }
@@ -304,4 +315,5 @@ void MovingCompany::printCompanyClientsByJoiningDate() const{
 	printByJoiningDate(companies_aux);
 }
 
+void MovingCompany::printClientServices(int id) const{ clients[id-1]->printServices(); }
 

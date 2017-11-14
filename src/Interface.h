@@ -20,6 +20,4 @@ bool showClientsMenu(MovingCompany& company);
 
 bool showServicesMenu(MovingCompany& company);
 
-void testServices(MovingCompany& company);
-
 #endif /* INTERFACE_H_ */

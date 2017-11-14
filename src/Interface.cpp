@@ -110,14 +110,15 @@ bool showClientsMenu(MovingCompany& company){
 bool showServicesMenu(MovingCompany& company){
 	int option;
 
-	std::cout << "\n\n\t\t\t\t\t\t\t\tSERVICES\n" << std::endl;
-	std::cout << "\t\t\t\t\t\t\t1 - Request New Service" << std::endl;
-	std::cout << "\t\t\t\t\t\t\t2 - Check Service Status" << std::endl;
-	std::cout << "\t\t\t\t\t\t\t3 - Print Client's Services History\n" << std::endl;
-	std::cout << "\t\t\t\t\t\t\t0 - Go back" << std::endl;
-	std::cout << "\t\t\t\t\t\t       -1 - Exit program.\n" << std::endl;
-
 	while(option != -1){
+
+		std::cout << "\n\n\t\t\t\t\t\t\t\tSERVICES\n" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t1 - Request New Service" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t2 - Check Service Status" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t3 - Print Client's Services History\n" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t0 - Go back" << std::endl;
+		std::cout << "\t\t\t\t\t\t       -1 - Exit program.\n" << std::endl;
+
 		int instruction;
 
 		std::cout << "\n\t\t\t\t\tPlease enter an option: ";
@@ -130,6 +131,7 @@ bool showServicesMenu(MovingCompany& company){
 			case 2:
 				break;
 			case 3:
+				instruction = printClientsServices(company);
 				break;
 			case 0:
 				return false;

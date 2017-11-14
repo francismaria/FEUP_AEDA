@@ -16,6 +16,9 @@ int newRegisteredClientService(MovingCompany& company){
 	std::cout << "\t\t\t\t    Enter the ID of the client to add a new service: ";
 	std::cin >> idClient;
 
+	if(idClient == 0) return 0;
+	else if(idClient == -1) return -1;
+
 	std::cout << "\n\n\t\t\t\t    Fill out this form in order to create a new service.\n" << std::endl;
 	std::cout << "\t\t\t\t    ORIGIN INFO:\n";
 
@@ -85,11 +88,11 @@ int newRegisteredClientService(MovingCompany& company){
 
 	Date dB(day,month,year);
 
-	Transport* t = new Transport(origin, destination, weight);
+	//Transport* t = new Transport(origin, destination, weight);
 
-	std::cout << t->getOrigin();
+	//std::cout << t->getOrigin();
 
-	company.getClients()[idClient-1]->addNewService(t);
+	//company.getClients()[idClient-1]->addNewService(t);
 
 	std::cout << company.getClients()[idClient-1]->getServicesRequested().size();
 
@@ -136,6 +139,33 @@ int newService(MovingCompany& company){
 	return -1;
 }
 
+int printClientsServices(MovingCompany& company){
+	/*
+	int option;
+
+	std::cout << "\n\n\t\t\t\t\t\t\tPRINT CLIENT SERVICES\n" << std::endl;
+	std::cout << "Enter the ID of the client to check the services: ";
+
+	std::cin >> option;
+
+	while(option != -1){
+		int instruction;
+
+		switch(option){
+			case 1
+		}
+	}
+
+	return -1;*/
+	int id;
+
+	std::cout << "\n\n\t\t\t\t\t\t\tPRINT CLIENT SERVICES\n" << std::endl;
+	std::cout << "Enter the ID of the client to check the services: ";
+
+	std::cin >> id;
+
+	company.printClientServices(id);
+}
 
 
 

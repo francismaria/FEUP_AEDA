@@ -16,4 +16,6 @@ int newRegisteredClientService(MovingCompany& company);
 
 int newUnregisteredClientService(MovingCompany& company);
 
+int printClientsServices(MovingCompany& company);
+
 #endif /* SERVICESINTERFACE_H_ */

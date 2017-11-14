@@ -26,10 +26,12 @@ class Service{
 public:
 	Service(){}
 	Service(int id);
+	Service(Date& b, Date& e, int w);
 	Service(Address& o, Address& d, float w);
 	Service(Address& o, Address& d, float w, int id);
-	Service(Address& o, Address& d, float w, Date& b, Date& e, int id);
-	int getID() ;
+	Service(Address& o, Address& d, float w, Date& b, Date& e);
+	int getID();
+	void setID(int id);
 	float getWeight() ;
 	Address& getOrigin() ;
 	Address& getDestination() ;
@@ -41,7 +43,7 @@ public:
 
 class Transport: public Service{
 public:
-	Transport(Address& o, Address& d, float w);
+	Transport(Address& o, Address& d, float w, Date& b, Date& e);
 	float getWeight() const;
 };
 
@@ -55,6 +57,8 @@ public:
 
 class Packaging: public Service{
 public:
+	Packaging(): Service(){};
+	Packaging(Date& b, Date& e, int weight);
 	Packaging(Date& b, int id);
 	void setBegginingDate(Date& d);
 	void setEndDate(Date& d);
@@ -64,14 +68,21 @@ class Shipping: public Service{
 	float tax;
 public:
 	Shipping(){};
+	Shipping(Date& b, Date& e, int weight);
 	Shipping(Address& o, Address& d, float w, int id);
 	Shipping(Address& o, Address& d, float w, Date& b, Date& e, int id);
 	float getTax() const;
+	void setBegginingDate(Date& d);
+	void setEndDate(Date& d);
 };
 
 class Delivery: public Service{
 public:
+	Delivery(){};
+	Delivery(Date& b, Date& e, int weight);
 	Delivery(int id);
+	void setBegginingDate(Date& d);
+	void setEndDate(Date& d);
 };
 
 

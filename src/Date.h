@@ -14,17 +14,21 @@ class Date{
 	int day;
 	int month;
 	int year;
-	//time_t ??
+	int hour;
+	int minute;
 public:
 	Date(){};
 	Date(int d, int m, int y);
 	int getDay() const;
 	int getMonth() const;
 	int getYear() const;
+	int getHour() const;
+	int getMinute() const;
 	void setDay(int d);
 	void setMonth(int m);
 	void setYear(int y);
-	//bool operator <(const Date& d1);
+	void setHour(int h);
+	void setMinute(int m);
 	friend bool operator ==(const Date& d, const Date& d1){
 		if(d.day == d1.getDay() && d.month == d1.getMonth() && d.year == d1.getYear())
 			return true;

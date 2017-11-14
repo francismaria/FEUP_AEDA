@@ -12,6 +12,8 @@
 #include "Client.h"
 #include "Country.h"
 
+
+
 class MovingCompany{
 	std::string name;
 	std::string description;
@@ -28,6 +30,7 @@ public:
 	std::vector<Client*> getCompaniesClients() const;
 
 	std::vector<Country*> getCountriesToOperate() const;
+	Country* getCountry(std::string) const;
 	void addCountry(Country* c);
 	void printAllCountriesToOperate() const;
 	void printCountriesToOperateFrom(Country* c);
@@ -38,6 +41,8 @@ public:
 	void removeClientByName(std::string name);
 	void removeClientByAddress(std::string address);
 	void removeClientByJoiningDate(int d, int m, int y);
+
+
 	void printClient(std::string name) const;
 	void printClient(int id) const;
 	void printClient(long int nif) const;
@@ -54,6 +59,7 @@ public:
 	void printCompanyClientsByID() const;
 	void printCompanyClientsByName() const;
 	void printCompanyClientsByJoiningDate() const;
+	void printClientServices(int id) const;
 };
 
 

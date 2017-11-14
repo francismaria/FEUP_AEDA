@@ -49,7 +49,15 @@ Service::Service(Address& o, Address& d, float w, int id): origin(o), destinatio
 	status = RECEIVED;
 }
 
-Service::Service(Address& o, Address& d, float w, Date& b, Date& e, int id): origin(o), destination(d), weight(w), beggining(b), end(e), ID(id){}
+Service::Service(Date& b, Date& e, int w): weight(w){
+	this->beggining = b;
+	this->end = end;
+}
+
+Service::Service(Address& o, Address& d, float w, Date& b, Date& e): origin(o), destination(d), weight(w), beggining(b), end(e){
+	this->ID = numberOfServices;
+	numberOfServices++;
+}
 
 int Service::getID() {
 	return ID;
@@ -73,25 +81,35 @@ Status Service::getStatus() {
 	return status;
 }
 
+void Service::setID(int id){
+	ID = id;
+}
+
 int Service::getNumberOfServices(){
 	return numberOfServices;
 }
 
 /******************* TRANSPORT **************************/
-Transport::Transport(Address& o, Address& d, float w): Service(o, d, w){}
+//Transport::Transport(Address& o, Address& d, float w): Service(o, d, w){}
+
+Transport::Transport(Address& o, Address& d, float w, Date& b, Date& e): Service(o,d,w,b,e){}
 
 
 
 /************SHIPPING*****************/
 
-Shipping::Shipping(Address& o, Address& d, float w,/*, Date& b, Date& e*/ int id): Service(o, d, w, id){}
+Shipping::Shipping(Address& o, Address& d, float w,/*, Date& b, Date& e*/ int id): Service(o, d, w){}
 
-Shipping::Shipping(Address& o, Address& d, float w, Date& b, Date& e, int id): Service(o, d, w, b, e, id){}
+Shipping::Shipping(Address& o, Address& d, float w, Date& b, Date& e, int id): Service(o, d, w, b, e){}
+
+Shipping::Shipping(Date& b, Date& e, int w): Service(b,e,w){}
 
 float Shipping::getTax() const{ return tax; }
 
 
 /***********PACKAGING****************/
+
+Packaging::Packaging(Date& b, Date& e, int w): Service(b,e,w){}
 
 Packaging::Packaging(Date& b, int id): Service(id){
 	getBeggining() = b;
@@ -108,3 +126,5 @@ void Packaging::setEndDate(Date& d){
 /*********************DELIVERY**********/
 
 Delivery::Delivery(int id): Service(id){}
+
+Delivery::Delivery(Date& b, Date& e, int w): Service(b,e,w){}
