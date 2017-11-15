@@ -183,7 +183,6 @@ int newParticularClient(MovingCompany& company){
 	Particular* c = new Particular(name, 0, nif, address, zipCode, day, month, year, hour, minute);
 	company.addClient(c);
 
-
 	std::cout << "\n\n\t\t\t\t" << name << " has been added to the company." << std::endl;
 
 	return 0;
@@ -271,7 +270,9 @@ int newCompanyClient(MovingCompany& company){
 
 	company.addClient(c);
 
-	std::cout << *company.getCompaniesClients()[0];
+	//std::cout << *company.getCompaniesClients()[0];  -->DEBUG
+
+	std::cout << "\n\n\t\t\t\t" << name << " has been added to the company." << std::endl;
 
 }
 

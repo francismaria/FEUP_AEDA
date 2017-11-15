@@ -41,11 +41,10 @@ int main() {
 	importInfo(company);
 
 	//company.printClientServices(1);
-	std::cout << *company.getClients()[0]->getServicesRequested()[1];
+	//std::cout << company.getClients()[0]->getServicesRequested().size();
 	run(company);
 
 	terminateProgram(company);
-	//DELETE DE TUDO!!!!!
 
 	return 0;
 }

@@ -13,6 +13,8 @@ int newRegisteredClientService(MovingCompany& company){
 
 	std::cout << "\n\n\t\t\t\t\t     REQUEST SERVICE TO REGISTERED CLIENT\n" << std::endl;
 
+	//se calhar é melhor meter uma lista com os nomes dos clientes e seus ID's(assim porde escolher)
+
 	std::cout << "\t\t\t\t    Enter the ID of the client to add a new service: ";
 	std::cin >> idClient;
 
@@ -71,13 +73,11 @@ int newRegisteredClientService(MovingCompany& company){
 	std::cout << "\n\t\t\t\tZip Code: ";
 	std::getline(std::cin, zipCode);
 
-	int zone = 0;
-
 	Address destination(address, zipCode, city, company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination));
 
-	std::cout << company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getName();
+	//std::cout << company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getName();
 
-	int day, month, year;
+	int day, month, year, hour, minute;
 	std::cout << "\n\n\t\t\t\t\t\tDATE INFO:" << std::endl;
 	std::cout << "\n\n\t\t\t\tDay: ";
 	std::cin >> day;
@@ -85,8 +85,144 @@ int newRegisteredClientService(MovingCompany& company){
 	std::cin >> month;
 	std::cout << "\n\n\t\t\t\tYear: ";
 	std::cin >> year;
+	std::cout << "\n\n\t\t\t\tHour: ";
+	std::cin >> hour;
+	std::cout << "\n\n\t\t\t\tMinute: ";
+	std::cin >> minute;
 
-	Date dB(day,month,year);
+	Date begginingDate(day, month, year, hour, minute);
+
+	/* CHECK INSERTED DATE */
+	time_t rawtime;
+	struct tm* timeinfo;
+	char buffer[80];
+
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+	strftime(buffer, sizeof(buffer), "%d %m %y %H %M", timeinfo);
+
+	int day_now, month_now, year_now, hour_now, minute_now;
+	std::string bufs(buffer);
+	std::stringstream aux;
+
+	aux << bufs;
+
+	aux >> day_now;
+	aux >> month_now;
+	aux >> year_now;
+	aux >> hour_now;
+	aux >> minute_now;
+
+	year_now += 2000;
+
+	if(year < year_now){
+		std::cout << "Invalid year";
+		return 0;
+	}
+
+	else if(year == year_now){
+		if(month < month_now){
+			std::cout << "Invalid Month";
+			return 0;
+		}
+		if(month == month_now){
+			if(day < day_now){
+				std::cout << "Invalid Day";
+				return 0;
+			}
+		}
+	}
+
+	std::string response;
+	std::cin.ignore();
+	std::cout << "\n\t\t\t\tDo the volumes need warehousing? [y | n] : ";
+	std::getline(std::cin, response);
+
+	if(response == "n" || response == "N"){
+		//isto deve ser random!!!!
+
+		/**** PACKING ******/
+		Date packingB = begginingDate;
+		packingB.setHour(hour+2);
+		Date packingE = begginingDate;
+		packingE.setDay(day+1);
+
+		/**** SHIPPING *****/
+		int zone1days = 5;
+		int zone2days = 15;
+
+		Date shippingB = begginingDate;
+		shippingB.setDay(day+1); shippingB.setHour(hour+3);
+		Date shippingE = begginingDate;
+
+		/*** DELIVERY ****/
+		Date deliveryB = begginingDate;
+		Date deliveryE;
+		Date endingDate;
+																			//VERIFICAR DIAS
+		if(destination.getCountry().getZone() == 1){
+			shippingE.setDay(day+zone1days);					//ZONE 1  -> TIME OF SHIPPING
+			if(hour < 12){
+				deliveryB.setDay(day+zone1days);
+				deliveryE = deliveryB;
+				deliveryE.setHour(hour+5);
+				endingDate = deliveryE;
+			}
+			else{
+				deliveryB = shippingE;
+				deliveryB.setDay(day+zone1days+1);
+				deliveryE = deliveryB;
+				deliveryE.setHour(hour+5);
+				endingDate = deliveryE;
+			}
+		}
+		else{
+			shippingE.setDay(day+zone2days);					//ZONE 2  -> TIME OF SHIPPING
+			if(hour < 12){
+				deliveryB = shippingE;
+				deliveryE = deliveryB;
+				deliveryE.setHour(hour+5);
+				endingDate = deliveryE;
+			}
+			else{
+				deliveryB.setDay(day+zone2days+1);
+				deliveryE = deliveryB;
+				deliveryE.setHour(hour+5);
+				endingDate = deliveryE;
+			}
+		}
+
+		//NECESSITA REVER com PAGAMENTOS
+
+
+		Transport* svcT = new Transport(origin, destination, weight, begginingDate, endingDate);
+		int idT = svcT->getID();
+
+		Packaging* p = new Packaging(packingB, packingE, weight, idT);
+		Shipping* s = new Shipping(shippingB, shippingE, weight, idT);
+		Delivery* d = new Delivery(deliveryB, deliveryE, weight, idT);
+
+		svcT->setPackaging(p);
+		svcT->setShipping(s);
+		svcT->setDelivery(d);
+
+		company.getClients()[idClient-1]->addNewService(svcT);
+
+		std::cout << *company.getClients()[idClient-1]->getServicesRequested()[2];
+
+	}
+	else if(response == "y" || response == "Y"){
+		//wAREHOUSE
+	}
+	else if(response == "0")
+		return 0;
+	else if(response == "-1")
+		return -1;
+	else{
+		std::cout << "\n\t\t\t\tNot a valid entry." << std::endl;
+		return 0;
+	}
+
 
 	//Transport* t = new Transport(origin, destination, weight);
 
@@ -94,7 +230,7 @@ int newRegisteredClientService(MovingCompany& company){
 
 	//company.getClients()[idClient-1]->addNewService(t);
 
-	std::cout << company.getClients()[idClient-1]->getServicesRequested().size();
+	//std::cout << company.getClients()[idClient-1]->getServicesRequested().size();
 
 	return 0;
 }

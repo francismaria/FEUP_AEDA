@@ -417,9 +417,6 @@ void importServices(MovingCompany& company){
 			svcT->setDelivery(d);
 
 			company.getClients()[idClient]->addNewService(svcT);
-
-			//std::cout << company.getClients()[idClient]->getServicesRequested().size();
-
 		}
 		if(aux == "W"){
 
@@ -569,8 +566,6 @@ void importServices(MovingCompany& company){
 			svcW->setDelivery(d);
 
 			company.getClients()[idClient]->addNewService(svcW);
-
-
 		}
 	}
 }
