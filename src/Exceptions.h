@@ -31,6 +31,15 @@ public:
 	std::string getName(){ return name; }
 };
 
+class NonExistingDate{
+public:
+	int day, month, year;
+	NonExistingDate(int d, int m, int y);
+	int getDay() const{ return day; }
+	int getMonth() const{ return month; }
+	int getYear() const{ return year; }
+};
+
 
 
 

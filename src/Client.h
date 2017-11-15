@@ -24,6 +24,7 @@ class Client{
 public:
 	Client(){};
 	Client(std::string name, long int nif, std::string address, std::string zipCode, int firstDay, int firstMonth, int firstYear);
+	Client(std::string name, long int nif, std::string address, std::string zipCode, int firstDay, int firstMonth, int firstYear, int hour, int minute);
 	int getId() const;
 	long int getNIF() const;
 	std::string getName() const;
@@ -46,7 +47,7 @@ public:
 class Company: public Client{
 	static int numberOfCompanies;
 public:
-	Company(std::string name, long int nif, std::string address, std::string zipCode, int firstDay, int firstMonth, int firstYear);
+	Company(std::string name, long int nif, std::string address, std::string zipCode, int firstDay, int firstMonth, int firstYear, int hour, int minute);
 	static int getNumberOfCompanies();
 	bool isParticular();
 };
@@ -56,6 +57,7 @@ class Particular: public Client{
 	static int numberOfParticulars;
 public:
 	Particular(std::string name, int age, long int nif, std::string address, std::string zipCode, int firstDay, int firstMonth, int firstYear);
+	Particular(std::string name, int age, long int nif, std::string address, std::string zipCode, int firstDay, int firstMonth, int firstYear, int hour, int minute);
 	int getAge() const;
 	bool isParticular();
 	static int getNumberOfParticulars();

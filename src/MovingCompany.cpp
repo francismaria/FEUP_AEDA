@@ -166,8 +166,7 @@ void MovingCompany::printClient(std::string name) const{
 	int index = binarySearch(clients, name);
 
 	if(index == -1){
-		//throw...
-		std::cout << "There is no client with that name." << std::endl;
+		throw NonExistingClient(name);
 	}
 
 	std::cout << *clients[index];

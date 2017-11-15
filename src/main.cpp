@@ -20,7 +20,16 @@ void importInfo(MovingCompany& company){
 
 }
 
-void terminateProgram(){
+void terminateProgram(MovingCompany& company){
+
+	unsigned int i;
+
+	for(i = 0; i < company.getClients().size(); i++){
+		for(unsigned int j = 0; j < company.getClients()[i]->getServicesRequested().size(); j++){
+			delete(company.getClients()[i]->getServicesRequested()[j]);
+		}
+		delete(company.getClients()[i]);
+	}
 	std::cout << "\n\n\t\tProgram terminated." << std::endl;
 }
 
@@ -32,10 +41,10 @@ int main() {
 	importInfo(company);
 
 	//company.printClientServices(1);
-	std::cout << company.getClients()[0]->getServicesRequested()[1]->getDeliveryEndDate();
-	//run(company);
+	std::cout << *company.getClients()[0]->getServicesRequested()[1];
+	run(company);
 
-	terminateProgram();
+	terminateProgram(company);
 	//DELETE DE TUDO!!!!!
 
 	return 0;

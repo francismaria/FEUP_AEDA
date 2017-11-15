@@ -9,8 +9,8 @@
 
 Shipping::Shipping(Date& b, Date& e, float w, int id): beggining(b), end(e), weight(w){}
 
-Date& Shipping::getBeggining() const{ return beggining; }
+Date& Shipping::getBeggining(){ return beggining; }
 
-Date& Shipping::getEnd() const{ return end; }
+Date& Shipping::getEnd(){ return end; }
 
 

@@ -70,8 +70,12 @@ int searchClientByName(MovingCompany& company){
 	if(name == "0") return 0;
 	if(name == "-1") return -1;
 
-	company.printClient(name);
-
+	try{
+		company.printClient(name);
+	}
+	catch(NonExistingClient& nc){
+		std::cout << "There is no client with the name " << nc.getName();
+	}
 	return 0;
 }
 
@@ -157,9 +161,9 @@ int newParticularClient(MovingCompany& company){
 
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
-	strftime(buffer, sizeof(buffer), "%d %m %y", timeinfo);
+	strftime(buffer, sizeof(buffer), "%d %m %y %H %M", timeinfo);
 
-	int day, month, year;
+	int day, month, year, hour, minute;
 	std::string bufs(buffer);
 	std::stringstream aux;
 
@@ -168,20 +172,107 @@ int newParticularClient(MovingCompany& company){
 	aux >> day;
 	aux >> month;
 	aux >> year;
+	aux >> hour;
+	aux >> minute;
 
 	year += 2000;
 
 	std::cout << day << " " << month << " " << year;
 
 	//ADICIONAR IDADE					AQUI
-	Particular* c = new Particular(name, 0, nif, address, zipCode, day, month, year);		//tem que ser uma data real!!!
-	//company.addParticularClient(c);
+	Particular* c = new Particular(name, 0, nif, address, zipCode, day, month, year, hour, minute);
 	company.addClient(c);
 
 
 	std::cout << "\n\n\t\t\t\t" << name << " has been added to the company." << std::endl;
 
 	return 0;
+}
+
+int newCompanyClient(MovingCompany& company){
+
+	std::cout << "\n\t\t\t\t\t\t     NEW COMPANY CLIENT FORM\n" << std::endl;
+	std::cout << "\t\t\t\t\t\t0 - Cancel\t-1 - Exit program\n" << std::endl;
+
+	std::string input;
+	std::stringstream ss;
+
+	std::cout <<"\t\t\t\t\tPlease fill out this form in order to add the new client.\n\t\t\t\t\tYou can cancel or exit the "
+			"program at any time just enter 0 to cancel or -1 to exit.\n\n"<< std::endl;
+
+	std::cin.ignore();
+
+		//-- COMPANY NAME
+	std::cout << "\t\t\t\tCompany Name: ";
+	std::getline(std::cin, input);
+
+	if(input == "-1") return -1;
+	else if(input == "0") return 0;
+
+	std::string name = input;
+
+		//-- NIF
+	long int nif;
+	std::cout << "\n\t\t\t\tNIF: ";
+	std::cin >> nif;//input;
+
+	if(nif == -1) return -1;
+	else if(nif == 0) return 0;
+
+	input.clear();
+
+		//-- ADDRESS
+	std::cout << "\n\t\t\t\tAdress: ";
+	std::cin >> input;
+
+	if(input == "-1") return -1;
+	else if(input == "0") return 0;
+
+	std::string address = input;
+
+	input.clear();
+	std::cin.ignore();
+
+		//-- ZIPCODE
+	std::cout << "\n\t\t\t\tZip Code: ";
+	std::cin.ignore();
+	std::getline(std::cin, input);
+
+	if(input == "-1") return -1;
+	else if(input == "0") return 0;
+
+	std::string zipCode = input;
+
+	time_t rawtime;
+	struct tm* timeinfo;
+	char buffer[80];
+
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+	strftime(buffer, sizeof(buffer), "%d %m %y %H %M", timeinfo);
+
+	int day, month, year, hour, minute;
+	std::string bufs(buffer);
+	std::stringstream aux;
+
+	aux << bufs;
+
+	aux >> day;
+	aux >> month;
+	aux >> year;
+	aux >> hour;
+	aux >> minute;
+
+	year += 2000;
+
+	std::cout << day << " " << month << " " << year << " " << hour << " " << minute;
+
+	Company* c = new Company(name, nif, address, zipCode, day, month, year, hour, minute);
+
+	company.addClient(c);
+
+	std::cout << *company.getCompaniesClients()[0];
+
 }
 
 
@@ -205,13 +296,12 @@ int addNewClient(MovingCompany& company){
 				if(!instruction) continue;
 				break;
 			case 2:
-				//instruction = newCompanyClient(company);
+				instruction = newCompanyClient(company);
 				break;
 			case 0:
 				return 0;
 			case -1:
-				break;
-				//return -1;
+				return -1;
 		}
 		if(instruction == 0 || instruction == -1) return instruction;
 	}

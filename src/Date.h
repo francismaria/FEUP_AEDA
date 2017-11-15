@@ -19,6 +19,7 @@ class Date{
 public:
 	Date(){};
 	Date(int d, int m, int y);
+	Date(int d, int m, int y, int h, int min);
 	int getDay() const;
 	int getMonth() const;
 	int getYear() const;
@@ -34,10 +35,12 @@ public:
 			return true;
 		return false;
 	}
+
 	friend std::ostream& operator <<(std::ostream& o, const Date& d){
-		o << d.day << "/" << d.month << "/" << d.year;
+		o << d.day << "/" << d.month << "/" << d.year << " " << d.hour << ":" << d.minute;
 		return o;
 	}
+
 	friend bool operator <(const Date& d1, const Date& d2){
 		if(d1.year < d2.getYear())
 				return true;
@@ -53,15 +56,6 @@ public:
 				return true;
 			return false;
 	}
-};
-
-class NonExistingDate{
-public:
-	int day, month, year;
-	NonExistingDate(int d, int m, int y);
-	int getDay() const;
-	int getMonth() const;
-	int getYear() const;
 };
 
 

@@ -13,12 +13,12 @@
 
 class Packaging{
 	float weight;
-	Date& beggining;
-	Date& end;
+	Date beggining;
+	Date end;
 public:
 	Packaging(Date& b, Date& e, float w, int id);
-	Date& getBeggining() const;
-	Date& getEnd() const;
+	Date& getBeggining();
+	Date& getEnd();
 };
 
 

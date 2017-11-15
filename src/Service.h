@@ -31,6 +31,7 @@ class Service{
 	static int numberOfServices;
 public:
 	Service(){}
+	~Service();
 	Service(Date& b, Date& e, int w);
 	Service(Address& o, Address& d, float w, Date& b, Date& e);
 	int getID();
@@ -49,6 +50,14 @@ public:
 	Date& getShippingEndDate() const;
 	Date& getDeliveryBegginingDate() const;
 	Date& getDeliveryEndDate() const;
+	friend std::ostream& operator <<(std::ostream& o, const Service& s){
+		o << "SERVICE INFO: " << "Origin: " << s.origin.getCity() << "\tDestination: " << s.destination.getCity() <<
+				"\n\tRequested on: " << s.beggining << "\tDelivered on: " << s.end << "\n\n\t\tDETAILED INFO:\n\n\t" <<
+				"Packaging started on: "<< s.getPackagingBegginingDate() << "\tPackaging ended on: " << s.getPackagingEndDate() <<
+				"\n\tShipping started on: " << s.getShippingBegginingDate() << "\tShipping ended on: " << s.getShippingEndDate() <<
+				"\n\tDelivery started on: " << s.getDeliveryBegginingDate() << "\tDelivery ended on " << s.getDeliveryEndDate();
+		return o;
+	}
 };
 
 class Transport: public Service{

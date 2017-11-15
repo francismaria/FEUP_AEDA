@@ -17,11 +17,12 @@ Service::Service(Date& b, Date& e, int w): weight(w){
 	this->ID = numberOfServices;
 	numberOfServices++;
 }
-/*
-Service::Service(Date& b, Date& e, int w, int id): weight(w), ID(id){
-	this->beggining = b;
-	this->end = end;
-}*/
+
+Service::~Service(){
+	delete(pack);
+	delete(shipping);
+	delete(delivery);
+}
 
 Service::Service(Address& o, Address& d, float w, Date& b, Date& e): origin(o), destination(d), weight(w), beggining(b), end(e){
 	this->ID = numberOfServices;

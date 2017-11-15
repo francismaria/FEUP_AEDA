@@ -12,9 +12,17 @@ int Client::numberOfClients = 0;
 /*
  *  Client constructor
  */
-
+//TO BE DELETED
 Client::Client(std::string name, long int nif, std::string address, std::string zipCode, int firstDay, int firstMonth, int firstYear):
 				address(Address(address, zipCode, "Porto", "Portugal")), joiningDate(Date(firstDay, firstMonth, firstYear)){
+	numberOfClients++;
+	this->id = numberOfClients;
+	this->name = name;
+	this->NIF = nif;
+}
+
+Client::Client(std::string name, long int nif, std::string address, std::string zipCode, int firstDay, int firstMonth, int firstYear, int hour, int minute):
+				address(Address(address, zipCode, "Porto", "Portugal")), joiningDate(Date(firstDay, firstMonth, firstYear, hour, minute)){
 	numberOfClients++;
 	this->id = numberOfClients;
 	this->name = name;
@@ -58,8 +66,8 @@ void Client::printServices() const{
 
 int Company::numberOfCompanies = 0;
 
-Company::Company(std::string name, long int nif, std::string address, std::string zipCode, int firstDay, int firstMonth, int firstYear)
-: Client(name, nif, address, zipCode, firstDay, firstMonth, firstYear){
+Company::Company(std::string name, long int nif, std::string address, std::string zipCode, int firstDay, int firstMonth, int firstYear, int hour, int minute)
+: Client(name, nif, address, zipCode, firstDay, firstMonth, firstYear, hour, minute){
 	numberOfCompanies++;
 }
 
@@ -74,8 +82,15 @@ bool Company::isParticular(){ return false; }
 
 int Particular::numberOfParticulars = 0;
 
+//TO BE DELETED
 Particular::Particular(std::string name, int age, long int nif, std::string address, std::string zipCode, int firstDay, int firstMonth, int firstYear)
 : Client(name, nif, address, zipCode, firstDay, firstMonth, firstYear){
+	this->age = age;
+	numberOfParticulars++;
+}
+
+Particular::Particular(std::string name, int age, long int nif, std::string address, std::string zipCode, int firstDay, int firstMonth, int firstYear, int hour, int minute)
+: Client(name, nif, address, zipCode, firstDay, firstMonth, firstYear, hour, minute){
 	this->age = age;
 	numberOfParticulars++;
 }

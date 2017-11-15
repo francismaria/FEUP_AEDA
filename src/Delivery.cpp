@@ -9,8 +9,8 @@
 
 Delivery::Delivery(Date& b, Date& e, float w, int id): beggining(b), end(e), weight(w){}
 
-Date& Delivery::getBeggining() const{ return beggining; }
+Date& Delivery::getBeggining(){ return beggining; }
 
-Date& Delivery::getEnd() const{ return end; }
+Date& Delivery::getEnd(){ return end; }
 
 

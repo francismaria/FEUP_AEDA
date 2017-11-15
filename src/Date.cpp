@@ -7,7 +7,12 @@
 
 #include "Date.h"
 
-Date::Date(int d, int m, int y): day(d), month(m), year(y){}
+Date::Date(int d, int m, int y): day(d), month(m), year(y){
+	hour = 0;
+	minute = 0;
+}
+
+Date::Date(int d, int m, int y, int h, int min): day(d), month(m), year(y), hour(h), minute(min){}
 
 int Date::getDay() const{ return day; }
 
@@ -29,16 +34,5 @@ void Date::setHour(int h){ hour = h; }
 
 void Date::setMinute(int m){ minute = m; }
 
-NonExistingDate::NonExistingDate(int d, int m, int y){
-	day = d;
-	month = m;
-	year = y;
-}
-
-int NonExistingDate::getDay() const{ return day; }
-
-int NonExistingDate::getMonth() const{ return month; }
-
-int NonExistingDate::getYear() const{ return year; }
 
 

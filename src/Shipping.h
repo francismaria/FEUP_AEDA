@@ -13,12 +13,13 @@
 
 class Shipping{
 	float weight;
-	Date& beggining;
-	Date& end;
+	Date beggining;
+	Date end;
 public:
 	Shipping(Date& b, Date& e, float w, int id);
-	Date& getBeggining() const;
-	Date& getEnd() const;
+	~Shipping(){};
+	Date& getBeggining();
+	Date& getEnd();
 };
 
 

@@ -271,7 +271,7 @@ void importServices(MovingCompany& company){
 		auxSS << aux;
 		auxSS >> idClient;
 
-		Client* c = company.getClients()[idClient];
+		//Client* c = company.getClients()[idClient];
 
 		aux.clear();				//Clears buffers
 		auxSS.clear();

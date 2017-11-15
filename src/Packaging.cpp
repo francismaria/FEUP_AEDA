@@ -9,8 +9,8 @@
 
 Packaging::Packaging(Date& b, Date& e, float w, int id): beggining(b), end(e), weight(w){}
 
-Date& Packaging::getBeggining() const{ return beggining; }
+Date& Packaging::getBeggining(){ return beggining; }
 
-Date& Packaging::getEnd() const{ return end; }
+Date& Packaging::getEnd(){ return end; }
 
 
