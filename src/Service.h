@@ -68,7 +68,7 @@ public:
 class Warehousing: public Transport{
 	int daysWarehouse;
 public:
-	Warehousing(Address& o, Address& d, Date& b, Date& e, float w, int daysWarehouse);
+	Warehousing(Address& o, Address& d, float w, Date& b, Date& e, int daysWarehouse);
 	int getDaysWarehouse() const;
 };
 

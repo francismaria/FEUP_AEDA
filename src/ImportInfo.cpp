@@ -142,7 +142,6 @@ void importCountriesZones(MovingCompany& company){
 
 			for(j = 0; j < company.getCountriesToOperate().size(); j++){
 				if(company.getCountriesToOperate()[j]->getName() == name){
-					//company.getCountriesToOperate()[i]->addZone1Country(company.getCountriesToOperate()[j]);
 					ConnectionCountryInfo ci(company.getCountriesToOperate()[j], 1, baseRate);
 					company.getCountriesToOperate()[i]->addCountryConnection(ci);
 				}
@@ -554,7 +553,7 @@ void importServices(MovingCompany& company){
 			std::cout << "\nDELIVERY" << deliveryB.getDay() << deliveryE.getMinute();
 			//--------------------------
 */
-			Warehousing* svcW = new Warehousing(origin, destination, begginingWarehousing, endWarehousing, weight, daysWarehousing);
+			Warehousing* svcW = new Warehousing(origin, destination, weight, begginingWarehousing, endWarehousing, daysWarehousing);
 			int idW = svcW->getID();
 
 			Packaging* p = new Packaging(packagingB, packagingE, weight, idW);

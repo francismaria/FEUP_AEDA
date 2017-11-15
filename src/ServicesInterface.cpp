@@ -28,6 +28,9 @@ int newRegisteredClientService(MovingCompany& company){
 	std::cout << "\n\t\t\t\tEnter the total weight of the volumes (KG): ";
 	std::cin >> weight;
 
+	if(weight == 0) return 0;
+	else if(weight == -1) return -1;
+
 	std::cout << "\n\t\t\tSelect from the list of Countries the one where the package will be sent.\n\n";
 	company.printAllCountriesToOperate();
 
@@ -138,7 +141,7 @@ int newRegisteredClientService(MovingCompany& company){
 	std::cout << "\n\t\t\t\tDo the volumes need warehousing? [y | n] : ";
 	std::getline(std::cin, response);
 
-	if(response == "n" || response == "N"){
+	if(response == "n" || response == "N"){				//TRANSPORT
 		//isto deve ser random!!!!
 
 		/**** PACKING ******/
@@ -208,29 +211,95 @@ int newRegisteredClientService(MovingCompany& company){
 
 		company.getClients()[idClient-1]->addNewService(svcT);
 
-		std::cout << *company.getClients()[idClient-1]->getServicesRequested()[2];
+		//std::cout << *company.getClients()[idClient-1]->getServicesRequested()[2];
 
 	}
-	else if(response == "y" || response == "Y"){
-		//wAREHOUSE
+	else if(response == "y" || response == "Y"){					//WAREHOUSING
+
+		/**** PACKING ******/
+		Date packingB = begginingDate;
+		packingB.setHour(hour+2);
+		Date packingE = begginingDate;
+		packingE.setDay(day+1);
+
+		/**** SHIPPING *****/
+		int zone1days = 5;
+		int zone2days = 15;
+
+		Date shippingB = begginingDate;
+		shippingB.setDay(day+1); shippingB.setHour(hour+3);
+		Date shippingE = begginingDate;
+
+		/*** DELIVERY ****/
+		Date deliveryB = begginingDate;
+		Date deliveryE;
+		Date endingDate;
+																			//VERIFICAR DIAS
+		if(destination.getCountry().getZone() == 1){
+			shippingE.setDay(day+zone1days);					//ZONE 1  -> TIME OF SHIPPING
+			if(hour < 12){
+				deliveryB.setDay(day+zone1days);
+				deliveryE = deliveryB;
+				deliveryE.setHour(hour+5);
+				endingDate = deliveryE;
+			}
+			else{
+				deliveryB = shippingE;
+				deliveryB.setDay(day+zone1days+1);
+				deliveryE = deliveryB;
+				deliveryE.setHour(hour+5);
+				endingDate = deliveryE;
+			}
+		}
+		else{
+			shippingE.setDay(day+zone2days);					//ZONE 2  -> TIME OF SHIPPING
+			if(hour < 12){
+				deliveryB = shippingE;
+				deliveryE = deliveryB;
+				deliveryE.setHour(hour+5);
+				endingDate = deliveryE;
+			}
+			else{
+				deliveryB.setDay(day+zone2days+1);
+				deliveryE = deliveryB;
+				deliveryE.setHour(hour+5);
+				endingDate = deliveryE;
+			}
+		}
+
+		int daysWarehouse;
+
+		std::cout << "\n\t\t\t\tHow many days will the volumes be in the warehouse? ";
+		std::cin >> daysWarehouse;
+
+		if(daysWarehouse > 5){
+			//custo = (daysWarehouse-5) * taxaDeWarehousing
+		}
+		else{
+			//custo = 0;
+		}
+
+		Warehousing* svcW = new Warehousing(origin, destination, weight, begginingDate, endingDate, daysWarehouse);
+		int idW = svcW->getID();
+
+		Packaging* p = new Packaging(packingB, packingE, weight, idW);
+		Shipping* s = new Shipping(shippingB, shippingE, weight, idW);
+		Delivery* d = new Delivery(deliveryB, deliveryE, weight, idW);
+
+		svcW->setPackaging(p);
+		svcW->setShipping(s);
+		svcW->setDelivery(d);
+
+		company.getClients()[idClient-1]->addNewService(svcW);
+
+		std::cout << *company.getClients()[idClient-1]->getServicesRequested()[2];
 	}
-	else if(response == "0")
-		return 0;
-	else if(response == "-1")
-		return -1;
+	else if(response == "0") return 0;
+	else if(response == "-1") return -1;
 	else{
 		std::cout << "\n\t\t\t\tNot a valid entry." << std::endl;
 		return 0;
 	}
-
-
-	//Transport* t = new Transport(origin, destination, weight);
-
-	//std::cout << t->getOrigin();
-
-	//company.getClients()[idClient-1]->addNewService(t);
-
-	//std::cout << company.getClients()[idClient-1]->getServicesRequested().size();
 
 	return 0;
 }

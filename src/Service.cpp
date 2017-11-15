@@ -96,7 +96,7 @@ Transport::Transport(Address& o, Address& d, float w, Date& b, Date& e): Service
 
 /******************* WAREHOUSING ************************/
 
-Warehousing::Warehousing(Address& o, Address& d, Date& b, Date& e, float w, int daysWarehouse): Transport(o,d,w,b,e){
+Warehousing::Warehousing(Address& o, Address& d, float w, Date& b, Date& e, int daysWarehouse): Transport(o,d,w,b,e){
 	this->daysWarehouse = daysWarehouse;
 }
 

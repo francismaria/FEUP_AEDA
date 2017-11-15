@@ -12,8 +12,11 @@
 
 class NonExistingClient{
 public:
+	int ID;
 	std::string name;
+	NonExistingClient(int id){ ID = id; }
 	NonExistingClient(std::string n){ name = n; }
+	int getID() const{ return ID; }
 	std::string getName(){ return name; }
 };
 

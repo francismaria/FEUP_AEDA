@@ -115,11 +115,13 @@ int binarySearch(const std::vector<Client*> &v, std::string x)
 
 void MovingCompany::removeClientByID(int id){
 
+	if(id > clients.size())
+		throw NonExistingClient(id);
+
 	int index = binarySearch(clients, id);
 
 	if(index == -1){
-		//throw NonExisting Client();
-		std::cout << "NÃO EXISTE!" << std::endl;
+		throw NonExistingClient(id);
 	}
 	clients.erase(clients.begin()+index);
 }
@@ -135,12 +137,12 @@ void MovingCompany::removeClientByName(std::string name){
 		}
 	}
 
-	if(found) std::cout << "ENCOTROU!";
-	else std::cout << "NÃO ENCONTROU!";
-	//if(found) clients.erase(clients.begin()+i);
-	//else std::cout << "nao encontrou";
+	if(found){
+		clients.erase(clients.begin()+i);
+		return;
+	}
 
-	//throw NonExistingClient(name);
+	throw NonExistingClient(name);
 }
 
 
@@ -174,7 +176,9 @@ void MovingCompany::printClient(std::string name) const{
 
 void MovingCompany::printClient(int id) const{
 
-	std::cout << *clients[id-1];
+	if(id < clients.size())
+		std::cout << *clients[id-1];
+	throw NonExistingClient(id);
 }
 
 

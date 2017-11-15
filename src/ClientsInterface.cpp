@@ -93,7 +93,12 @@ int searchClientByID(MovingCompany& company){
 	if(id == 0) return 0;
 	if(id == -1) return -1;
 
-	company.printClient(id);
+	try{
+		company.printClient(id);
+	}
+	catch(NonExistingClient& nc){
+		std::cout << "\n\t\t\t\tThere is no client with the ID: " << nc.getID() << std::endl;
+	}
 
 	return 0;
 }
@@ -321,9 +326,13 @@ int removeClientByID(MovingCompany& company){
 
 	if(enteredID == 0 || enteredID == -1) return enteredID;
 
-	company.removeClientByID(enteredID);
-
-	std::cout << "\tClient successfully removed." << std::endl;
+	try{
+		company.removeClientByID(enteredID);
+		std::cout << "\tClient successfully removed." << std::endl;
+	}
+	catch(NonExistingClient& nc){
+		std::cout << "\n\t\t\t\tThere is no client with the ID: " << nc.getID() << std::endl;
+	}
 
 	return 0;
 }
@@ -337,20 +346,19 @@ int removeClientByName(MovingCompany& company){
 	std::cout << "Please enter the name of the client you would like to remove:" << std::endl;
 	std::cout << "\t-----> ";
 
-
-	//ERRRROOOOOOORRRRRRRRRRRRRRRRRRRRRRR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 	std::cin.ignore();
 	std::getline(std::cin, enteredName);
-
-	// ERRRRRRRRRRRRRRRRRRRRRRRRRRRRROOOOOOOOOOOOOOOOOORRRRRRRRRRRRRRRRRRR!!!!!!!!!!!
 
 	if(enteredName == "0") return 0;
 	if(enteredName == "-1") return -1;
 
-	//company.removeClientByName(enteredName);
-
-	std::cout << "\tClient successfully removed." << std::endl;
+	try{
+		company.removeClientByName(enteredName);
+		std::cout << "\tClient successfully removed." << std::endl;
+	}
+	catch(NonExistingClient& nc){
+		std::cout << "\n\t\t\t\tThere is no client with the name: " << nc.getName() << std::endl;
+	}
 
 	return 0;
 }
@@ -401,7 +409,7 @@ int removeClient(MovingCompany& company){
 					instruction = removeClientByID(company);		//Binary Search algorithm
 					break;
 				case 2:
-					//instruction = removeClientByName(company);		//Sequential Search algorithm
+					instruction = removeClientByName(company);		//Sequential Search algorithm
 					break;
 				case 3:
 					//instruction = removeClientByAddress(company);			//getline error
