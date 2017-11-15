@@ -61,26 +61,4 @@ public:
 	static int getNumberOfParticulars();
 };
 
-class NonExistingClient{
-public:
-	std::string name;
-	NonExistingClient(std::string n){ name = n; }
-	std::string getName(){ return name; }
-};
-
-class NonExistingCompany{
-public:
-	std::string name;
-	NonExistingCompany(std::string n){ name = n; }
-	std::string getName(){ return name; }
-};
-
-class NonExistingParticular{
-public:
-	std::string name;
-	NonExistingParticular(std::string n){ name = n; }
-	std::string getName(){ return name; }
-};
-
-
 #endif /* CLIENT_H_ */

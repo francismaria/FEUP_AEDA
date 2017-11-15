@@ -32,7 +32,8 @@ int main() {
 	importInfo(company);
 
 	//company.printClientServices(1);
-	run(company);
+	std::cout << company.getClients()[0]->getServicesRequested()[1]->getDeliveryEndDate();
+	//run(company);
 
 	terminateProgram();
 	//DELETE DE TUDO!!!!!

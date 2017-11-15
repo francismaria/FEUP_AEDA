@@ -6,53 +6,22 @@
  */
 
 #include "Service.h"
-/*
-Service::Service(Date& b, float w): beggining(b), weight(w){ ID = 0; cost = 0; }
-
-void Service::setID(int id){ ID = id; }
-
-void Service::setCost(float c){ cost = c; }
-
-float Service::getCost() const{ return cost; }
-*/
-
-/*
-Service::Service(int w): weight(w) { status = RECEIVED; }
-
-int Service::getID() const{ return ID; }
-
-float Service::getTotalCost() const{ return totalCost; }
-
-float Service::getWeight() const{ return weight; }
-
-
-Transport::Transport(Address& o, Address& d, float weight): origin(o), destination(d), Service(weight){}
-
-const Date& Transport::getPackingBeggining() const{ return this->packaging->getBegginingDate(); }
-
-float Transport::getShippingCost() const{ return shipping->getTax(); }
-*/
 
 /************************** SERVICE ******************************/
 
 int Service::numberOfServices = 1;
 
-Service::Service(int id): ID(id){}
-
-Service::Service(Address& o, Address& d, float w): origin(o), destination(d), weight(w){
-	status = RECEIVED;
-	this->ID = numberOfServices;
-	numberOfServices++;
-}
-
-Service::Service(Address& o, Address& d, float w, int id): origin(o), destination(d), weight(w), ID(id){
-	status = RECEIVED;
-}
-
 Service::Service(Date& b, Date& e, int w): weight(w){
 	this->beggining = b;
 	this->end = end;
+	this->ID = numberOfServices;
+	numberOfServices++;
 }
+/*
+Service::Service(Date& b, Date& e, int w, int id): weight(w), ID(id){
+	this->beggining = b;
+	this->end = end;
+}*/
 
 Service::Service(Address& o, Address& d, float w, Date& b, Date& e): origin(o), destination(d), weight(w), beggining(b), end(e){
 	this->ID = numberOfServices;
@@ -62,14 +31,8 @@ Service::Service(Address& o, Address& d, float w, Date& b, Date& e): origin(o), 
 int Service::getID() {
 	return ID;
 }
-float Service::getWeight() {
+float Service::getWeight() const{
 	return weight;
-}
-Address& Service::getOrigin() {
-	return origin;
-}
-Address& Service::getDestination(){
-	return destination;
 }
 Date& Service::getBeggining() {
 	return beggining;
@@ -88,11 +51,47 @@ void Service::setID(int id){
 int Service::getNumberOfServices(){
 	return numberOfServices;
 }
+void Service::setPackaging(Packaging* p){
+	this->pack = p;
+}
+
+void Service::setShipping(Shipping* s){
+	this->shipping = s;
+}
+
+void Service::setDelivery(Delivery* d){
+	this->delivery = d;
+}
+
+Date& Service::getPackagingBegginingDate() const{
+	this->pack->getBeggining();
+}
+
+Date& Service::getPackagingEndDate() const{
+	this->pack->getEnd();
+}
+
+Date& Service::getShippingBegginingDate() const{
+	this->shipping->getBeggining();
+}
+
+Date& Service::getShippingEndDate() const{
+	this->shipping->getEnd();
+}
+
+Date& Service::getDeliveryBegginingDate() const{
+	this->delivery->getBeggining();
+}
+
+Date& Service::getDeliveryEndDate() const{
+	this->delivery->getEnd();
+}
 
 /******************* TRANSPORT **************************/
-//Transport::Transport(Address& o, Address& d, float w): Service(o, d, w){}
 
-Transport::Transport(Address& o, Address& d, float w, Date& b, Date& e): Service(o,d,w,b,e){}
+Transport::Transport(Address& o, Address& d, float w, Date& b, Date& e): Service(o, d, w, b, e){}
+
+
 
 /******************* WAREHOUSING ************************/
 
@@ -100,35 +99,3 @@ Warehousing::Warehousing(Address& o, Address& d, Date& b, Date& e, float w, int 
 	this->daysWarehouse = daysWarehouse;
 }
 
-/************SHIPPING*****************/
-
-Shipping::Shipping(Address& o, Address& d, float w,/*, Date& b, Date& e*/ int id): Service(o, d, w){}
-
-Shipping::Shipping(Address& o, Address& d, float w, Date& b, Date& e, int id): Service(o, d, w, b, e){}
-
-Shipping::Shipping(Date& b, Date& e, int w): Service(b,e,w){}
-
-float Shipping::getTax() const{ return tax; }
-
-
-/***********PACKAGING****************/
-
-Packaging::Packaging(Date& b, Date& e, int w): Service(b,e,w){}
-
-Packaging::Packaging(Date& b, int id): Service(id){
-	getBeggining() = b;
-}
-
-void Packaging::setBegginingDate(Date& d){
-	this->getBeggining() = d;
-}
-
-void Packaging::setEndDate(Date& d){
-	this->getEnd() = d;
-}
-
-/*********************DELIVERY**********/
-
-Delivery::Delivery(int id): Service(id){}
-
-Delivery::Delivery(Date& b, Date& e, int w): Service(b,e,w){}

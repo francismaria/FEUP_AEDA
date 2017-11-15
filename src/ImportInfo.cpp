@@ -330,7 +330,6 @@ void importServices(MovingCompany& company){
 			auxSS.str(std::string());
 
 			/************ PACKAGING ***************/
-			Packaging p;
 			ss.ignore(line.length(), '/');
 			std::getline(ss, aux, '/');
 			auxSS << aux;
@@ -352,7 +351,6 @@ void importServices(MovingCompany& company){
 			auxSS.str(std::string());
 
 			/*********** SHIPPING ***********/
-			Shipping s;
 			ss.ignore(line.length(), '/');
 			std::getline(ss, aux, '/');
 			auxSS << aux;
@@ -374,7 +372,6 @@ void importServices(MovingCompany& company){
 			auxSS.str(std::string());
 
 			/*********** DELIVERY ***********/
-			Delivery d;
 			ss.ignore(line.length(), '/');
 			std::getline(ss, aux, '/');
 			auxSS << aux;
@@ -409,6 +406,15 @@ void importServices(MovingCompany& company){
 
 
 			Transport* svcT = new Transport(origin, destination, weight, begginingTransport, endTransport);
+			int idT = svcT->getID();
+
+			Packaging* p = new Packaging(packagingB, packagingE, weight, idT);
+			Shipping* s = new Shipping(shippingB, shippingE, weight, idT);
+			Delivery* d = new Delivery(deliveryB, deliveryE, weight, idT);
+
+			svcT->setPackaging(p);
+			svcT->setShipping(s);
+			svcT->setDelivery(d);
 
 			company.getClients()[idClient]->addNewService(svcT);
 
@@ -477,7 +483,6 @@ void importServices(MovingCompany& company){
 			auxSS.str(std::string());
 
 			/************ PACKAGING ***************/
-			Packaging p;
 			ss.ignore(line.length(), '/');
 			std::getline(ss, aux, '/');
 			auxSS << aux;
@@ -499,7 +504,6 @@ void importServices(MovingCompany& company){
 			auxSS.str(std::string());
 
 			/*********** SHIPPING ***********/
-			Shipping s;
 			ss.ignore(line.length(), '/');
 			std::getline(ss, aux, '/');
 			auxSS << aux;
@@ -521,7 +525,6 @@ void importServices(MovingCompany& company){
 			auxSS.str(std::string());
 
 			/*********** DELIVERY ***********/
-			Delivery d;
 			ss.ignore(line.length(), '/');
 			std::getline(ss, aux, '/');
 			auxSS << aux;
@@ -555,8 +558,19 @@ void importServices(MovingCompany& company){
 			//--------------------------
 */
 			Warehousing* svcW = new Warehousing(origin, destination, begginingWarehousing, endWarehousing, weight, daysWarehousing);
+			int idW = svcW->getID();
+
+			Packaging* p = new Packaging(packagingB, packagingE, weight, idW);
+			Shipping* s = new Shipping(shippingB, shippingE, weight, idW);
+			Delivery* d = new Delivery(deliveryB, deliveryE, weight, idW);
+
+			svcW->setPackaging(p);
+			svcW->setShipping(s);
+			svcW->setDelivery(d);
 
 			company.getClients()[idClient]->addNewService(svcW);
+
+
 		}
 	}
 }
