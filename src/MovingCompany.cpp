@@ -158,9 +158,7 @@ void MovingCompany::removeClientByJoiningDate(int d, int m, int y){
 			return;
 		}
 	}
-
-	//throw NonExistingDate(d, m, y);
-	//std::cout << "Data nao existente";
+	throw NonExistingDate(d,m,y);
 }
 
 void MovingCompany::printClient(std::string name) const{

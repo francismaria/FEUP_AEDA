@@ -50,18 +50,18 @@ int showMenu(MovingCompany& company){
 bool showClientsMenu(MovingCompany& company){
 	int option;
 
-	std::cout <<"\n\n\t\t\t\t\t\t\t\tCLIENTS\n" << std::endl;
-	std::cout << "\t\t\t\t\t\t\t1 - Check client" << std::endl;
-	std::cout << "\t\t\t\t\t\t\t2 - Add client" << std::endl;
-	std::cout << "\t\t\t\t\t\t\t3 - Remove client" << std::endl;
-	std::cout << "\t\t\t\t\t\t\t4 - Print particular clients" << std::endl;
-	std::cout << "\t\t\t\t\t\t\t5 - Print company clients" << std::endl;
-	std::cout << "\t\t\t\t\t\t\t6 - Print all clients" << std::endl;
-	//std::cout << "\t\t\t\t\t\t\t7 - Update Client's Info\n" << std::endl;
-	std::cout << "\t\t\t\t\t\t\t0 - Go back" << std::endl;
-	std::cout << "\t\t\t\t\t\t       -1 - Exit program.\n" << std::endl;
-
 	while(option != -1){
+		std::cout <<"\n\n\t\t\t\t\t\t\t\tCLIENTS\n" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t1 - Check client" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t2 - Add client" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t3 - Remove client" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t4 - Print particular clients" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t5 - Print company clients" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t6 - Print all clients" << std::endl;
+		//std::cout << "\t\t\t\t\t\t\t7 - Update Client's Info\n" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t0 - Go back" << std::endl;
+		std::cout << "\t\t\t\t\t\t       -1 - Exit program.\n" << std::endl;
+
 		int instruction;
 
 		std::cout << "\n\t\t\t\t\tPlease enter an option: ";
@@ -69,10 +69,10 @@ bool showClientsMenu(MovingCompany& company){
 
 		switch(option){
 			case 1:
-				instruction = checkClient(company);			//To be done
+				instruction = checkClient(company);
 				break;
 			case 2:
-				instruction = addNewClient(company);		// To be done company
+				instruction = addNewClient(company);
 				break;
 			case 3:
 				instruction = removeClient(company);
@@ -84,14 +84,10 @@ bool showClientsMenu(MovingCompany& company){
 				instruction = printCompanies(company);
 				break;
 			case 6:
-				instruction = printClients(company);		//DONE!!
-				//if(printClients(company)){
-					//continue;  //GO BACK da função
+				instruction = printClients(company);
 				break;
 			case 0:
-				//instruction = 0;
 				return false;
-				//break;
 			case -1:
 				instruction = -1;
 				break;
@@ -101,7 +97,7 @@ bool showClientsMenu(MovingCompany& company){
 		}
 
 		if(instruction == -1) return true;
-		else if(instruction == 0) continue;//return false;
+		else if(instruction == 0) continue;
 	}
 	return false;
 }

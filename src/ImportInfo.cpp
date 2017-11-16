@@ -15,9 +15,9 @@ void importClients(MovingCompany& company){
 	if(!clientsFile.good())
 		std::cout << "Couldn't access clients.txt file. Error reading from File." << std::endl;
 
-	int fDay, fMonth, fYear, age;
+	int fDay, fMonth, fYear, fHour, fMinute, age;
 	long int nif;
-	std::string name, zipCode, address, line, city, country;
+	std::string name, zipCode, address, line, city, country, clientType;
 
 	while(std::getline(clientsFile, line)){
 
@@ -25,62 +25,165 @@ void importClients(MovingCompany& company){
 		std::string aux;
 		std::stringstream auxSS;
 
-		// Name
-		std::getline(ss, name, '/');
+		std::getline(ss, clientType, '/');
 
-		// Age
-		std::getline(ss, aux, '/');
-		auxSS << aux;
-		auxSS >> age;
+		if(clientType == "P"){				//PARTICULAR
 
-		aux.clear();
-		auxSS.str(std::string());
+			// Name
+			std::getline(ss, name, '/');
 
-		// NIF
-		std::getline(ss, aux, '/');
-		auxSS << aux;
-		auxSS >> nif;
+			// Age
+			std::getline(ss, aux, '/');
+			auxSS << aux;
+			auxSS >> age;
 
-		aux.clear();
-		auxSS.str(std::string());
+			aux.clear();
+			auxSS.clear();
+			auxSS.str(std::string());
 
-		// Address
-		std::getline(ss, address, '/');
+			// NIF
+			std::getline(ss, aux, '/');
+			auxSS << aux;
+			auxSS >> nif;
 
-		// Zip Code
-		std::getline(ss, zipCode, '/');
+			aux.clear();
+			auxSS.clear();
+			auxSS.str(std::string());
 
-		// City
-		std::getline(ss, city, '/');
+			// Address
+			std::getline(ss, address, '/');
 
-		// Country
-		std::getline(ss, country, '/');
-/*
-		// Data
-		std::getline(ss, aux, '/');
-		auxSS << aux;				//Day
-		auxSS >> fDay;
+			// Zip Code
+			std::getline(ss, zipCode, '/');
 
-		aux.clear();
-		auxSS.str(std::string());
+			// City
+			std::getline(ss, city, '/');
 
-		std::getline(ss, aux, '/');
-		auxSS << aux;				//Month
-		auxSS >> fMonth;
+			// Country
+			std::getline(ss, country, '/');
 
-		aux.clear();
-		auxSS.str(std::string());
+			// Day
+			std::getline(ss, aux, '/');
+			auxSS << aux;
+			auxSS >> fDay;
 
+			aux.clear();
+			auxSS.clear();
+			auxSS.str(std::string());
 
-		std::getline(ss, aux, '/');
-		auxSS << aux;				//Year
-		auxSS >> fYear;
+			// Month
+			std::getline(ss, aux, '/');
+			auxSS << aux;
+			auxSS >> fMonth;
 
-		aux.clear();
-		auxSS.str(std::string());*/
+			aux.clear();
+			auxSS.clear();
+			auxSS.str(std::string());
 
-		Particular* c = new Particular(name, age, nif, address, zipCode, 1, 12, 2015);
-		company.addClient(c);
+			// Year
+			std::getline(ss, aux, '/');
+			auxSS << aux;
+			auxSS >> fYear;
+
+			aux.clear();
+			auxSS.clear();
+			auxSS.str(std::string());
+
+			// Hour
+			std::getline(ss, aux, ':');
+			auxSS << aux;
+			auxSS >> fHour;
+
+			aux.clear();
+			auxSS.clear();
+			auxSS.str(std::string());
+
+			// Minute
+			std::getline(ss, aux, ':');
+			auxSS << aux;
+			auxSS >> fMinute;
+
+			aux.clear();
+			auxSS.clear();
+			auxSS.str(std::string());
+
+			Particular* p = new Particular(name, age, nif, address, zipCode, city, fDay, fMonth, fYear, fHour, fMinute);
+			company.addClient(p);
+		}
+		else if(clientType == "C"){					//COMPANY
+
+			//	Name
+			std::getline(ss, name, '/');
+
+			// NIF
+			std::getline(ss, aux, '/');
+			auxSS << aux;
+			auxSS >> nif;
+
+			aux.clear();
+			auxSS.clear();
+			auxSS.str(std::string());
+
+			// Address
+			std::getline(ss, address, '/');
+
+			// ZipCode
+			std::getline(ss, zipCode, '/');
+
+			// City
+			std::getline(ss, city, '/');
+
+			// Country
+			std::getline(ss, country, '/');
+
+			// Day
+			std::getline(ss, aux, '/');
+			auxSS << aux;
+			auxSS >> fDay;
+
+			aux.clear();
+			auxSS.clear();
+			auxSS.str(std::string());
+
+			// Month
+			std::getline(ss, aux, '/');
+			auxSS << aux;
+			auxSS >> fMonth;
+
+			aux.clear();
+			auxSS.clear();
+			auxSS.str(std::string());
+
+			// Year
+			std::getline(ss, aux, '/');
+			auxSS << aux;
+			auxSS >> fYear;
+
+			aux.clear();
+			auxSS.clear();
+			auxSS.str(std::string());
+
+			// Hour
+			std::getline(ss, aux, ':');
+			auxSS << aux;
+			auxSS >> fHour;
+
+			aux.clear();
+			auxSS.clear();
+			auxSS.str(std::string());
+
+			// Minute
+			std::getline(ss, aux);
+			auxSS << aux;
+			auxSS >> fMinute;
+
+			aux.clear();
+			auxSS.clear();
+			auxSS.str(std::string());
+
+			Company* c = new Company(name, nif, address, zipCode, city, fDay, fMonth, fYear, fHour, fMinute);
+			company.addClient(c);
+		}
 	}
 
 	clientsFile.close();

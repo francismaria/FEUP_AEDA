@@ -138,7 +138,7 @@ int newParticularClient(MovingCompany& company){
 	input.clear();
 
 		//-- ADDRESS
-	std::cout << "\n\t\t\t\tAdress: ";
+	std::cout << "\n\t\t\t\tStreet Adress: ";
 	std::cin >> input;
 
 	if(input == "-1") return -1;
@@ -147,7 +147,7 @@ int newParticularClient(MovingCompany& company){
 	std::string address = input;
 
 	input.clear();
-	std::cin.ignore();
+	//std::cin.ignore();
 
 		//-- ZIPCODE
 	std::cout << "\n\t\t\t\tZip Code: ";
@@ -158,6 +158,16 @@ int newParticularClient(MovingCompany& company){
 	else if(input == "0") return 0;
 
 	std::string zipCode = input;
+
+	input.clear();
+	//std::cin.ignore();
+
+	//-- City
+	std::cout << "\n\t\t\t\tCity: ";
+	//std::cin.ignore();
+	std::getline(std::cin, input);
+
+	std::string city = input;
 
 		//-- DATE
 	time_t rawtime;
@@ -185,7 +195,7 @@ int newParticularClient(MovingCompany& company){
 	std::cout << day << " " << month << " " << year;
 
 	//ADICIONAR IDADE					AQUI
-	Particular* c = new Particular(name, 0, nif, address, zipCode, day, month, year, hour, minute);
+	Particular* c = new Particular(name, 0, nif, address, zipCode, city, day, month, year, hour, minute);
 	company.addClient(c);
 
 	std::cout << "\n\n\t\t\t\t" << name << " has been added to the company." << std::endl;
@@ -226,7 +236,7 @@ int newCompanyClient(MovingCompany& company){
 	input.clear();
 
 		//-- ADDRESS
-	std::cout << "\n\t\t\t\tAdress: ";
+	std::cout << "\n\t\t\t\tStreet Adress: ";
 	std::cin >> input;
 
 	if(input == "-1") return -1;
@@ -246,6 +256,15 @@ int newCompanyClient(MovingCompany& company){
 	else if(input == "0") return 0;
 
 	std::string zipCode = input;
+
+	input.clear();
+	std::cin.ignore();
+
+		// -- City
+	std::cout << "\n\t\t\t\tCity: ";
+	std::getline(std::cin, input);
+
+	std::string city = input;
 
 	time_t rawtime;
 	struct tm* timeinfo;
@@ -271,7 +290,7 @@ int newCompanyClient(MovingCompany& company){
 
 	std::cout << day << " " << month << " " << year << " " << hour << " " << minute;
 
-	Company* c = new Company(name, nif, address, zipCode, day, month, year, hour, minute);
+	Company* c = new Company(name, nif, address, zipCode, city, day, month, year, hour, minute);
 
 	company.addClient(c);
 
@@ -371,28 +390,43 @@ int removeClientByJoiningDate(MovingCompany& company){
 	std::cout << "\tDay: ";
 	std::cin >> day;
 
+	if(day > 31){
+		std::cout << "\n\t\t\t\tInvalid Day." << std::endl;
+		return 0;
+	}
+	else if(day == -1) return -1;
+
 	std::cout << "\tMonth: ";
 	std::cin >> month;
+
+	if(month < 1 || month > 12){
+		std::cout << "Invalid Month." << std::endl;
+		return 0;
+	}
+	else if(month == -1) return -1;
 
 	std::cout << "\tYear: ";
 	std::cin >> year;
 
-	if(year < company.getFoundingDate().getYear())
+	if(year == -1) return -1;
+	else if(year < company.getFoundingDate().getYear())
 		std::cout << "Invalid year." << std::endl;
-	else if(month < 1 || month > 12)
-		std::cout << "Invalid Month." << std::endl;
 
-	company.removeClientByJoiningDate(day, month, year);
-
-	std::cout << "Client successfully removed.";
+	try{
+		company.removeClientByJoiningDate(day, month, year);
+		std::cout << "Client successfully removed.";
+	}
+	catch(NonExistingDate& nd){
+		std::cout << "There is no client with first registration date: " << nd.getDay() << "/" << nd.getMonth()
+			<< "/" << nd.getYear() << std::endl;
+	}
+	return 0;
 }
 
 int removeClient(MovingCompany& company){
 	int option, instruction;
 
 	while(option != -1){
-		//try{
-
 			std::cout << "\t\t\tRemove Client Form\n" << std::endl;
 			std::cout << "\tHow would you like to remove the client?\n" << std::endl;
 			std::cout << "\t1 - By ID" << std::endl;
@@ -421,7 +455,6 @@ int removeClient(MovingCompany& company){
 					return 0;
 				case -1:
 					return -1;
-					//break;
 				default:
 					std::cout << "Please insert a valid option.";
 					break;
@@ -429,11 +462,6 @@ int removeClient(MovingCompany& company){
 			if(instruction == 0) continue;
 			if(instruction == 1) return -1;
 		}
-		//catch(NonExistingDate& d){
-		//	std::cout << "There is no client with that joining date." << std::endl;
-			//break;
-		//}
-	//}
 }
 
 
