@@ -59,6 +59,8 @@ public:
 	void printCompanyClientsByName() const;
 	void printCompanyClientsByJoiningDate() const;
 	void printClientServices(int id) const;
+
+	void freeMemory();
 };
 
 

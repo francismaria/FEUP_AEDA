@@ -318,3 +318,15 @@ void MovingCompany::printCompanyClientsByJoiningDate() const{
 
 void MovingCompany::printClientServices(int id) const{ clients[id-1]->printServices(); }
 
+void MovingCompany::freeMemory(){
+
+	unsigned int i;
+
+	for(i = 0; i < clients.size(); i++){
+		for(unsigned int j = 0; j < clients[i]->getServicesRequested().size(); j++){
+			delete(clients[i]->getServicesRequested()[j]);
+		}
+		delete(clients[i]);
+	}
+}
+

@@ -9,42 +9,49 @@
 #include "Libraries.h"
 #include "Interface.h"
 #include "ImportInfo.h"
+#include "ExportInfo.h"
 
 
-void importInfo(MovingCompany& company){
+void importInfo(MovingCompany& company, int& numberOfExistentClients){
 
 	importCountries(company);
 	importCountriesZones(company);
-	importClients(company);
+	importClients(company, numberOfExistentClients);
 	importServices(company);
 
 }
 
-void terminateProgram(MovingCompany& company){
+void terminateProgram(MovingCompany& company, int numberOfExistentClients){
 
-	unsigned int i;
+/*	unsigned int i;
 
 	for(i = 0; i < company.getClients().size(); i++){
 		for(unsigned int j = 0; j < company.getClients()[i]->getServicesRequested().size(); j++){
 			delete(company.getClients()[i]->getServicesRequested()[j]);
 		}
 		delete(company.getClients()[i]);
+	}*/
+
+	if((int)company.getClients().size() > numberOfExistentClients){
+		saveClients(company, (int)company.getClients().size() - numberOfExistentClients);
 	}
+
+	company.freeMemory();
+
 	std::cout << "\n\n\t\tProgram terminated." << std::endl;
 }
 
 int main() {
 
-	//int numberofExistentClients;  --> Esta variaável tem o valor de quantos clientes existiam no fich antes da exec do prog de forma a saber quantos novos foram criados e quais sao precisos escrever
+	int numberOfExistentClients;
+
 	MovingCompany company("EletroMoving, S.A.", "Great company with moving.", 10, 9, 1995);
 
-	importInfo(company);
+	importInfo(company, numberOfExistentClients);
 
-	//company.printClientServices(1);
-	//std::cout << company.getClients()[0]->getServicesRequested().size();
 	run(company);
 
-	terminateProgram(company);
+	terminateProgram(company, numberOfExistentClients);
 
 	return 0;
 }

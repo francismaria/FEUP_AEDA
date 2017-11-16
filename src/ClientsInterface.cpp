@@ -127,10 +127,23 @@ int newParticularClient(MovingCompany& company){
 
 	input.clear();
 
+		// -- AGE							//verificar int
+	int age;
+	std::cout << "\n\t\t\t\tAge: ";
+	std::cin >> age;
+
+	if(age == -1) return -1;
+	else if(age == 0) return 0;
+
 		//-- NIF
 	long int nif;
 	std::cout << "\n\t\t\t\tNIF: ";
-	std::cin >> nif;//input;
+	std::cin >> nif;
+
+	if(std::cin.fail()){
+		std::cout << "Not a number.";
+		return 0;
+	}
 
 	if(nif == -1) return -1;
 	else if(nif == 0) return 0;
@@ -139,7 +152,8 @@ int newParticularClient(MovingCompany& company){
 
 		//-- ADDRESS
 	std::cout << "\n\t\t\t\tStreet Adress: ";
-	std::cin >> input;
+	std::cin.ignore();
+	std::getline(std::cin, input);
 
 	if(input == "-1") return -1;
 	else if(input == "0") return 0;
@@ -151,7 +165,7 @@ int newParticularClient(MovingCompany& company){
 
 		//-- ZIPCODE
 	std::cout << "\n\t\t\t\tZip Code: ";
-	std::cin.ignore();
+	//std::cin.ignore();
 	std::getline(std::cin, input);
 
 	if(input == "-1") return -1;
@@ -160,14 +174,20 @@ int newParticularClient(MovingCompany& company){
 	std::string zipCode = input;
 
 	input.clear();
-	//std::cin.ignore();
 
 	//-- City
 	std::cout << "\n\t\t\t\tCity: ";
-	//std::cin.ignore();
 	std::getline(std::cin, input);
 
 	std::string city = input;
+
+	input.clear();
+
+	// -- Country
+	std::cout << "\n\t\t\t\tCountry: ";
+	std::getline(std::cin, input);
+
+	std::string country = input;
 
 		//-- DATE
 	time_t rawtime;
@@ -192,10 +212,8 @@ int newParticularClient(MovingCompany& company){
 
 	year += 2000;
 
-	std::cout << day << " " << month << " " << year;
 
-	//ADICIONAR IDADE					AQUI
-	Particular* c = new Particular(name, 0, nif, address, zipCode, city, day, month, year, hour, minute);
+	Particular* c = new Particular(name, age, nif, address, zipCode, city, country, day, month, year, hour, minute);
 	company.addClient(c);
 
 	std::cout << "\n\n\t\t\t\t" << name << " has been added to the company." << std::endl;
@@ -237,7 +255,8 @@ int newCompanyClient(MovingCompany& company){
 
 		//-- ADDRESS
 	std::cout << "\n\t\t\t\tStreet Adress: ";
-	std::cin >> input;
+	std::cin.ignore();
+	std::getline(std::cin, input);
 
 	if(input == "-1") return -1;
 	else if(input == "0") return 0;
@@ -245,11 +264,9 @@ int newCompanyClient(MovingCompany& company){
 	std::string address = input;
 
 	input.clear();
-	std::cin.ignore();
 
 		//-- ZIPCODE
 	std::cout << "\n\t\t\t\tZip Code: ";
-	std::cin.ignore();
 	std::getline(std::cin, input);
 
 	if(input == "-1") return -1;
@@ -258,13 +275,22 @@ int newCompanyClient(MovingCompany& company){
 	std::string zipCode = input;
 
 	input.clear();
-	std::cin.ignore();
+	//std::cin.ignore();
 
 		// -- City
 	std::cout << "\n\t\t\t\tCity: ";
 	std::getline(std::cin, input);
 
+	if(input == "-1") return -1;
+	else if(input == "0") return 0;
+
 	std::string city = input;
+
+		// -- Country
+	std::cout << "\n\t\t\t\tCountry: ";
+	std::getline(std::cin, input);
+
+	std::string country = input;
 
 	time_t rawtime;
 	struct tm* timeinfo;
@@ -290,7 +316,7 @@ int newCompanyClient(MovingCompany& company){
 
 	std::cout << day << " " << month << " " << year << " " << hour << " " << minute;
 
-	Company* c = new Company(name, nif, address, zipCode, city, day, month, year, hour, minute);
+	Company* c = new Company(name, nif, address, zipCode, city, country, day, month, year, hour, minute);
 
 	company.addClient(c);
 

@@ -12,7 +12,7 @@
 #include "Interface.h"
 #include <fstream>
 
-void importClients(MovingCompany& company);
+void importClients(MovingCompany& company, int& numberofExistentClients);
 
 void importCountries(MovingCompany& company);
 

@@ -7,7 +7,7 @@
 
 #include "ImportInfo.h"
 
-void importClients(MovingCompany& company){
+void importClients(MovingCompany& company, int& numberOfExistentClients){
 
 	std::ifstream clientsFile;
 	clientsFile.open("InfoFiles/clients.txt");
@@ -107,7 +107,7 @@ void importClients(MovingCompany& company){
 			auxSS.clear();
 			auxSS.str(std::string());
 
-			Particular* p = new Particular(name, age, nif, address, zipCode, city, fDay, fMonth, fYear, fHour, fMinute);
+			Particular* p = new Particular(name, age, nif, address, zipCode, city, country, fDay, fMonth, fYear, fHour, fMinute);
 			company.addClient(p);
 		}
 		else if(clientType == "C"){					//COMPANY
@@ -181,13 +181,14 @@ void importClients(MovingCompany& company){
 			auxSS.clear();
 			auxSS.str(std::string());
 
-			Company* c = new Company(name, nif, address, zipCode, city, fDay, fMonth, fYear, fHour, fMinute);
+			Company* c = new Company(name, nif, address, zipCode, city, country, fDay, fMonth, fYear, fHour, fMinute);
 			company.addClient(c);
 		}
 	}
 
 	clientsFile.close();
 
+	numberOfExistentClients = company.getClients().size();
 }
 
 void importCountries(MovingCompany& company){
@@ -265,7 +266,6 @@ void importCountriesZones(MovingCompany& company){
 
 			for(j = 0; j < company.getCountriesToOperate().size(); j++){
 				if(company.getCountriesToOperate()[j]->getName() == name){
-					//company.getCountriesToOperate()[i]->addZone2Country(company.getCountriesToOperate()[j]);
 					ConnectionCountryInfo ci(company.getCountriesToOperate()[j], 2, baseRate);
 					company.getCountriesToOperate()[i]->addCountryConnection(ci);
 				}
