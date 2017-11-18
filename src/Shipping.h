@@ -11,15 +11,19 @@
 #include "Libraries.h"
 #include "Date.h"
 
+const float TAX_SHIPPING = 0.075;
+
 class Shipping{
-	float weight;
+	float cost;
 	Date beggining;
 	Date end;
+	float weight;
 public:
 	Shipping(Date& b, Date& e, float w, int id);
 	~Shipping(){};
 	Date& getBeggining();
 	Date& getEnd();
+	float getCost() const;
 };
 
 

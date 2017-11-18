@@ -46,7 +46,7 @@ public:
 	}
 };
 
-class Company: public Client{
+class Company: public Client{		//acrescentar o custo Mensal
 	static int numberOfCompanies;
 public:
 	Company(std::string name, long int nif, std::string address, std::string zipCode, std::string city, std::string country, int firstDay, int firstMonth, int firstYear, int hour, int minute);

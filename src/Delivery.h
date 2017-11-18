@@ -11,14 +11,18 @@
 #include "Libraries.h"
 #include "Date.h"
 
+const float TAX_DELIVERY = 0.01;		// 1%
+
 class Delivery{
-	float weight;
+	float cost;
 	Date beggining;
 	Date end;
+	float weight;
 public:
 	Delivery(Date& b, Date& e, float w, int id);
 	Date& getBeggining();
 	Date& getEnd();
+	float getCost() const;
 };
 
 

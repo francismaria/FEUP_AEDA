@@ -8,9 +8,11 @@
 #include "MovingCompany.h"
 #include <algorithm>
 
-MovingCompany::MovingCompany(std::string n, std::string d, int fd, int fm, int fy): foundingDate(Date(fd,fm,fy)){
+MovingCompany::MovingCompany(std::string n, std::string d, std::string iban, std::string e, int fd, int fm, int fy): foundingDate(Date(fd,fm,fy)){
 	this->name = n;
 	this->description = d;
+	this->IBAN = iban;
+	this->Entity = e;
 }
 
 std::string MovingCompany::getName() const{ return name; }
@@ -75,6 +77,14 @@ void MovingCompany::printCountriesToOperateFrom(Country* c){ c->printCountriesTo
 //Country* MovingCompany::getCountryDestination(Country* c, int id, int& zone1){ return c->getDestination(id, zone1); }
 
 ConnectionCountryInfo& MovingCompany::getCountryDestination(Country* c, int idDestination){ return c->getDestination(idDestination); }
+
+std::string MovingCompany::getIBAN() const{
+	return IBAN;
+}
+
+std::string MovingCompany::getEntity() const{
+	return Entity;
+}
 
 //  -- BINARY SEARCH
 int binarySearch(const std::vector<Client*> &v, int x)

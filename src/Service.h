@@ -14,36 +14,45 @@
 #include "Packaging.h"
 #include "Shipping.h"
 #include "Delivery.h"
+#include "Payment.h"
 
-typedef enum status {RECEIVED, PACKING, SHIPPED, ARRIVED_DEST, DELIVERED} Status;
+const float TAX_WAREHOUSING_DAY = 0.01;		//  1%
+
+//typedef enum status {RECEIVED, PENDING} PaymentStatus;
+//typedef enum status {RECEIVED, PACKING, SHIPPED, ARRIVED_DEST, DELIVERED} Status;
 
 class Service{
 	int ID;
 	float weight;
 	Date beggining;
 	Date end;
-	Status status;
+	//Status status;
 	Address origin;
 	Address destination;
 	Packaging* pack;
 	Shipping* shipping;
 	Delivery* delivery;
+	Payment* payment;
+	float totalCost;
 	static int numberOfServices;
 public:
 	Service(){}
 	~Service();
 	Service(Date& b, Date& e, int w);
 	Service(Address& o, Address& d, float w, Date& b, Date& e);
+	void addBaseRate(float baseRate);
 	int getID();
 	void setID(int id);
 	Date& getBeggining();
 	Date& getEnd();
-	Status getStatus();
+	Payment* getPayment();
 	float getWeight() const;
+	float getTotalCost() const;
 	static int getNumberOfServices();
 	void setPackaging(Packaging* p);
 	void setShipping(Shipping* s);
 	void setDelivery(Delivery* d);
+	void setPayment(Payment* pay);
 	Date& getPackagingBegginingDate() const;
 	Date& getPackagingEndDate() const;
 	Date& getShippingBegginingDate() const;

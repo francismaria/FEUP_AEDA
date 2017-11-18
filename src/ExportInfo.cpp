@@ -192,9 +192,9 @@ std::string saveCompanyClient(Client* c){
 	ss.str(std::string());
 
 	line.append(name).append(delimiter).append(nif).append(delimiter).append(streetAddress).
-				append(delimiter).append(zipCode).append(delimiter).append(city).append(delimiter).append(country).append(delimiter).
-				append(day).append(delimiter).append(month).append(delimiter).append(year).append(delimiter).append(hour).
-				append(":").append(min);
+		append(delimiter).append(zipCode).append(delimiter).append(city).append(delimiter).append(country).append(delimiter).
+		append(day).append(delimiter).append(month).append(delimiter).append(year).append(delimiter).append(hour).
+		append(":").append(min);
 
 	return line;
 }

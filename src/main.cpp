@@ -45,7 +45,7 @@ int main() {
 
 	int numberOfExistentClients;
 
-	MovingCompany company("EletroMoving, S.A.", "Great company with moving.", 10, 9, 1995);
+	MovingCompany company("EletroMoving, S.A.", "Great company with moving.", "PT50 1452 0023 14698 7456 9878 3", "14579", 10, 9, 1995);
 
 	importInfo(company, numberOfExistentClients);
 

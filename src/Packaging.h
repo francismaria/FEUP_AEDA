@@ -11,14 +11,18 @@
 #include "Libraries.h"
 #include "Date.h"
 
+const float TAX_PACKAGING = 0.045; 	//4.5%
+
 class Packaging{
-	float weight;
+	float cost;
 	Date beggining;
 	Date end;
+	float weight;
 public:
 	Packaging(Date& b, Date& e, float w, int id);
 	Date& getBeggining();
 	Date& getEnd();
+	float getCost() const;
 };
 
 

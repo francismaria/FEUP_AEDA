@@ -16,11 +16,13 @@
 class MovingCompany{
 	std::string name;
 	std::string description;
+	std::string IBAN;
+	std::string Entity;
 	Date foundingDate;
 	std::vector<Client*> clients;
 	std::vector<Country*> countriesToOperate;
 public:
-	MovingCompany(std::string n, std::string d, int fd, int fm, int fy);
+	MovingCompany(std::string n, std::string d, std::string iban, std::string e, int fd, int fm, int fy);
 	std::string getName() const;
 	std::string getDescription() const;
 	const Date& getFoundingDate() const;
@@ -34,6 +36,9 @@ public:
 	void printAllCountriesToOperate() const;
 	void printCountriesToOperateFrom(Country* c);
 	ConnectionCountryInfo& getCountryDestination(Country* c, int idDestination);
+
+	std::string getIBAN() const;
+	std::string getEntity() const;
 
 	void addClient(Client* c);
 	void removeClientByID(int id);
