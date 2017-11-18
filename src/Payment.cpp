@@ -29,6 +29,10 @@ float Payment::getPaymentTax() const{
 	return paymentTax;
 }
 
+void Payment::validate(){
+	status = RECEIVED;
+}
+
 
 /****************************************/
 /************     ATM	 ****************/

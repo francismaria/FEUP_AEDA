@@ -45,7 +45,7 @@ public:
 	void setID(int id);
 	Date& getBeggining();
 	Date& getEnd();
-	Payment* getPayment();
+	Payment* getPayment() const;
 	float getWeight() const;
 	float getTotalCost() const;
 	static int getNumberOfServices();
@@ -59,12 +59,15 @@ public:
 	Date& getShippingEndDate() const;
 	Date& getDeliveryBegginingDate() const;
 	Date& getDeliveryEndDate() const;
+	void validatePayment();
 	friend std::ostream& operator <<(std::ostream& o, const Service& s){
 		o << "SERVICE INFO: " << "Origin: " << s.origin.getCity() << "\tDestination: " << s.destination.getCity() <<
 				"\n\tRequested on: " << s.beggining << "\tDelivered on: " << s.end << "\n\n\t\tDETAILED INFO:\n\n\t" <<
 				"Packaging started on: "<< s.getPackagingBegginingDate() << "\tPackaging ended on: " << s.getPackagingEndDate() <<
 				"\n\tShipping started on: " << s.getShippingBegginingDate() << "\tShipping ended on: " << s.getShippingEndDate() <<
-				"\n\tDelivery started on: " << s.getDeliveryBegginingDate() << "\tDelivery ended on " << s.getDeliveryEndDate();
+				"\n\tDelivery started on: " << s.getDeliveryBegginingDate() << "\tDelivery ended on " << s.getDeliveryEndDate() <<
+				"\n\tType of Payment: " << s.getPayment()->getPaymentType() << "\tPayment status: " << s.getPayment()->getPaymentStatus() <<
+			    "\n\tTotal Price: " << s.getTotalCost();
 		return o;
 	}
 };

@@ -82,7 +82,7 @@ void Service::setPayment(Payment* pay){
 	this->totalCost += (this->totalCost*pay->getPaymentTax());
 }
 
-Payment* Service::getPayment(){
+Payment* Service::getPayment() const{
 	return payment;
 }
 
@@ -108,6 +108,10 @@ Date& Service::getDeliveryBegginingDate() const{
 
 Date& Service::getDeliveryEndDate() const{
 	return this->delivery->getEnd();
+}
+
+void Service::validatePayment(){
+	this->payment->validate();
 }
 
 /******************* TRANSPORT **************************/

@@ -315,7 +315,6 @@ int newRegisteredClientService(MovingCompany& company){
 
 		company.getClients()[idClient-1]->addNewService(svcT);
 
-		//std::cout << "COST" << svcT->getTotalCost();		-->>CERTO!!!
 		//std::cout << *company.getClients()[idClient-1]->getServicesRequested()[2];
 
 	}
@@ -333,8 +332,8 @@ int newRegisteredClientService(MovingCompany& company){
 		packingE.setDay(day+1);
 
 		/**** SHIPPING *****/
-		int zone1days = 5;
-		int zone2days = 15;
+		const int zone1days = 5;			//MELHORAR ISTO
+		const int zone2days = 15;
 
 		Date shippingB = begginingDate;
 		shippingB.setDay(day+1); shippingB.setHour(hour+3);

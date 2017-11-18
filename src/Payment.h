@@ -24,6 +24,7 @@ public:
 	Payment(float value);
 	float getPaymentTax() const;
 	std::string getPaymentStatus() const;
+	void validate();
 	virtual std::string getPaymentType() const = 0;
 };
 
