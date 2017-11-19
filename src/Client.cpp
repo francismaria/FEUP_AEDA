@@ -57,7 +57,7 @@ void Client::printServices() const{
 	unsigned int i;
 
 	for(i = 0; i < servicesRequested.size(); i++){
-		std::cout << servicesRequested[i]->getID();//->getOrigin().getCity();//->getOrigin();
+		std::cout << *servicesRequested[i];
 	}
 }
 /*

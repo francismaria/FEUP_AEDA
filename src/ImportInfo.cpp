@@ -337,7 +337,7 @@ void readDate(std::stringstream& ss, Date& date){
 	date.setMinute(minute);
 }
 
-void readAddress(MovingCompany& company, std::stringstream& auxSS, Address& address){
+/*void*/int readAddress(MovingCompany& company, std::stringstream& auxSS, Address& address){
 
 	std::string streetAddress, zipCode, city, countryName;
 
@@ -350,6 +350,11 @@ void readAddress(MovingCompany& company, std::stringstream& auxSS, Address& addr
 	address.setZipCode(zipCode);
 	address.setCity(city);
 	address.setCountry(company.getCountry(countryName)->getName());
+
+	for(unsigned int i = 0; i < company.getCountriesToOperate().size(); i++){
+		if(countryName == company.getCountriesToOperate()[i]->getName())
+			return i+1;
+	}
 }
 
 void importServices(MovingCompany& company){
@@ -372,8 +377,6 @@ void importServices(MovingCompany& company){
 		std::getline(ss, aux, '/');
 		auxSS << aux;
 		auxSS >> idClient;
-
-		//Client* c = company.getClients()[idClient];
 
 		aux.clear();				//Clears buffers
 		auxSS.clear();
@@ -416,7 +419,7 @@ void importServices(MovingCompany& company){
 			std::getline(ss, aux, ']');
 			auxSS << aux;
 			Address origin;
-			readAddress(company, auxSS, origin);			// Origin Address
+			int idOrigin = readAddress(company, auxSS, origin);			// Origin Address
 
 			aux.clear();
 			auxSS.clear();				//Clear buffers
@@ -424,8 +427,9 @@ void importServices(MovingCompany& company){
 
 			std::getline(ss, aux, ']');
 			auxSS << aux;
-			Address destination;							// Destination Address
-			readAddress(company, auxSS, destination);
+			Address destination;// Destination Address
+			int idDestination = readAddress(company, auxSS, destination);
+			idDestination--;
 
 			aux.clear();
 			auxSS.clear();				//Clear buffers
@@ -494,6 +498,23 @@ void importServices(MovingCompany& company){
 			auxSS.clear();				//Clear buffers
 			auxSS.str(std::string());
 
+			std::string typePayment;
+
+			std::getline(ss, typePayment, '/');
+
+			Payment* pay;
+
+			if(typePayment == "ATM"){
+				pay = new ATM(company.getEntity());
+			}
+			else if(typePayment == "CC"){
+				pay = new CreditCard();
+			}
+			else if(typePayment == "BT"){
+				pay = new BankTransfer(company.getIBAN());
+			}
+
+
 			//------------------AUXILIAR
 			/*std::cout << begginingTransport;
 			std::cout << endTransport;
@@ -504,6 +525,7 @@ void importServices(MovingCompany& company){
 			std::cout <<"PACKAGING" << packagingE.getDay() << packagingE.getMinute();
 			std::cout << "\nSHIPPING" << shippingB.getDay() << shippingE.getMinute();
 			std::cout << "\nDELIVERY" << deliveryB.getDay() << deliveryE.getMinute();*/
+
 			//--------------------------
 
 
@@ -517,6 +539,9 @@ void importServices(MovingCompany& company){
 			svcT->setPackaging(p);
 			svcT->setShipping(s);
 			svcT->setDelivery(d);
+			svcT->setPayment(pay);
+
+			svcT->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
 
 			company.getClients()[idClient]->addNewService(svcT);
 		}
@@ -566,7 +591,7 @@ void importServices(MovingCompany& company){
 			std::getline(ss, aux, ']');
 			auxSS << aux;
 			Address origin;
-			readAddress(company, auxSS, origin);			// Origin Address
+			int idOrigin = readAddress(company, auxSS, origin);			// Origin Address
 
 			aux.clear();
 			auxSS.clear();				//Clear buffers
@@ -575,7 +600,8 @@ void importServices(MovingCompany& company){
 			std::getline(ss, aux, ']');
 			auxSS << aux;
 			Address destination;							// Destination Address
-			readAddress(company, auxSS, destination);
+			int idDestination = readAddress(company, auxSS, destination);
+			idDestination--;
 
 			aux.clear();
 			auxSS.clear();				//Clear buffers
@@ -643,6 +669,22 @@ void importServices(MovingCompany& company){
 			aux.clear();
 			auxSS.clear();				//Clear buffers
 			auxSS.str(std::string());
+
+			std::string typePayment;
+
+			std::getline(ss, typePayment, '/');
+
+			Payment* pay;
+
+			if(typePayment == "ATM"){
+				pay = new ATM(company.getEntity());
+			}
+			else if(typePayment == "CC"){
+				pay = new CreditCard();
+			}
+			else if(typePayment == "BT"){
+				pay = new BankTransfer(company.getIBAN());
+			}
 /*
 			//------------------AUXILIAR
 			std::cout << begginingTransport;
@@ -666,6 +708,9 @@ void importServices(MovingCompany& company){
 			svcW->setPackaging(p);
 			svcW->setShipping(s);
 			svcW->setDelivery(d);
+			svcW->setPayment(pay);
+
+			svcW->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
 
 			company.getClients()[idClient]->addNewService(svcW);
 		}
