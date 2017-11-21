@@ -328,6 +328,51 @@ void MovingCompany::printCompanyClientsByJoiningDate() const{
 
 void MovingCompany::printClientServices(int id) const{ clients[id-1]->printServices(); }
 
+int MovingCompany::checkClientServiceStatus(int id){
+
+	clients[id-1]->printServices();
+
+	int sID;
+
+	std::cout << "\t\t\t\tSelect the service: ";
+	std::cin >> sID;
+
+	if(std::cin.fail()){
+		std::cout << "\t\t\t\tNot a valid option." << std::endl;
+		return 0;
+	}
+
+	if(sID == 0) return 0;
+	else if(sID == -1) return -1;
+
+	clients[id-1]->checkServiceStatus(sID);
+
+	return 0;
+}
+
+int MovingCompany::validateClientService(int id){
+
+	clients[id-1]->printServices();
+
+	int sID;
+
+	std::cout << "\t\t\t\tSelect the service to validate payment: ";
+	std::cin >> sID;
+
+	if(std::cin.fail()){
+		std::cout << "Not a valid option." << std::endl;
+		return 0;
+	}
+
+	if(sID == 0) return 0;
+	else if(sID == -1) return -1;
+
+	clients[id-1]->validatePayment(sID);
+
+	return 0;
+}
+
+
 void MovingCompany::freeMemory(){
 
 	unsigned int i;

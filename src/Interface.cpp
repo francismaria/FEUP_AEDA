@@ -126,11 +126,13 @@ bool showServicesMenu(MovingCompany& company){
 				instruction = newService(company);
 				break;
 			case 2:
+				instruction = checkClientsServiceStatus(company);
 				break;
 			case 3:
 				instruction = printClientsServices(company);
 				break;
 			case 4:
+				instruction = validateClientsPayment(company);
 				break;
 			case 0:
 				return false;

@@ -916,5 +916,44 @@ int printClientsServices(MovingCompany& company){
 	return 0;
 }
 
+int checkClientsServiceStatus(MovingCompany& company){
+
+	int id;
+
+	std::cout << "\n\n\t\t\t\t\t\t\CHECK CLIENT PAYMENT STATUS\n" << std::endl;
+	std::cout << "\t\tEnter the ID of the client to check the client's service payment status: ";
+
+	std::cin >> id;
+
+	if(std::cin.fail()){
+		std::cout << "Not a valid option." << std::endl;
+		return 0;
+	}
+
+	if(id == 0) return 0;
+	else if(id == -1) return -1;
+
+	return company.checkClientServiceStatus(id);
+}
+
+int validateClientsPayment(MovingCompany& company){
+
+	int id;
+
+	std::cout << "\n\n\t\t\t\t\t\t\tVALIDATE CLIENT PAYMENT\n" << std::endl;
+	std::cout << "\t\tEnter the ID of the client to validate service payment: ";
+
+	std::cin >> id;
+
+	if(std::cin.fail()){
+		std::cout << "Not a valid option." << std::endl;
+		return 0;
+	}
+
+	if(id == 0) return 0;
+	else if(id == -1) return -1;
+
+	return company.validateClientService(id);
+}
 
 

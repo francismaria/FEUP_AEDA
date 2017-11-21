@@ -60,9 +60,22 @@ void Client::printServices() const{
 		std::cout << *servicesRequested[i];
 	}
 }
-/*
- * Company Constructor
- */
+
+void Client::checkServiceStatus(int sID) const{
+
+	std::cout << "STATUS: " << servicesRequested[sID-1]->getPayment()->getPaymentStatus();
+}
+
+void Client::validatePayment(int sID){
+
+	servicesRequested[sID-1]->validatePayment();
+
+	//throw not existing service
+}
+
+/************************************************/
+/************  COMPANY CONTRUCTOR  **************/
+/************************************************/
 
 int Company::numberOfCompanies = 0;
 
@@ -76,9 +89,9 @@ int Company::getNumberOfCompanies(){ return numberOfCompanies; }
 bool Company::isParticular(){ return false; }
 
 
-/*
- *  Particular constructor
- */
+/************************************************/
+/**********  PARTICULAR CONTRUCTOR  *************/
+/************************************************/
 
 int Particular::numberOfParticulars = 0;
 

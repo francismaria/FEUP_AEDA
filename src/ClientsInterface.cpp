@@ -12,16 +12,16 @@ int checkClient(MovingCompany& company){
 
 	while(option != -1){
 
-		std::cout << "\tSearch Client:" << std::endl;
-		std::cout << "How would you like to search the client?" << std::endl;
-		std::cout << "1 - By Name" << std::endl;
-		std::cout << "2 - By ID" << std::endl;
-		std::cout << "3 - By NIF" << std::endl;
-		std::cout << "4 - By Joining Date\n" << std::endl;
-		std::cout << "0 - Go Back" << std::endl;
-		std::cout << "-1 - Exit Program" << std::endl;
+		std::cout << "\n\n\t\t\t\t\t\tSearch Client:" << std::endl;
+		std::cout << "\t\t\t\t\t   How would you like to search the client?" << std::endl;
+		std::cout << "\t\t\t\t\t1 - By Name" << std::endl;
+		std::cout << "\t\t\t\t\t2 - By ID" << std::endl;
+		std::cout << "\t\t\t\t\t3 - By NIF" << std::endl;
+		std::cout << "\t\t\t\t\t4 - By Joining Date\n" << std::endl;
+		std::cout << "\t\t\t\t\t0 - Go Back" << std::endl;
+		std::cout << "\t\t\t\t\t-1 - Exit Program" << std::endl;
 
-		std::cout << "\nPlease enter an option: ";
+		std::cout << "\n\t\t\t\t\tPlease enter an option: ";
 		std::cin >> option;
 
 		switch(option){

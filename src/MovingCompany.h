@@ -46,7 +46,6 @@ public:
 	void removeClientByAddress(std::string address);
 	void removeClientByJoiningDate(int d, int m, int y);
 
-
 	void printClient(std::string name) const;
 	void printClient(int id) const;
 	void printClient(long int nif) const;
@@ -65,6 +64,9 @@ public:
 	void printCompanyClientsByJoiningDate() const;
 	void printClientServices(int id) const;
 
+	void saveClientServices();
+	int validateClientService(int id);
+	int checkClientServiceStatus(int id);
 	void freeMemory();
 };
 

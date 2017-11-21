@@ -19,4 +19,8 @@ int newUnregisteredClientService(MovingCompany& company);
 
 int printClientsServices(MovingCompany& company);
 
+int checkClientsServiceStatus(MovingCompany& company);
+
+int validateClientsPayment(MovingCompany& company);
+
 #endif /* SERVICESINTERFACE_H_ */

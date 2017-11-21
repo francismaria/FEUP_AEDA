@@ -36,6 +36,8 @@ public:
 	std::vector<Service*> getServicesRequested();
 	void addNewService(Service* s);
 	void printServices() const;
+	void checkServiceStatus(int sID) const;
+	void validatePayment(int sID);
 	virtual bool isParticular() {};
 	virtual int getAge() {}
 	static int getNumberOfClients();

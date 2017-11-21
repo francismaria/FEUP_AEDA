@@ -12,7 +12,7 @@
 #include "ExportInfo.h"
 
 
-void importInfo(MovingCompany& company, int& numberOfExistentClients){
+void importInfo(MovingCompany& company, int& numberOfExistentClients, std::vector<int>& clientServices){
 
 	importCountries(company);
 	importCountriesZones(company);
@@ -21,20 +21,13 @@ void importInfo(MovingCompany& company, int& numberOfExistentClients){
 
 }
 
-void terminateProgram(MovingCompany& company, int numberOfExistentClients){
-
-/*	unsigned int i;
-
-	for(i = 0; i < company.getClients().size(); i++){
-		for(unsigned int j = 0; j < company.getClients()[i]->getServicesRequested().size(); j++){
-			delete(company.getClients()[i]->getServicesRequested()[j]);
-		}
-		delete(company.getClients()[i]);
-	}*/
+void terminateProgram(MovingCompany& company, int numberOfExistentClients, std::vector<int>& clientServices){
 
 	if((int)company.getClients().size() > numberOfExistentClients){
 		saveClients(company, (int)company.getClients().size() - numberOfExistentClients);
 	}
+
+	//saveServices();
 
 	company.freeMemory();
 
@@ -44,14 +37,15 @@ void terminateProgram(MovingCompany& company, int numberOfExistentClients){
 int main() {
 
 	int numberOfExistentClients;
+	std::vector<int> clientServices;
 
 	MovingCompany company("EletroMoving, S.A.", "Great company with moving.", "PT50 1452 0023 14698 7456 9878 3", "14579", 10, 9, 1995);
 
-	importInfo(company, numberOfExistentClients);
+	importInfo(company, numberOfExistentClients, clientServices);
 
 	run(company);
 
-	terminateProgram(company, numberOfExistentClients);
+	terminateProgram(company, numberOfExistentClients, clientServices);
 
 	return 0;
 }
