@@ -18,15 +18,11 @@
 
 const float TAX_WAREHOUSING_DAY = 0.01;		//  1%
 
-//typedef enum status {RECEIVED, PENDING} PaymentStatus;
-//typedef enum status {RECEIVED, PACKING, SHIPPED, ARRIVED_DEST, DELIVERED} Status;
-
 class Service{
 	int ID;
 	float weight;
 	Date beggining;
 	Date end;
-	//Status status;
 	Address origin;
 	Address destination;
 	Packaging* pack;

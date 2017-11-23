@@ -18,6 +18,7 @@ typedef enum status {PENDING, RECEIVED} PaymentStatus;
 
 class Payment{
 	float paymentTax;
+	//bool endOfMonth;
 	PaymentStatus status;
 public:
 	Payment();

@@ -226,5 +226,199 @@ void saveClients(MovingCompany& company, int newClients){
 	clientsFile.close();
 }
 
+std::string saveTransportService(Transport* tService, int idC){
+
+	std::string line;
+	std::stringstream ss;
+	std::string delimiter = "/", dateDelimiter = "-", hourDelimiter = ":", addressDelimiterB = "[", addressDelimiterE = "]";
+
+	//------  CLIENT ID  -------//
+	std::string idClient;
+	ss << idC;
+	ss >> idClient;
+
+	ss.clear();
+	ss.str(std::string());
+
+	line.append(idClient).append(delimiter);
+
+	//------  SERVICE TYPE  ------//
+	std::string type = "T";
+
+	line.append(type).append(delimiter);
+
+	//------  SERVICE WEIGHT ------//
+	int w = tService->getWeight();
+	std::string weight;
+	ss << w;
+	ss >> weight;
+
+	ss.clear();
+	ss.str(std::string());
+
+	line.append(weight).append(delimiter);
+
+	//------  BEGGINING DATE  -------//
+	std::string bDate;
+	ss << tService->getBeggining().getDay() << dateDelimiter << tService->getBeggining().getMonth() << "-" << tService->getBeggining().getYear()
+			<< dateDelimiter << tService->getBeggining().getHour() << hourDelimiter << tService->getBeggining().getMinute();
+	ss >> bDate;
+
+	ss.clear();
+	ss.str(std::string());
+
+	line.append(bDate).append(delimiter);
+
+	//------  ENDING DATE  -------//
+	std::string eDate;
+	ss << tService->getEnd().getDay() << dateDelimiter << tService->getEnd().getMonth() << "-" << tService->getEnd().getYear()
+			<< dateDelimiter << tService->getEnd().getHour() << hourDelimiter << tService->getEnd().getMinute();
+	ss >> eDate;
+
+	ss.clear();
+	ss.str(std::string());
+
+	line.append(eDate).append(delimiter).append(addressDelimiterB);
+
+	//-------  ORIGIN ADDRESS  -------//
+	std::string originAddress;
+	std::string originAddressStreet, originAddressCity, originAddressZipCode, originAddressCountry;
+
+	originAddressStreet = tService->getOrigin().getStreet();
+	originAddressCity = tService->getOrigin().getCity();
+	originAddressZipCode = tService->getOrigin().getZipCode();
+	originAddressCountry = tService->getOrigin().getCountryAux();
+
+	originAddress = originAddressStreet.append(delimiter).append(originAddressZipCode).append(delimiter)
+			.append(originAddressCity).append(delimiter).append(originAddressCountry);
+
+	line.append(originAddress).append(addressDelimiterE);
+
+	//-------  DESTINATION INFO -------//
+	std::string destinationAddress;
+	std::string destinationAddressStreet, destinationAddressCity, destinationAddressZipCode, destinationAddressCountry;
+
+	destinationAddressStreet = tService->getDestination().getStreet();
+	destinationAddressCity = tService->getDestination().getCity();
+	destinationAddressZipCode = tService->getDestination().getZipCode();
+	destinationAddressCountry = tService->getDestination().getCountryAux();
+
+	destinationAddress = destinationAddressStreet.append(delimiter).append(destinationAddressZipCode).append(delimiter)
+			.append(destinationAddressCity).append(delimiter).append(destinationAddressCountry);
+
+
+	line.append(destinationAddress).append(addressDelimiterE);
+
+	//------- PACKAGING INFO  --------//
+
+	std::string packagingDateB;
+	ss << tService->getPackagingBegginingDate().getDay() << dateDelimiter << tService->getPackagingBegginingDate().getMonth() << "-"
+			<< tService->getPackagingBegginingDate().getYear()<< dateDelimiter << tService->getPackagingBegginingDate().getHour()
+			<< hourDelimiter << tService->getPackagingBegginingDate().getMinute();
+	ss >> packagingDateB;
+
+	ss.clear();
+	ss.str(std::string());
+
+	std::string packagingDateE;
+
+	ss << tService->getPackagingEndDate().getDay() << dateDelimiter << tService->getPackagingEndDate().getMonth() << "-"
+			<< tService->getPackagingEndDate().getYear()<< dateDelimiter << tService->getPackagingEndDate().getHour()
+			<< hourDelimiter << tService->getPackagingEndDate().getMinute();
+
+	ss >> packagingDateE;
+
+	ss.clear();
+	ss.str(std::string());
+
+	line.append("P/").append(packagingDateB).append(delimiter).append(packagingDateE).append(delimiter);
+
+
+	//------- SHIPPING INFO  --------//
+
+	std::string shippingDateB, shippingDateE;
+
+	ss << tService->getShippingBegginingDate().getDay() << dateDelimiter << tService->getShippingBegginingDate().getMonth() << "-"
+			<< tService->getShippingBegginingDate().getYear()<< dateDelimiter << tService->getShippingBegginingDate().getHour()
+			<< hourDelimiter << tService->getShippingBegginingDate().getMinute();
+	ss >> shippingDateB;
+
+	ss.clear();
+	ss.str(std::string());
+
+	ss << tService->getShippingEndDate().getDay() << dateDelimiter << tService->getShippingEndDate().getMonth() << "-"
+			<< tService->getShippingEndDate().getYear()<< dateDelimiter << tService->getShippingEndDate().getHour()
+			<< hourDelimiter << tService->getShippingEndDate().getMinute();
+	ss >> shippingDateE;
+
+	ss.clear();
+	ss.str(std::string());
+
+	//------- DELIVERY INFO  --------//
+
+	std::string deliveryDateB, deliveryDateE;
+
+	ss << tService->getDeliveryBegginingDate().getDay() << dateDelimiter << tService->getDeliveryBegginingDate().getMonth() << "-"
+			<< tService->getDeliveryBegginingDate().getYear()<< dateDelimiter << tService->getDeliveryBegginingDate().getHour()
+			<< hourDelimiter << tService->getDeliveryBegginingDate().getMinute();
+	ss >> deliveryDateB;
+
+	ss.clear();
+	ss.str(std::string());
+
+	ss << tService->getDeliveryEndDate().getDay() << dateDelimiter << tService->getDeliveryEndDate().getMonth() << "-"
+			<< tService->getDeliveryEndDate().getYear()<< dateDelimiter << tService->getDeliveryEndDate().getHour()
+			<< hourDelimiter << tService->getDeliveryEndDate().getMinute();
+	ss >> deliveryDateE;
+
+	ss.clear();
+	ss.str(std::string());
+	line.append("D/").append(deliveryDateB).append(delimiter).append(deliveryDateE).append(delimiter);
+
+	//-------  PAYMENT TYPE  -------//
+
+	std::string payType = tService->getPayment()->getPaymentType();
+
+	line.append(payType);
+
+	std::cout << line;
+
+
+
+	return bDate;
+}
+
+std::string saveWarehousingTransport(Warehousing* wService, int idClient){
+
+}
+
+
+void saveServices(MovingCompany& company){
+
+	std::ofstream servicesFile;
+	//servicesFile.open("InfoFiles/services.txt", std::ios::trunc);
+
+	int i, j;
+	int clientsSize = company.getClients().size();
+
+	for(i = 0; i < clientsSize; i++){
+
+		for(j = 0; j < (int)company.getClients()[i]->getServicesRequested().size(); j++){
+
+			std::string infoService;
+
+			if(!company.getClients()[i]->getServicesRequested()[j]->isWarehousing()){
+				infoService = saveTransportService((Transport*)company.getClients()[i]->getServicesRequested()[j], i);
+			}
+			else{
+				//infoService = saveWarehousingTransport((Warehousing*)company.getClients()[i]->getServicesRequested()[j], i);
+			}
+
+			//servicesFile << infoService;
+		}
+	}
+
+	servicesFile.close();
+}
 
 

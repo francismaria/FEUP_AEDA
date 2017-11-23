@@ -14,6 +14,6 @@
 
 void saveClients(MovingCompany& company, int newClients);
 
-void saveServices(MovingCompany& company, int newServices);
+void saveServices(MovingCompany& company);
 
 #endif /* EXPORTINFO_H_ */
