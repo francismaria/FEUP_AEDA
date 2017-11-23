@@ -50,10 +50,15 @@ Date& Service::getBeggining() {
 }
 Date& Service::getEnd(){
 	return end;
-}/*
-Status Service::getStatus() {
-	return status;
-}*/
+}
+
+Address& Service::getOrigin(){
+	return origin;
+}
+
+Address& Service::getDestination(){
+	return destination;
+}
 
 void Service::setID(int id){
 	ID = id;

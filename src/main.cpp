@@ -12,7 +12,7 @@
 #include "ExportInfo.h"
 
 
-void importInfo(MovingCompany& company, int& numberOfExistentClients, std::vector<int>& clientServices){
+void importInfo(MovingCompany& company, int& numberOfExistentClients){
 
 	importCountries(company);
 	importCountriesZones(company);
@@ -21,13 +21,13 @@ void importInfo(MovingCompany& company, int& numberOfExistentClients, std::vecto
 
 }
 
-void terminateProgram(MovingCompany& company, int numberOfExistentClients, std::vector<int>& clientServices){
+void terminateProgram(MovingCompany& company, int numberOfExistentClients){
 
 	if((int)company.getClients().size() > numberOfExistentClients){
 		saveClients(company, (int)company.getClients().size() - numberOfExistentClients);
 	}
 
-	//saveServices();
+	saveServices(company);
 
 	company.freeMemory();
 
@@ -37,15 +37,14 @@ void terminateProgram(MovingCompany& company, int numberOfExistentClients, std::
 int main() {
 
 	int numberOfExistentClients;
-	std::vector<int> clientServices;
 
 	MovingCompany company("EletroMoving, S.A.", "Great company with moving.", "PT50 1452 0023 14698 7456 9878 3", "14579", 10, 9, 1995);
 
-	importInfo(company, numberOfExistentClients, clientServices);
+	importInfo(company, numberOfExistentClients);
 
 	run(company);
 
-	terminateProgram(company, numberOfExistentClients, clientServices);
+	terminateProgram(company, numberOfExistentClients);
 
 	return 0;
 }

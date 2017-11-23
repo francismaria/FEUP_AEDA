@@ -45,6 +45,8 @@ public:
 	void setID(int id);
 	Date& getBeggining();
 	Date& getEnd();
+	Address& getOrigin();
+	Address& getDestination();
 	Payment* getPayment() const;
 	float getWeight() const;
 	float getTotalCost() const;
@@ -60,6 +62,7 @@ public:
 	Date& getDeliveryBegginingDate() const;
 	Date& getDeliveryEndDate() const;
 	void validatePayment();
+	virtual bool isWarehousing(){};
 	friend std::ostream& operator <<(std::ostream& o, const Service& s){
 		o << "SERVICE INFO: " << "Origin: " << s.origin.getCity() << "\tDestination: " << s.destination.getCity() <<
 				"\n\tRequested on: " << s.beggining << "\tDelivered on: " << s.end << "\n\n\t\tDETAILED INFO:\n\n\t" <<
@@ -75,6 +78,7 @@ public:
 class Transport: public Service{
 public:
 	Transport(Address& o, Address& d, float w, Date& b, Date& e);
+	bool isWarehousing(){ return false; }
 };
 
 class Warehousing: public Transport{
@@ -82,6 +86,7 @@ class Warehousing: public Transport{
 public:
 	Warehousing(Address& o, Address& d, float w, Date& b, Date& e, int daysWarehouse);
 	int getDaysWarehouse() const;
+	bool isWarehousing(){ return true; }
 };
 
 

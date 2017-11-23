@@ -26,7 +26,6 @@ public:
 	std::string getZipCode() const;
 	std::string getCity() const;
 	std::string getCountryAux() const;
-	//Country* getCountry();
 	ConnectionCountryInfo& getCountry();
 	void setStreet(std::string s);
 	void setZipCode(std::string z);

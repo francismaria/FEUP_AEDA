@@ -920,7 +920,7 @@ int checkClientsServiceStatus(MovingCompany& company){
 
 	int id;
 
-	std::cout << "\n\n\t\t\t\t\t\t\CHECK CLIENT PAYMENT STATUS\n" << std::endl;
+	std::cout << "\n\n\t\t\t\t\t\t\tCHECK CLIENT PAYMENT STATUS\n" << std::endl;
 	std::cout << "\t\tEnter the ID of the client to check the client's service payment status: ";
 
 	std::cin >> id;
