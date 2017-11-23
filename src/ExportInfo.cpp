@@ -383,9 +383,7 @@ std::string saveTransportService(Transport* tService, int idC){
 
 	std::cout << line;
 
-
-
-	return bDate;
+	return line;
 }
 
 std::string saveWarehousingTransport(Warehousing* wService, int idClient){
