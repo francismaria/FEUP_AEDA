@@ -78,8 +78,6 @@ int newRegisteredClientService(MovingCompany& company){
 
 	Address destination(address, zipCode, city, company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination));
 
-	//std::cout << company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getName();
-
 	int day, month, year, hour, minute;
 	std::cout << "\n\n\t\t\t\t\t\tDATE INFO:" << std::endl;
 	std::cout << "\n\n\t\t\t\tDay: ";
@@ -256,7 +254,7 @@ int newRegisteredClientService(MovingCompany& company){
 			std::cout << "\t\t\t\t\t\t1 - ATM" << std::endl;
 			std::cout << "\t\t\t\t\t\t2 - Credit Card" << std::endl;
 			std::cout << "\t\t\t\t\t\t3 - Bank Transfer" << std::endl;
-			std::cout << "\n\t\t\t\t\t4 - End of the Month" << std::endl;
+			std::cout << "\t\t\t\t\t\t4 - End of the Month\n" << std::endl;
 
 			std::cin >> option;
 
@@ -304,17 +302,22 @@ int newRegisteredClientService(MovingCompany& company){
 
 			}
 			else if(option == 4){
-				//------------------------>>>>>>>PAY AT THE END OF MONTH
-			}
-			else if(option == 0) return 0;
 
+				EndOfMonth* eom = new EndOfMonth();
+				svcT->setPayment(eom);
+
+				std::cout << "\n\t\t\t\tThis service has been added to client's debt.";
+				std::cout << "\n\t\t\t\t\t   Montant: " << svcT->getTotalCost() << std::endl;
+
+				std::cout << svcT->getPayment()->getPaymentType();
+			}
+
+			else if(option == 0) return 0;
 			else if(option == -1) return -1;
 
 		}
 
 		company.getClients()[idClient-1]->addNewService(svcT);
-
-		//std::cout << *company.getClients()[idClient-1]->getServicesRequested()[2];
 
 	}
 	else if(response == "y" || response == "Y"){					//WAREHOUSING
@@ -485,7 +488,15 @@ int newRegisteredClientService(MovingCompany& company){
 
 			}
 			else if(option == 4){
-				//------------------------>>>>>>>PAY AT THE END OF MONTH
+
+				EndOfMonth* eom = new EndOfMonth();
+				svcW->setPayment(eom);
+
+				std::cout << "\n\t\t\t\tThis service has been added to client's debt.";
+				std::cout << "\n\t\t\t\t\t   Montant: " << svcW->getTotalCost() << std::endl;
+
+				std::cout << svcW->getPayment()->getPaymentType();
+
 			}
 			else if(option == 0) return 0;
 
@@ -495,7 +506,7 @@ int newRegisteredClientService(MovingCompany& company){
 
 		company.getClients()[idClient-1]->addNewService(svcW);
 
-		std::cout << *company.getClients()[idClient-1]->getServicesRequested()[2];
+		//std::cout << *company.getClients()[idClient-1]->getServicesRequested()[0];		DEBUG
 	}
 
 	else if(response == "0") return 0;

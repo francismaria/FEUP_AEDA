@@ -337,7 +337,7 @@ void readDate(std::stringstream& ss, Date& date){
 	date.setMinute(minute);
 }
 
-/*void*/int readAddress(MovingCompany& company, std::stringstream& auxSS, Address& address){
+int readAddress(MovingCompany& company, std::stringstream& auxSS, Address& address){
 
 	std::string streetAddress, zipCode, city, countryName;
 
@@ -514,6 +514,13 @@ void importServices(MovingCompany& company){
 				pay = new BankTransfer(company.getIBAN());
 			}
 
+			std::string paymentStatus;
+			std::getline(ss, paymentStatus);
+
+			if(paymentStatus == "R"){
+				pay->validate();
+			}
+
 
 			//------------------AUXILIAR
 			/*std::cout << begginingTransport;
@@ -671,7 +678,6 @@ void importServices(MovingCompany& company){
 			auxSS.str(std::string());
 
 			std::string typePayment;
-
 			std::getline(ss, typePayment, '/');
 
 			Payment* pay;
@@ -685,7 +691,14 @@ void importServices(MovingCompany& company){
 			else if(typePayment == "BT"){
 				pay = new BankTransfer(company.getIBAN());
 			}
-/*
+
+			std::string paymentStatus;
+			std::getline(ss, paymentStatus);
+
+			if(paymentStatus == "R")
+				pay->validate();
+
+			/*
 			//------------------AUXILIAR
 			std::cout << begginingTransport;
 			std::cout << endTransport;

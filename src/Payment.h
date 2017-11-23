@@ -9,16 +9,17 @@
 #define PAYMENT_H_
 
 #include "Libraries.h"
+#include "Date.h"
 
 const float TAX_ATM = 0;
 const float TAX_CREDIT_CARD = 0.05;
 const float TAX_BANK_TRANSFER = 0;
+const float TAX_END_OF_MONTH = 0;
 
 typedef enum status {PENDING, RECEIVED} PaymentStatus;
 
 class Payment{
 	float paymentTax;
-	//bool endOfMonth;
 	PaymentStatus status;
 public:
 	Payment();
@@ -61,14 +62,14 @@ public:
 	std::string getIBAN() const;
 	std::string getPaymentType() const;
 };
-/*
-class EndMonth: public Payment{ //Para clientes empresariais registados
-	Date beggining;
+
+class EndOfMonth: public Payment{
 	Date end;
 public:
-	EndMonth(){}
-	//bool specialPayment(){return true;}
-};*/
+	EndOfMonth();
+	EndOfMonth(int month);
+	std::string getPaymentType() const;
+};
 
 
 

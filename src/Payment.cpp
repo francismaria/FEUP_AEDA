@@ -33,7 +33,6 @@ void Payment::validate(){
 	status = RECEIVED;
 }
 
-
 /****************************************/
 /************     ATM	 ****************/
 /****************************************/
@@ -91,6 +90,20 @@ std::string BankTransfer::getIBAN() const{
 
 std::string BankTransfer::getPaymentType() const{
 	return "Bank Transfer";
+}
+
+
+/*****************************************/
+/*********    END OF MONTH   *************/
+/*****************************************/
+
+EndOfMonth::EndOfMonth(): Payment(TAX_END_OF_MONTH){}
+
+EndOfMonth::EndOfMonth(int month){
+}
+
+std::string EndOfMonth::getPaymentType() const{
+	return "Payable until the end of month";
 }
 
 
