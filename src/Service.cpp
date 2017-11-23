@@ -136,3 +136,7 @@ Warehousing::Warehousing(Address& o, Address& d, float w, Date& b, Date& e, int 
 	}
 }
 
+int Warehousing::getDaysWarehouse() const{
+	return daysWarehouse;
+}
+

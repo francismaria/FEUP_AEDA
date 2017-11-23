@@ -64,10 +64,11 @@ public:
 };
 
 class EndOfMonth: public Payment{
-	Date end;
+	int endMonth;
 public:
 	EndOfMonth();
 	EndOfMonth(int month);
+	int getEndMonth() const;
 	std::string getPaymentType() const;
 };
 

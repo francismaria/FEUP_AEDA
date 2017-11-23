@@ -306,7 +306,7 @@ int newRegisteredClientService(MovingCompany& company){
 				EndOfMonth* eom = new EndOfMonth();
 				svcT->setPayment(eom);
 
-				std::cout << "\n\t\t\t\tThis service has been added to client's debt.";
+				std::cout << "\n\t\t\t\tThis service has been added to client's debt. It is payable until the end of the month.";
 				std::cout << "\n\t\t\t\t\t   Montant: " << svcT->getTotalCost() << std::endl;
 
 				std::cout << svcT->getPayment()->getPaymentType();
@@ -440,7 +440,7 @@ int newRegisteredClientService(MovingCompany& company){
 			std::cout << "\t\t\t\t\t\t1 - ATM" << std::endl;
 			std::cout << "\t\t\t\t\t\t2 - Credit Card" << std::endl;
 			std::cout << "\t\t\t\t\t\t3 - Bank Transfer" << std::endl;
-			std::cout << "\n\t\t\t\t\t4 - End of the Month" << std::endl;
+			std::cout << "\t\t\t\t\t\t4 - End of the Month" << std::endl;
 
 			std::cin >> option;
 
@@ -492,7 +492,7 @@ int newRegisteredClientService(MovingCompany& company){
 				EndOfMonth* eom = new EndOfMonth();
 				svcW->setPayment(eom);
 
-				std::cout << "\n\t\t\t\tThis service has been added to client's debt.";
+				std::cout << "\n\t\t\t\tThis service has been added to client's debt. It is payable until the end of the month.";
 				std::cout << "\n\t\t\t\t\t   Montant: " << svcW->getTotalCost() << std::endl;
 
 				std::cout << svcW->getPayment()->getPaymentType();
@@ -505,8 +505,6 @@ int newRegisteredClientService(MovingCompany& company){
 		}
 
 		company.getClients()[idClient-1]->addNewService(svcW);
-
-		//std::cout << *company.getClients()[idClient-1]->getServicesRequested()[0];		DEBUG
 	}
 
 	else if(response == "0") return 0;

@@ -278,7 +278,7 @@ std::string saveTransportService(Transport* tService, int idC){
 	ss.clear();
 	ss.str(std::string());
 
-	line.append(eDate).append(delimiter).append(addressDelimiterB);
+	line.append(eDate).append(addressDelimiterB);
 
 	//-------  ORIGIN ADDRESS  -------//
 	std::string originAddress;
@@ -353,6 +353,7 @@ std::string saveTransportService(Transport* tService, int idC){
 
 	ss.clear();
 	ss.str(std::string());
+	line.append("S/").append(shippingDateB).append(delimiter).append(shippingDateE).append(delimiter);
 
 	//------- DELIVERY INFO  --------//
 
@@ -376,25 +377,225 @@ std::string saveTransportService(Transport* tService, int idC){
 	line.append("D/").append(deliveryDateB).append(delimiter).append(deliveryDateE).append(delimiter);
 
 	//-------  PAYMENT TYPE  -------//
+	std::string payType;
+	std::string typePayment = tService->getPayment()->getPaymentType();
 
-	std::string payType = tService->getPayment()->getPaymentType();
+	if(typePayment == "Bank Transfer")
+		payType = "BT";
+	else if(typePayment == "Payable until the end of month")
+		payType = "EOM";
+	else if(typePayment == "Credit Card")
+		payType = "CC";
+	else
+		payType = "ATM";
 
-	line.append(payType);
+	line.append(payType).append(delimiter);
+
+	//------- PAYMENT STATUS ------//
+	std::string payStatus = tService->getPayment()->getPaymentStatus();
+	line.append(payStatus).append("\n");
+
+	std::cout << line;
+	return line;
+}
+
+std::string saveWarehousingService(Warehousing* wService, int idClient){
+
+	std::string line;
+	std::stringstream ss;
+	std::string delimiter = "/", dateDelimiter = "-", hourDelimiter = ":", addressDelimiterB = "[", addressDelimiterE = "]";
+
+	//------- CLIENT ID ------//
+	std::string idC;
+	ss << idClient;
+	ss >> idC;
+
+	ss.clear();
+	ss.str(std::string());
+
+	line.append(idC).append(delimiter);
+
+	//-------SERVICE TYPE---------//
+
+	std::string type = "W";
+	line.append(type).append(delimiter);
+
+	//------ WAREHOUSING DAYS ------//
+
+	int daysWarehouse = wService->getDaysWarehouse();
+	std::string daysW;
+
+	ss << daysWarehouse;
+	ss >> daysW;
+
+	ss.clear();
+	ss.str(std::string());
+
+	line.append(daysW).append(delimiter);
+
+	//--------SERVICE WEIGHT---------//
+
+	int w = wService->getWeight();
+	std::string weight;
+	ss << w;
+	ss >> weight;
+
+	ss.clear();
+	ss.str(std::string());
+
+	line.append(weight).append(delimiter);
+
+	//--------------BEGGINING DATE-------------//
+	std::string bDate;
+	ss << wService->getBeggining().getDay() << dateDelimiter << wService->getBeggining().getMonth() << "-" << wService->getBeggining().getYear()
+			<< dateDelimiter << wService->getBeggining().getHour() << hourDelimiter << wService->getBeggining().getMinute();
+	ss >> bDate;
+
+	ss.clear();
+	ss.str(std::string());
+
+	line.append(bDate).append(delimiter);
+
+	//-------------ENDING DATE------------//
+
+	std::string eDate;
+	ss << wService->getEnd().getDay() << dateDelimiter << wService->getEnd().getMonth() << "-" << wService->getEnd().getYear()
+			<< dateDelimiter << wService->getEnd().getHour() << hourDelimiter << wService->getEnd().getMinute();
+
+	ss >> eDate;
+
+	ss.clear();
+	ss.str(std::string());
+
+	line.append(eDate).append(addressDelimiterB);
+
+	//------------ORIGIN ADDRESS--------------//
+	std::string originAddress;
+	std::string originAddressStreet , originAddressCity, originAddressZipCode, originAddressCountry;
+
+	originAddressStreet = wService->getOrigin().getStreet();
+	originAddressCity = wService->getOrigin().getCity();
+	originAddressZipCode = wService->getOrigin().getZipCode();
+	originAddressCountry = wService->getOrigin().getCountryAux();
+
+	originAddress = originAddressStreet.append(delimiter).append(originAddressZipCode).append(delimiter)
+			.append(originAddressCity).append(delimiter).append(originAddressCountry);
+
+	line.append(originAddress).append(addressDelimiterE);
+
+	//------------DESTINATION INFO-----------//
+
+	std::string destinationAddress;
+	std::string destinationAddressStreet, destinationAddressCity, destinationAddressZipCode, destinationAddressCountry;
+
+	destinationAddressStreet = wService->getDestination().getStreet();
+	destinationAddressCity = wService->getDestination().getCity();
+	destinationAddressZipCode = wService->getDestination().getZipCode();
+	destinationAddressCountry = wService->getDestination().getCountryAux();
+
+	destinationAddress = destinationAddressStreet.append(delimiter).append(destinationAddressZipCode).append(delimiter)
+		.append(destinationAddressCity).append(delimiter).append(destinationAddressCountry);
+
+	line.append(destinationAddress).append(addressDelimiterE);
+
+	//---------------------PACKAGING INFO---------------//
+
+	std::string packagingDateB;
+	ss << wService->getPackagingBegginingDate().getDay() << dateDelimiter << wService->getPackagingBegginingDate().getMonth() << "-"
+			<< wService->getPackagingBegginingDate().getYear() << dateDelimiter << wService->getPackagingBegginingDate().getHour()
+			<< hourDelimiter << wService->getPackagingBegginingDate().getMinute();
+	ss >> packagingDateB;
+
+	ss.clear();
+	ss.str(std::string());
+
+	std::string packagingDateE;
+
+	ss << wService->getPackagingEndDate().getDay() << dateDelimiter << wService->getPackagingEndDate().getMonth() << "-"
+			<< wService->getPackagingEndDate().getYear()<< dateDelimiter << wService->getPackagingEndDate().getHour()
+			<< hourDelimiter << wService->getPackagingEndDate().getMinute();
+
+	ss >> packagingDateE;
+
+	ss.clear();
+	ss.str(std::string());
+
+	line.append("P/").append(packagingDateB).append(delimiter).append(packagingDateE).append(delimiter);
+
+	//------- SHIPPING INFO  --------//
+
+	std::string shippingDateB, shippingDateE;
+
+	ss << wService->getShippingBegginingDate().getDay() << dateDelimiter << wService->getShippingBegginingDate().getMonth() << "-"
+			<< wService->getShippingBegginingDate().getYear()<< dateDelimiter << wService->getShippingBegginingDate().getHour()
+			<< hourDelimiter << wService->getShippingBegginingDate().getMinute();
+	ss >> shippingDateB;
+
+	ss.clear();
+	ss.str(std::string());
+
+	ss << wService->getShippingEndDate().getDay() << dateDelimiter << wService->getShippingEndDate().getMonth() << "-"
+			<< wService->getShippingEndDate().getYear()<< dateDelimiter << wService->getShippingEndDate().getHour()
+			<< hourDelimiter << wService->getShippingEndDate().getMinute();
+	ss >> shippingDateE;
+
+	ss.clear();
+	ss.str(std::string());
+
+	line.append("S/").append(shippingDateB).append(delimiter).append(shippingDateE).append(delimiter);
+
+
+	//------- DELIVERY INFO  --------//
+
+	std::string deliveryDateB, deliveryDateE;
+
+	ss << wService->getDeliveryBegginingDate().getDay() << dateDelimiter << wService->getDeliveryBegginingDate().getMonth() << "-"
+			<< wService->getDeliveryBegginingDate().getYear()<< dateDelimiter << wService->getDeliveryBegginingDate().getHour()
+			<< hourDelimiter << wService->getDeliveryBegginingDate().getMinute();
+	ss >> deliveryDateB;
+
+	ss.clear();
+	ss.str(std::string());
+
+	ss << wService->getDeliveryEndDate().getDay() << dateDelimiter << wService->getDeliveryEndDate().getMonth() << "-"
+			<< wService->getDeliveryEndDate().getYear()<< dateDelimiter << wService->getDeliveryEndDate().getHour()
+			<< hourDelimiter << wService->getDeliveryEndDate().getMinute();
+	ss >> deliveryDateE;
+
+	ss.clear();
+	ss.str(std::string());
+	line.append("D/").append(deliveryDateB).append(delimiter).append(deliveryDateE).append(delimiter);
+
+	//-------  PAYMENT TYPE  -------//
+
+	std::string payType;
+	std::string typePayment = wService->getPayment()->getPaymentType();
+/*
+	if(typePayment == "Bank Transfer")
+		payType = "BT";
+	if(typePayment == "Payable until the end of month")
+		payType = "EOM";
+	if(typePayment == "Credit Card")
+		payType = "CC";
+	else
+		payType = "ATM";
+*/
+	line.append(typePayment).append(delimiter);
+
+	std::string payStatus = wService->getPayment()->getPaymentStatus();
+	line.append(payStatus).append("\n");
 
 	std::cout << line;
 
 	return line;
 }
 
-std::string saveWarehousingTransport(Warehousing* wService, int idClient){
-
-}
 
 
 void saveServices(MovingCompany& company){
 
 	std::ofstream servicesFile;
-	//servicesFile.open("InfoFiles/services.txt", std::ios::trunc);
+	servicesFile.open("InfoFiles/services.txt", std::ios::trunc);
 
 	int i, j;
 	int clientsSize = company.getClients().size();
@@ -409,10 +610,10 @@ void saveServices(MovingCompany& company){
 				infoService = saveTransportService((Transport*)company.getClients()[i]->getServicesRequested()[j], i);
 			}
 			else{
-				//infoService = saveWarehousingTransport((Warehousing*)company.getClients()[i]->getServicesRequested()[j], i);
+				infoService = saveWarehousingService((Warehousing*)company.getClients()[i]->getServicesRequested()[j], i);
 			}
 
-			//servicesFile << infoService;
+			servicesFile << infoService;
 		}
 	}
 

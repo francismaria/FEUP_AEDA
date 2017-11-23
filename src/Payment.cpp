@@ -80,8 +80,6 @@ std::string CreditCard::getPaymentType() const{
 /**********	  BANK TRANSFER  ************/
 /****************************************/
 
-BankTransfer::BankTransfer(){};
-
 BankTransfer::BankTransfer(std::string iban): Payment(TAX_BANK_TRANSFER), IBAN(iban){}
 
 std::string BankTransfer::getIBAN() const{
@@ -99,7 +97,10 @@ std::string BankTransfer::getPaymentType() const{
 
 EndOfMonth::EndOfMonth(): Payment(TAX_END_OF_MONTH){}
 
-EndOfMonth::EndOfMonth(int month){
+EndOfMonth::EndOfMonth(int month): Payment(TAX_END_OF_MONTH), endMonth(month){}
+
+int EndOfMonth::getEndMonth() const{
+	return endMonth;
 }
 
 std::string EndOfMonth::getPaymentType() const{

@@ -513,11 +513,28 @@ void importServices(MovingCompany& company){
 			else if(typePayment == "BT"){
 				pay = new BankTransfer(company.getIBAN());
 			}
+			else if(typePayment == "EOM"){
+				int actualMonth;
+				time_t rawtime;
+				struct tm* timeinfo;
+				char buffer[80];
+
+				time(&rawtime);
+				timeinfo = localtime(&rawtime);
+				strftime(buffer, sizeof(buffer), "%m", timeinfo);
+
+				std::string buf(buffer);
+
+				ss << buf;
+				ss >> actualMonth;
+
+				pay = new EndOfMonth(actualMonth);
+			}
 
 			std::string paymentStatus;
 			std::getline(ss, paymentStatus);
 
-			if(paymentStatus == "R"){
+			if(paymentStatus == "RECEIVED"){
 				pay->validate();
 			}
 
@@ -685,17 +702,35 @@ void importServices(MovingCompany& company){
 			if(typePayment == "ATM"){
 				pay = new ATM(company.getEntity());
 			}
-			else if(typePayment == "CC"){
+			else if(typePayment == "Credit Card"){
 				pay = new CreditCard();
 			}
-			else if(typePayment == "BT"){
+			else if(typePayment == "Bank Transfer"){
 				pay = new BankTransfer(company.getIBAN());
 			}
+			else if(typePayment == "Payable until the end of month"){
+				int actualMonth;
+				time_t rawtime;
+				struct tm* timeinfo;
+				char buffer[80];
 
+				time(&rawtime);
+				timeinfo = localtime(&rawtime);
+				strftime(buffer, sizeof(buffer), "%m", timeinfo);
+
+				std::string buf(buffer);
+
+				ss << buf;
+				ss >> actualMonth;
+
+				pay = new EndOfMonth(actualMonth);
+			}
+
+			//---- Payment Status
 			std::string paymentStatus;
 			std::getline(ss, paymentStatus);
 
-			if(paymentStatus == "R")
+			if(paymentStatus == "RECEIVED")
 				pay->validate();
 
 			/*
@@ -710,7 +745,8 @@ void importServices(MovingCompany& company){
 			std::cout << "\nSHIPPING" << shippingB.getDay() << shippingE.getMinute();
 			std::cout << "\nDELIVERY" << deliveryB.getDay() << deliveryE.getMinute();
 			//--------------------------
-*/
+			 */
+
 			Warehousing* svcW = new Warehousing(origin, destination, weight, begginingWarehousing, endWarehousing, daysWarehousing);
 			int idW = svcW->getID();
 
