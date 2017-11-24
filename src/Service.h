@@ -19,7 +19,7 @@
 const float TAX_WAREHOUSING_DAY = 0.01;		//  1%
 
 /**
- * Class that stores all service information
+ * @brief Class that stores all service information
  */
 class Service{
 	int ID;

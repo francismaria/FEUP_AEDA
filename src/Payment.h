@@ -58,6 +58,9 @@ public:
 	virtual std::string getPaymentType() const = 0;
 };
 
+/**
+ * @brief Class that represents an ATM payment
+ */
 class ATM: public Payment{
 	std::string entity;
 	int reference;
@@ -85,6 +88,9 @@ public:
 	std::string getPaymentType() const;
 };
 
+/**
+ * @brief Class that represents a Credit Card payment
+ */
 class CreditCard: public Payment{ //Permitido apenas a clientes empresariais registados taxa de 5%
 	std::string cardNumber;
 	static float tax;
@@ -122,6 +128,9 @@ public:
 
 };
 
+/**
+ * @brief Class that represents a Bank Transfer payment
+ */
 class BankTransfer: public Payment{
 	std::string IBAN;
 public:

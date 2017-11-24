@@ -10,6 +10,9 @@
 
 #include "Libraries.h"
 
+/**
+ * @brief Non existing client exception
+ */
 class NonExistingClient{
 public:
 	int ID;
@@ -20,20 +23,9 @@ public:
 	std::string getName(){ return name; }
 };
 
-class NonExistingCompany{
-public:
-	std::string name;
-	NonExistingCompany(std::string n){ name = n; }
-	std::string getName(){ return name; }
-};
-
-class NonExistingParticular{
-public:
-	std::string name;
-	NonExistingParticular(std::string n){ name = n; }
-	std::string getName(){ return name; }
-};
-
+/**
+ * @brief Non existing date exception
+ */
 class NonExistingDate{
 public:
 	int day, month, year;
