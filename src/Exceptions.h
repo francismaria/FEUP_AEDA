@@ -2,7 +2,7 @@
  * Exceptions.h
  *
  *  Created on: 14/11/2017
- *      Author: Francisco
+ *      Author: Francisco Maria / João Gama Amaral
  */
 
 #ifndef EXCEPTIONS_H_

@@ -10,12 +10,20 @@
 
 ConnectionCountryInfo::ConnectionCountryInfo(Country* c, int z, float bR): country(c), zone(z), baseRate(bR){}
 
-int ConnectionCountryInfo::getZone() const{ return zone; }
+int ConnectionCountryInfo::getZone() const{
+	return zone;
+}
 
-float ConnectionCountryInfo::getBaseRate() const{ return baseRate; }
+float ConnectionCountryInfo::getBaseRate() const{
+	return baseRate;
+}
 
-Country* ConnectionCountryInfo::getCountry() const{ return country; }
+Country* ConnectionCountryInfo::getCountry() const{
+	return country;
+}
 
-std::string ConnectionCountryInfo::getName() const{ return country->getName(); }
+std::string ConnectionCountryInfo::getName() const{
+	return country->getName();
+}
 
 

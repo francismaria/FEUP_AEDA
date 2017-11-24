@@ -35,7 +35,7 @@ int newRegisteredClientService(MovingCompany& company){
 	company.printAllCountriesToOperate();
 
 	int idOrigin;
-	std::cout << "\n\n\t\t\t\tCountry: ";
+	std::cout << "\n\t\t\t\tCountry: ";
 	std::cin.ignore();
 	std::cin >> idOrigin;
 
@@ -63,7 +63,7 @@ int newRegisteredClientService(MovingCompany& company){
 	company.printCountriesToOperateFrom(company.getCountriesToOperate()[idOrigin-1]);
 
 	int idDestination;
-	std::cout << "\n\n\t\t\t\tCountry: ";
+	std::cout << "\n\t\t\t\tCountry: ";
 	std::cin >> idDestination;
 
 	std::cout << "\n\t\t\t\tCity: ";

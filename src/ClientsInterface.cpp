@@ -275,7 +275,6 @@ int newCompanyClient(MovingCompany& company){
 	std::string zipCode = input;
 
 	input.clear();
-	//std::cin.ignore();
 
 		// -- City
 	std::cout << "\n\t\t\t\tCity: ";
@@ -457,8 +456,7 @@ int removeClient(MovingCompany& company){
 			std::cout << "\tHow would you like to remove the client?\n" << std::endl;
 			std::cout << "\t1 - By ID" << std::endl;
 			std::cout << "\t2 - By Name" << std::endl;
-			std::cout << "\t3 - By Address" << std::endl;
-			std::cout << "\t4 - By Joining Date\n" << std::endl;	//Se aparecerem varios imprimem-se e pergunta-se qual quer remover
+			std::cout << "\t3 - By Joining Date\n" << std::endl;
 			std::cout << "\t0 - Go Back\t\t\t-1 - Exit Program" << std::endl;
 
 			std::cout << "Please insert your option: ";
@@ -472,9 +470,6 @@ int removeClient(MovingCompany& company){
 					instruction = removeClientByName(company);		//Sequential Search algorithm
 					break;
 				case 3:
-					//instruction = removeClientByAddress(company);			//getline error
-					break;
-				case 4:
 					instruction = removeClientByJoiningDate(company);	//Sequential Search algorithm
 					break;
 				case 0:

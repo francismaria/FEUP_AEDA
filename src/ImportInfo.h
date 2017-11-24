@@ -13,12 +13,29 @@
 #include <fstream>
 #include <ctime>
 
+/**
+ * @brief import clients from .txt file
+ * @param company company itself
+ * @param numberofExistentClients number of already existent clients
+ */
 void importClients(MovingCompany& company, int& numberofExistentClients);
 
+/**
+ * @brief import countries from .txt file
+ * @param company company itself
+ */
 void importCountries(MovingCompany& company);
 
+/**
+ * @brief import countries zones from .txt file
+ * @param company company itself
+ */
 void importCountriesZones(MovingCompany& company);
 
+/**
+ * @brief import services from .txt file
+ * @param company company itself
+ */
 void importServices(MovingCompany& company);
 
 

@@ -15,13 +15,21 @@ MovingCompany::MovingCompany(std::string n, std::string d, std::string iban, std
 	this->Entity = e;
 }
 
-std::string MovingCompany::getName() const{ return name; }
+std::string MovingCompany::getName() const{
+	return name;
+}
 
-std::string MovingCompany::getDescription() const{ return description; }
+std::string MovingCompany::getDescription() const{
+	return description;
+}
 
-const Date& MovingCompany::getFoundingDate() const{ return foundingDate; }
+const Date& MovingCompany::getFoundingDate() const{
+	return foundingDate;
+}
 
-std::vector<Client*> MovingCompany::getClients() const{ return clients; }
+std::vector<Client*> MovingCompany::getClients() const{
+	return clients;
+}
 
 std::vector<Client*> MovingCompany::getParticularClients() const{
 
@@ -59,11 +67,17 @@ Country* MovingCompany::getCountry(std::string name) const{
 	//throw NonExistingClient
 }
 
-void MovingCompany::addClient(Client* c){ clients.push_back(c); }
+void MovingCompany::addClient(Client* c){
+	clients.push_back(c);
+}
 
-void MovingCompany::addCountry(Country* c){ countriesToOperate.push_back(c); }
+void MovingCompany::addCountry(Country* c){
+	countriesToOperate.push_back(c);
+}
 
-std::vector<Country*> MovingCompany::getCountriesToOperate() const{ return countriesToOperate; }
+std::vector<Country*> MovingCompany::getCountriesToOperate() const{
+	return countriesToOperate;
+}
 
 void MovingCompany::printAllCountriesToOperate() const{
 
@@ -72,11 +86,13 @@ void MovingCompany::printAllCountriesToOperate() const{
 	}
 }
 
-void MovingCompany::printCountriesToOperateFrom(Country* c){ c->printCountriesTo(); }//c->printZoneCountries(); }
+void MovingCompany::printCountriesToOperateFrom(Country* c){
+	c->printCountriesTo();
+}
 
-//Country* MovingCompany::getCountryDestination(Country* c, int id, int& zone1){ return c->getDestination(id, zone1); }
-
-ConnectionCountryInfo& MovingCompany::getCountryDestination(Country* c, int idDestination){ return c->getDestination(idDestination); }
+ConnectionCountryInfo& MovingCompany::getCountryDestination(Country* c, int idDestination){
+	return c->getDestination(idDestination);
+}
 
 std::string MovingCompany::getIBAN() const{
 	return IBAN;
@@ -326,7 +342,9 @@ void MovingCompany::printCompanyClientsByJoiningDate() const{
 	printByJoiningDate(companies_aux);
 }
 
-void MovingCompany::printClientServices(int id) const{ clients[id-1]->printServices(); }
+void MovingCompany::printClientServices(int id) const{
+	clients[id-1]->printServices();
+}
 
 int MovingCompany::checkClientServiceStatus(int id){
 

@@ -209,6 +209,7 @@ void saveClients(MovingCompany& company, int newClients){
 	clientsFile.open("InfoFiles/clients.txt", std::ios::app);
 
 	for(i = startIndex; i < clientsSize; i++){
+	//for(i = 0; i < company.getClients().size(); i++){
 
 		std::string infoClient;
 		Client* c = company.getClients()[i];

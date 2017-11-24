@@ -2,7 +2,7 @@
  * Shipping.cpp
  *
  *  Created on: 15/11/2017
- *      Author: Francisco
+ *      Author: Francisco Maria / João Gama Amaral
  */
 
 #include "Shipping.h"
@@ -11,10 +11,16 @@ Shipping::Shipping(Date& b, Date& e, float w, int id): beggining(b), end(e), wei
 	cost = w * TAX_SHIPPING;
 }
 
-Date& Shipping::getBeggining(){ return beggining; }
+Date& Shipping::getBeggining(){
+	return beggining;
+}
 
-Date& Shipping::getEnd(){ return end; }
+Date& Shipping::getEnd(){
+	return end;
+}
 
-float Shipping::getCost() const{ return cost; }
+float Shipping::getCost() const{
+	return cost;
+}
 
 

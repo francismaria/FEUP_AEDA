@@ -13,16 +13,41 @@
 
 const float TAX_SHIPPING = 0.075;
 
+/**
+ * @brief Class that stores all information of shipping service
+ */
 class Shipping{
 	float cost;
 	Date beggining;
 	Date end;
 	float weight;
 public:
+	/**
+	 * Shipping constructor
+	 */
 	Shipping(Date& b, Date& e, float w, int id);
+
+	/**
+	 * Shipping Destructor
+	 */
 	~Shipping(){};
+
+	/**
+	 * @brief gets beggining shipping date
+	 * @return date
+	 */
 	Date& getBeggining();
+
+	/**
+	 * @brief gets ending shipping date
+	 * @return date
+	 */
 	Date& getEnd();
+
+	/**
+	 * @brief gets cost of the shipping service
+	 * @return shipping cost
+	 */
 	float getCost() const;
 };
 

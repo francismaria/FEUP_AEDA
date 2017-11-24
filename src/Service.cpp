@@ -7,16 +7,11 @@
 
 #include "Service.h"
 
+/*****************************************************************/
 /************************** SERVICE ******************************/
+/*****************************************************************/
 
 int Service::numberOfServices = 1;
-
-Service::Service(Date& b, Date& e, int w): weight(w){
-	this->beggining = b;
-	this->end = end;
-	this->ID = numberOfServices;
-	numberOfServices++;
-}
 
 Service::~Service(){
 	delete(pack);
@@ -119,13 +114,16 @@ void Service::validatePayment(){
 	this->payment->validate();
 }
 
+/********************************************************/
 /******************* TRANSPORT **************************/
+/********************************************************/
 
 Transport::Transport(Address& o, Address& d, float w, Date& b, Date& e): Service(o, d, w, b, e){}
 
 
-
+/********************************************************/
 /******************* WAREHOUSING ************************/
+/********************************************************/
 
 Warehousing::Warehousing(Address& o, Address& d, float w, Date& b, Date& e, int daysWarehouse): Transport(o,d,w,b,e){
 	this->daysWarehouse = daysWarehouse;

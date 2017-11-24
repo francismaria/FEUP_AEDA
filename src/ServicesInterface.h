@@ -11,16 +11,47 @@
 #include "MovingCompany.h"
 #include <ctime>
 
+/**
+ * @brief creates new service
+ * @param company company itself
+ * @return 0 or -1 depending on the user input
+ */
 int newService(MovingCompany& company);
 
+/**
+ * @brief creates new service to a registered client
+ * @param company company itself
+ * @return 0 or -1 depending on the user input
+ */
 int newRegisteredClientService(MovingCompany& company);
 
+/**
+ * @brief creates new service to an unregistered client
+ * @param company company itself
+ * @return 0 or -1 depending on the user input
+ */
 int newUnregisteredClientService(MovingCompany& company);
 
+
+/**
+ * @brief prints all services of a certain client
+ * @param company company itself
+ * @return 0 or -1 depending on the user input
+ */
 int printClientsServices(MovingCompany& company);
 
+/**
+ * @brief print service status of some client
+ * @param company company itself
+ * @return 0 or -1 depending on the user input
+ */
 int checkClientsServiceStatus(MovingCompany& company);
 
+/**
+ * @brief validates certain client service payment
+ * @param company company itself
+ * @return 0 or -1 depending on the user input
+ */
 int validateClientsPayment(MovingCompany& company);
 
 #endif /* SERVICESINTERFACE_H_ */
