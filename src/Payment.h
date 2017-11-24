@@ -156,6 +156,9 @@ public:
 	std::string getPaymentType() const;
 };
 
+/**
+ * @brief Class that represents a payment payable until the end of the month
+ */
 class EndOfMonth: public Payment{
 	int endMonth;
 public:
