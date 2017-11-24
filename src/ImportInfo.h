@@ -10,6 +10,7 @@
 
 #include "Libraries.h"
 #include "Interface.h"
+#include "Algorithms.h"
 #include <fstream>
 #include <ctime>
 

@@ -23,9 +23,7 @@ void importInfo(MovingCompany& company, int& numberOfExistentClients){
 
 void terminateProgram(MovingCompany& company, int numberOfExistentClients){
 
-	if((int)company.getClients().size() > numberOfExistentClients){
-		saveClients(company, (int)company.getClients().size() - numberOfExistentClients);
-	}
+	saveClients(company);
 
 	saveServices(company);
 

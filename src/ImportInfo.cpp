@@ -29,6 +29,15 @@ void importClients(MovingCompany& company, int& numberOfExistentClients){
 
 		if(clientType == "P"){				//PARTICULAR
 
+			int id;
+			std::getline(ss, aux, '/');
+			auxSS << aux;
+			auxSS >> id;
+
+			aux.clear();
+			auxSS.clear();
+			auxSS.str(std::string());
+
 			// Name
 			std::getline(ss, name, '/');
 
@@ -107,10 +116,19 @@ void importClients(MovingCompany& company, int& numberOfExistentClients){
 			auxSS.clear();
 			auxSS.str(std::string());
 
-			Particular* p = new Particular(name, age, nif, address, zipCode, city, country, fDay, fMonth, fYear, fHour, fMinute);
+			Particular* p = new Particular(id, name, age, nif, address, zipCode, city, country, fDay, fMonth, fYear, fHour, fMinute);
 			company.addClient(p);
 		}
 		else if(clientType == "C"){					//COMPANY
+
+			int id;
+			std::getline(ss, aux, '/');
+			auxSS << aux;
+			auxSS >> id;
+
+			aux.clear();
+			auxSS.clear();
+			auxSS.str(std::string());
 
 			//	Name
 			std::getline(ss, name, '/');
@@ -181,7 +199,7 @@ void importClients(MovingCompany& company, int& numberOfExistentClients){
 			auxSS.clear();
 			auxSS.str(std::string());
 
-			Company* c = new Company(name, nif, address, zipCode, city, country, fDay, fMonth, fYear, fHour, fMinute);
+			Company* c = new Company(id, name, nif, address, zipCode, city, country, fDay, fMonth, fYear, fHour, fMinute);
 			company.addClient(c);
 		}
 	}
@@ -372,6 +390,9 @@ void importServices(MovingCompany& company){
 		auxSS.clear();
 		auxSS.str(std::string());
 
+		int index = binarySearch(company.getClients(), idClient);
+		if(index == -1) continue;
+
 		std::getline(ss, aux, '/');
 
 		int weight;
@@ -542,7 +563,7 @@ void importServices(MovingCompany& company){
 
 			svcT->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
 
-			company.getClients()[idClient]->addNewService(svcT);
+			company.getClients()[index]->addNewService(svcT);
 		}
 		if(aux == "W"){
 
@@ -722,7 +743,7 @@ void importServices(MovingCompany& company){
 
 			svcW->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
 
-			company.getClients()[idClient]->addNewService(svcW);
+			company.getClients()[index]->addNewService(svcW);
 		}
 	}
 }

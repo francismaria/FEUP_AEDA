@@ -27,9 +27,8 @@ std::string saveCompanyClient(Client* c);
 /**
  * @brief saves information to the .txt file
  * @param company company itself
- * @param newClients variable to know how much new clients there are to save them to the .txt file
  */
-void saveClients(MovingCompany& company, int newClients);
+void saveClients(MovingCompany& company);
 
 /**
  * @brief parses transport service information

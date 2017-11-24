@@ -212,8 +212,8 @@ int newParticularClient(MovingCompany& company){
 
 	year += 2000;
 
-
-	Particular* c = new Particular(name, age, nif, address, zipCode, city, country, day, month, year, hour, minute);
+	int index = company.getClients().size()-1;
+	Particular* c = new Particular(company.getClients()[index]->getId()+1,name, age, nif, address, zipCode, city, country, day, month, year, hour, minute);
 	company.addClient(c);
 
 	std::cout << "\n\n\t\t\t\t" << name << " has been added to the company." << std::endl;
@@ -313,18 +313,14 @@ int newCompanyClient(MovingCompany& company){
 
 	year += 2000;
 
-	std::cout << day << " " << month << " " << year << " " << hour << " " << minute;
-
-	Company* c = new Company(name, nif, address, zipCode, city, country, day, month, year, hour, minute);
+	int index = company.getClients().size()-1;
+	Company* c = new Company(company.getClients()[index]->getId()+1 ,name, nif, address, zipCode, city, country, day, month, year, hour, minute);
 
 	company.addClient(c);
-
-	//std::cout << *company.getCompaniesClients()[0];  -->DEBUG
 
 	std::cout << "\n\n\t\t\t\t" << name << " has been added to the company." << std::endl;
 
 }
-
 
 int addNewClient(MovingCompany& company){
 
@@ -362,9 +358,8 @@ int removeClientByID(MovingCompany& company){
 
 	int enteredID;
 
-	std::cout << "0 - Go Back and Cancel\t\t-1 - Exit Program" << std::endl;
-	std::cout << "Please enter the ID of the client you would like to remove:" << std::endl;
-	std::cout << "\t-----> ";
+	std::cout << "\t\t\t\t0 - Go Back and Cancel\t\t-1 - Exit Program" << std::endl;
+	std::cout << "\t\t\t\tID of the client you would like to remove: " << std::endl;
 
 	std::cin >> enteredID;
 
@@ -372,7 +367,7 @@ int removeClientByID(MovingCompany& company){
 
 	try{
 		company.removeClientByID(enteredID);
-		std::cout << "\tClient successfully removed." << std::endl;
+		std::cout << "\t\t\t\t\tClient successfully removed." << std::endl;
 	}
 	catch(NonExistingClient& nc){
 		std::cout << "\n\t\t\t\tThere is no client with the ID: " << nc.getID() << std::endl;
@@ -386,9 +381,8 @@ int removeClientByName(MovingCompany& company){
 
 	std::string enteredName;
 
-	std::cout << "0 - Go Back and Cancel\t\t-1 - Exit Program" << std::endl;
-	std::cout << "Please enter the name of the client you would like to remove:" << std::endl;
-	std::cout << "\t-----> ";
+	std::cout << "\t\t\t\t0 - Go Back and Cancel\t\t\t\t-1 - Exit Program" << std::endl;
+	std::cout << "\n\t\t\t\tPlease enter the name of the client you would like to remove: ";
 
 	std::cin.ignore();
 	std::getline(std::cin, enteredName);
@@ -398,7 +392,7 @@ int removeClientByName(MovingCompany& company){
 
 	try{
 		company.removeClientByName(enteredName);
-		std::cout << "\tClient successfully removed." << std::endl;
+		std::cout << "\t\t\t\t\tClient successfully removed." << std::endl;
 	}
 	catch(NonExistingClient& nc){
 		std::cout << "\n\t\t\t\tThere is no client with the name: " << nc.getName() << std::endl;
@@ -411,8 +405,8 @@ int removeClientByJoiningDate(MovingCompany& company){
 
 	int day, year, month;
 
-	std::cout << "Please enter the joining date of the client you would like to remove:" << std::endl;
-	std::cout << "\tDay: ";
+	std::cout << "\n\t\t\t\tEnter the joining date of the client you would like to remove:" << std::endl;
+	std::cout << "\t\t\t\t\tDay: ";
 	std::cin >> day;
 
 	if(day > 31){
@@ -421,7 +415,7 @@ int removeClientByJoiningDate(MovingCompany& company){
 	}
 	else if(day == -1) return -1;
 
-	std::cout << "\tMonth: ";
+	std::cout << "\t\t\t\t\tMonth: ";
 	std::cin >> month;
 
 	if(month < 1 || month > 12){
@@ -430,7 +424,7 @@ int removeClientByJoiningDate(MovingCompany& company){
 	}
 	else if(month == -1) return -1;
 
-	std::cout << "\tYear: ";
+	std::cout << "\t\t\t\t\tYear: ";
 	std::cin >> year;
 
 	if(year == -1) return -1;
@@ -439,10 +433,10 @@ int removeClientByJoiningDate(MovingCompany& company){
 
 	try{
 		company.removeClientByJoiningDate(day, month, year);
-		std::cout << "Client successfully removed.";
+		std::cout << "\t\t\t\t\tClient successfully removed.";
 	}
 	catch(NonExistingDate& nd){
-		std::cout << "There is no client with first registration date: " << nd.getDay() << "/" << nd.getMonth()
+		std::cout << "\t\t\tThere is no client with first registration date: " << nd.getDay() << "/" << nd.getMonth()
 			<< "/" << nd.getYear() << std::endl;
 	}
 	return 0;
@@ -452,14 +446,15 @@ int removeClient(MovingCompany& company){
 	int option, instruction;
 
 	while(option != -1){
-			std::cout << "\t\t\tRemove Client Form\n" << std::endl;
-			std::cout << "\tHow would you like to remove the client?\n" << std::endl;
-			std::cout << "\t1 - By ID" << std::endl;
-			std::cout << "\t2 - By Name" << std::endl;
-			std::cout << "\t3 - By Joining Date\n" << std::endl;
-			std::cout << "\t0 - Go Back\t\t\t-1 - Exit Program" << std::endl;
+			std::cout << "\n\n\t\t\t\t\t\t    Remove Client Form\n" << std::endl;
+			std::cout << "\t\t\t\t\tHow would you like to remove the client?\n" << std::endl;
+			std::cout << "\t\t\t\t\t\t1 - By ID" << std::endl;
+			std::cout << "\t\t\t\t\t\t2 - By Name" << std::endl;
+			std::cout << "\t\t\t\t\t\t3 - By Joining Date\n" << std::endl;
+			std::cout << "\t\t\t\t\t\t0 - Go Back" << std::endl;
+			std::cout << "\t\t\t\t\t        -1 - Exit Program" << std::endl;
 
-			std::cout << "Please insert your option: ";
+			std::cout << "\n\t\t\t\t\tPlease insert your option: ";
 			std::cin >> option;
 
 			switch(option){
@@ -477,7 +472,7 @@ int removeClient(MovingCompany& company){
 				case -1:
 					return -1;
 				default:
-					std::cout << "Please insert a valid option.";
+					std::cout << "\t\t\t\t\tPlease insert a valid option.";
 					break;
 			}
 			if(instruction == 0) continue;
@@ -497,15 +492,15 @@ int printParticulars(MovingCompany& company){
 			break;
 		}
 
-		std::cout << "\tPrint Particular Clients" << std::endl;
-		std::cout << "How would you like to print the particular clients?\n" << std::endl;
-		std::cout << "1 - By ID" << std::endl;
-		std::cout << "2 - By Name" << std::endl;
-		std::cout << "3 - By joining date\n" << std::endl;
-		std::cout << "0 - Go back" << std::endl;
-		std::cout << "-1 - Exit program.\n" << std::endl;
+		std::cout << "\t\t\t\t\tPrint Particular Clients" << std::endl;
+		std::cout << "\t\t\t\t\tHow would you like to print the particular clients?\n" << std::endl;
+		std::cout << "\t\t\t\t\t1 - By ID" << std::endl;
+		std::cout << "\t\t\t\t\t2 - By Name" << std::endl;
+		std::cout << "\t\t\t\t\t3 - By joining date\n" << std::endl;
+		std::cout << "\t\t\t\t\t0 - Go back" << std::endl;
+		std::cout << "\t\t\t\t       -1 - Exit program.\n" << std::endl;
 
-		std::cout << "Please insert your option: ";
+		std::cout << "\t\t\t\tPlease insert your option: ";
 		std::cin >> option;
 
 		switch(option){
@@ -537,10 +532,10 @@ int printCompanies(MovingCompany& company){
 
 	while(option != -1){
 
-		/*if(company.getCompaniesClients().size() == 0){
+		if(company.getCompaniesClients().size() == 0){
 			std::cout << "There are no company clients registered." << std::endl;
 			break;
-		}*/
+		}
 
 		std::cout << "\tPrint Company Clients" << std::endl;
 		std::cout << "How would you like to print the company clients?\n" << std::endl;
@@ -586,13 +581,13 @@ int printClients(MovingCompany& company){
 			break;
 		}
 
-		std::cout << "\tPrint All Clients" << std::endl;
-		std::cout << "How would you like to print the clients?\n" << std::endl;
-		std::cout << "1 - By ID" << std::endl;
-		std::cout << "2 - By Name" << std::endl;
-		std::cout << "3 - By joining date\n" << std::endl;
-		std::cout << "0 - Go back" << std::endl;
-		std::cout << "-1 - Exit program.\n" << std::endl;
+		std::cout << "\t\t\t\t\t\tPrint All Clients" << std::endl;
+		std::cout << "\t\t\t\t\tHow would you like to print the clients?\n" << std::endl;
+		std::cout << "\t\t\t\t\t  1 - By ID" << std::endl;
+		std::cout << "\t\t\t\t\t  2 - By Name" << std::endl;
+		std::cout << "\t\t\t\t\t  3 - By joining date\n" << std::endl;
+		std::cout << "\t\t\t\t\t  0 - Go back" << std::endl;
+		std::cout << "\t\t\t\t       -1 - Exit program.\n" << std::endl;
 
 		std::cout << "Please insert your option: ";
 		std::cin >> option;

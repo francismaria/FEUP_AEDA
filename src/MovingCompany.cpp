@@ -64,7 +64,6 @@ Country* MovingCompany::getCountry(std::string name) const{
 		if((*it)->getName() == name)
 			return *it;
 	}
-	//throw NonExistingClient
 }
 
 void MovingCompany::addClient(Client* c){
@@ -102,53 +101,15 @@ std::string MovingCompany::getEntity() const{
 	return Entity;
 }
 
-//  -- BINARY SEARCH
-int binarySearch(const std::vector<Client*> &v, int x)
-{
-	int left = 0, right = v.size() - 1;
-
-	while (left <= right)
-	{
-		int middle = (left + right) / 2;
-
-		if (v[middle]->getId() < x)
-			left = middle + 1;
-		else if (x < v[middle]->getId())
-			right = middle-1;
-		else
-			return middle; // encontrou
-	}
-	return -1; // não encontrou
-}
-
-int binarySearch(const std::vector<Client*> &v, std::string x)
-{
-	int left = 0, right = v.size() - 1;
-
-	while (left <= right)
-	{
-		int middle = (left + right) / 2;
-
-		if (v[middle]->getName() < x)
-			left = middle + 1;
-		else if (x < v[middle]->getName())
-			right = middle-1;
-		else
-			return middle; // encontrou
-	}
-	return -1; // não encontrou
-}
-
 void MovingCompany::removeClientByID(int id){
-
-	if(id > clients.size())
-		throw NonExistingClient(id);
 
 	int index = binarySearch(clients, id);
 
 	if(index == -1){
 		throw NonExistingClient(id);
 	}
+
+	clients[index]->deleteServices();
 	clients.erase(clients.begin()+index);
 }
 
@@ -174,7 +135,6 @@ void MovingCompany::removeClientByName(std::string name){
 
 void MovingCompany::removeClientByJoiningDate(int d, int m, int y){
 
-	//int n;
 	unsigned int i;
 	Date date(d, m, y);
 
@@ -200,46 +160,12 @@ void MovingCompany::printClient(std::string name) const{
 
 void MovingCompany::printClient(int id) const{
 
-	if(id < clients.size())
-		std::cout << *clients[id-1];
+	for(unsigned int i = 0; i < clients.size(); i++){
+		if(clients[i]->getId() == id)
+			std::cout << *clients[i];
+	}
 	throw NonExistingClient(id);
 }
-
-
-// ----- PRINT CLIENTS INFO
-
-void bubbleSort(std::vector<Client*>& clients_aux){
-
-	for(unsigned int j=clients_aux.size()-1; j > 0; j--)
-	{
-		bool change = false;
-		for(unsigned int i = 0; i < j; i++)
-			if(clients_aux[i+1]->getName() < clients_aux[i]->getName()) {
-				std::swap(clients_aux[i],clients_aux[i+1]);
-				change = true;
-			}
-		if (!change) return;
-	}
-}
-
-
-void selectionSort(std::vector<Client*> &c_aux )
-{
-	int j, i;
-	std::vector<Client*>::iterator it;
-
-	for(i = 0; i < c_aux.size(); i++){
-
-		for(j = i+1; j < c_aux.size(); j++){
-			if(c_aux[j]->getJoiningDate() < c_aux[i]->getJoiningDate()){
-				Client* c = c_aux[i];
-				c_aux[i] = c_aux[j];
-				c_aux[j] = c;
-			}
-		}
-	}
-}
-
 
 //  GENERAL PRINT
 void MovingCompany::printByID(std::vector<Client*>& clients_aux) const{
@@ -342,13 +268,13 @@ void MovingCompany::printCompanyClientsByJoiningDate() const{
 	printByJoiningDate(companies_aux);
 }
 
-void MovingCompany::printClientServices(int id) const{
-	clients[id-1]->printServices();
+void MovingCompany::printClientServices(int index) const{
+	clients[index]->printServices();
 }
 
-int MovingCompany::checkClientServiceStatus(int id){
+int MovingCompany::checkClientServiceStatus(int index){
 
-	clients[id-1]->printServices();
+	clients[index]->printServices();
 
 	int sID;
 
@@ -363,14 +289,14 @@ int MovingCompany::checkClientServiceStatus(int id){
 	if(sID == 0) return 0;
 	else if(sID == -1) return -1;
 
-	clients[id-1]->checkServiceStatus(sID);
+	clients[index]->checkServiceStatus(sID);
 
 	return 0;
 }
 
-int MovingCompany::validateClientService(int id){
+int MovingCompany::validateClientService(int index){
 
-	clients[id-1]->printServices();
+	clients[index]->printServices();
 
 	int sID;
 
@@ -385,7 +311,7 @@ int MovingCompany::validateClientService(int id){
 	if(sID == 0) return 0;
 	else if(sID == -1) return -1;
 
-	clients[id-1]->validatePayment(sID);
+	clients[index]->validatePayment(sID);
 
 	return 0;
 }

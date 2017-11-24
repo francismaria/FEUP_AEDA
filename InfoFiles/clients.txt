@@ -1,15 +1,12 @@
-P/Jose Henrique Martins/42/5024624965/Rua Mouzinho Outeiro, n 5, 2 Frente/4424-203/Porto/Portugal/24/05/2016/13:20
-P/Rui Almeida Rodrigues da Silva/37/603215243/Rua da Certidão, n 8/4000-625/Porto/Portugal/8/07/2012/12:10
-C/A Produtiva - Empresa Agropecuaria de Vila Real, Lda./625452132/Lugar de Abambres/5000-000/Vila Real/Portugal/15/08/2014/12:16
-P/Carlos Alberto Martinho Guilherme/38/542135632/Rua Carlos Mardel, n 14/3000-542/Coimbra/Portugal/7/07/2012/14:32
-C/Veloso & Rodrigues Lda./654985623/R Prof. Dr Fernando Carvalho Rodrigues Lt 7 3/6300-315/Guarda/Portugal/12/07/2014/10:24
-P/Maria da Silva Freitas Antunes/30/501326458/Avenida da Bratislava, n 8, 1 Direito/1452-365/Lisboa/Portugal/1/12/2015/9:21
-P/Antonio Rui Marques de Andrade/33/403126563/Rua dos Olivais, n 7, 5 Esquerdo Frente/2645-645/Sintra/Portugal/14/06/2016/10:33
-P/Joao Alberto Matias da Costa/25/745698548/Rua da Entrada Torta, 25/4760-203/Vila Nova de Famalicao/Portugal/2/06/2016/16:41
-P/John Evan Young Springfield/36/1425465593/Hollywood Hill street, 34/SE/London/England/17/2/2013/18:14
-P/John Edmund Smith/38/45698745/Trees Street, 54/E/London/England/16/11/2017/19:0
-C/MCoutinho/4566985/Avenida da Europa, 45/5000-902/Vila Real /Portugal/16/11/2017/19:1
-P/Rui Andrade da Silva/42/7412584/Rua das Betoneiras, 3/7201-958/Beja/Portugal/16/11/2017/19:4
-P/Simon Joseph da Silva/67/7412543/Rue de la Admiraccion, 47, 1o Esquerdo/7458-3/Zurique/Suica/16/11/2017/19:6
-P/Rui Rodrigues da Silva Guerreiro/41/145236545/Rua da Saudade, 14, 5o Direito/8000-620/Faro/Portugal/24/11/2017/0:24
-P/Guilherme Andrade de Alexandre Silva Mota/36/236523653/Rua dos Cabages, 33/2860-307/Moita/Portugal/24/11/2017/0:29
+C/3/A Produtiva - Empresa Agropecuaria de Vila Real, Lda./625452132/Lugar de Abambres/5000-000/Vila Real/Portugal/15/8/2014/12:16
+P/4/Carlos Alberto Martinho Guilherme/38/542135632/Rua Carlos Mardel, n 14/3000-542/Coimbra/Portugal/7/7/2012/14:32
+C/5/Veloso & Rodrigues Lda./654985623/R Prof. Dr Fernando Carvalho Rodrigues Lt 7 3/6300-315/Guarda/Portugal/12/7/2014/10:24
+P/6/Maria da Silva Freitas Antunes/30/501326458/Avenida da Bratislava, n 8, 1 Direito/1452-365/Lisboa/Portugal/1/12/2015/9:21
+P/7/Antonio Rui Marques de Andrade/33/403126563/Rua dos Olivais, n 7, 5 Esquerdo Frente/2645-645/Sintra/Portugal/14/6/2016/10:33
+P/8/Joao Alberto Matias da Costa/25/745698548/Rua da Entrada Torta, 25/4760-203/Vila Nova de Famalicao/Portugal/2/6/2016/16:41
+P/9/John Evan Young Springfield/36/1425465593/Hollywood Hill street, 34/SE/London/England/17/2/2013/18:14
+P/10/John Edmund Smith/38/45698745/Trees Street, 54/E/London/England/16/11/2017/19:0
+C/11/MCoutinho/4566985/Avenida da Europa, 45/5000-902/Vila Real /Portugal/16/11/2017/19:1
+P/12/Rui Andrade da Silva/42/7412584/Rua das Betoneiras, 3/7201-958/Beja/Portugal/16/11/2017/19:4
+C/14/Almeirinho Garrafeira, Lda/145632561/Rua dos Silvestres, 345/4125-365/Almeirim/Portugal/24/11/2017/17:10
+P/15/Joseph Rastominoff das Andread/46/741254645/Calle de las Venturas, 45/41007/Sevilla/Espanha/24/11/2017/17:32

@@ -41,6 +41,11 @@ public:
 	Client(std::string name, long int nif, std::string address, std::string zipCode, std::string city, std::string country, int firstDay, int firstMonth, int firstYear, int hour, int minute);
 
 	/**
+	 * Client constructor w/ ID (already existing clients)
+	 */
+	Client(int ID, std::string name, long int nif, std::string address, std::string zipCode, std::string city, std::string country, int firstDay, int firstMonth, int firstYear, int hour, int minute);
+
+	/**
 	 * @brief gets client ID
 	 * @return ID number
 	 */
@@ -109,6 +114,11 @@ public:
 	void validatePayment(int sID);
 
 	/**
+	 * @brief deletes all of the services associated w/ the client
+	 */
+	void deleteServices();
+
+	/**
 	 * @brief checks if a client is particular
 	 * @return true or false if is or not a particular client
 	 */
@@ -150,6 +160,8 @@ public:
 	 */
 	Company(std::string name, long int nif, std::string address, std::string zipCode, std::string city, std::string country, int firstDay, int firstMonth, int firstYear, int hour, int minute);
 
+
+	Company(int id, std::string name, long int nif, std::string address, std::string zipCode, std::string city, std::string country, int firstDay, int firstMonth, int firstYear, int hour, int minute);
 	/**
 	 * @brief gets the total amount of company clients registered in the company
 	 * @return total amount of companies
@@ -174,6 +186,7 @@ public:
 	 */
 	Particular(std::string name, int age, long int nif, std::string address, std::string zipCode, std::string city, std::string country, int firstDay, int firstMonth, int firstYear, int hour, int minute);
 
+	Particular(int id, std::string name, int age, long int nif, std::string address, std::string zipCode, std::string city, std::string country, int firstDay, int firstMonth, int firstYear, int hour, int minute);
 	/**
 	 * @brief gets particular client age
 	 * @return age

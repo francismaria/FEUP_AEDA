@@ -21,6 +21,14 @@ Client::Client(std::string name, long int nif, std::string address, std::string 
 	this->NIF = nif;
 }
 
+Client::Client(int ID, std::string name, long int nif, std::string address, std::string zipCode, std::string city, std::string country, int firstDay, int firstMonth, int firstYear, int hour, int minute):
+				address(Address(address, zipCode, city, country)), joiningDate(Date(firstDay, firstMonth, firstYear, hour, minute)){
+	numberOfClients++;
+	this->id = ID;
+	this->name = name;
+	this->NIF = nif;
+}
+
 int Client::getId() const{
 	return id;
 }
@@ -83,6 +91,13 @@ void Client::validatePayment(int sID){
 	//throw not existing service
 }
 
+void Client::deleteServices(){
+
+	for(unsigned int i = 0; i < servicesRequested.size(); i++){
+		delete(servicesRequested[i]);
+	}
+}
+
 /************************************************/
 /************  COMPANY CONTRUCTOR  **************/
 /************************************************/
@@ -91,6 +106,11 @@ int Company::numberOfCompanies = 0;
 
 Company::Company(std::string name, long int nif, std::string address, std::string zipCode, std::string city, std::string country, int firstDay, int firstMonth, int firstYear, int hour, int minute)
 : Client(name, nif, address, zipCode, city, country, firstDay, firstMonth, firstYear, hour, minute){
+	numberOfCompanies++;
+}
+
+Company::Company(int id, std::string name, long int nif, std::string address, std::string zipCode, std::string city, std::string country, int firstDay, int firstMonth, int firstYear, int hour, int minute)
+: Client(id, name, nif, address, zipCode, city, country, firstDay, firstMonth, firstYear, hour, minute){
 	numberOfCompanies++;
 }
 
@@ -111,6 +131,12 @@ int Particular::numberOfParticulars = 0;
 
 Particular::Particular(std::string name, int age, long int nif, std::string address, std::string zipCode, std::string city, std::string country, int firstDay, int firstMonth, int firstYear, int hour, int minute)
 : Client(name, nif, address, zipCode, city, country, firstDay, firstMonth, firstYear, hour, minute){
+	this->age = age;
+	numberOfParticulars++;
+}
+
+Particular::Particular(int id, std::string name, int age, long int nif, std::string address, std::string zipCode, std::string city, std::string country, int firstDay, int firstMonth, int firstYear, int hour, int minute)
+: Client(id, name, nif, address, zipCode, city, country, firstDay, firstMonth, firstYear, hour, minute){
 	this->age = age;
 	numberOfParticulars++;
 }

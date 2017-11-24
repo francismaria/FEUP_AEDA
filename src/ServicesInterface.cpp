@@ -13,10 +13,20 @@ int newRegisteredClientService(MovingCompany& company){
 
 	std::cout << "\n\n\t\t\t\t\t     REQUEST SERVICE TO REGISTERED CLIENT\n" << std::endl;
 
-
-
 	std::cout << "\t\t\t\t    Enter the ID of the client to add a new service: ";
 	std::cin >> idClient;
+
+	int index;
+
+	try{
+		index = binarySearch(company.getClients(), idClient);
+		if(index == -1)
+			throw NonExistingClient(idClient);
+	}
+	catch(NonExistingClient& c){
+		std::cout << "\n\t\t\t\t\t There is no client with the ID: " << c.getID() << std::endl;
+		return 0;
+	}
 
 	if(idClient == 0) return 0;
 	else if(idClient == -1) return -1;
@@ -209,7 +219,7 @@ int newRegisteredClientService(MovingCompany& company){
 
 		int option;
 
-		if(company.getClients()[idClient-1]->isParticular()){		//PARTICULAR
+		if(company.getClients()[index]->isParticular()){		//PARTICULAR
 
 			std::cout << "\t\t\t\t\t\t1 - ATM" << std::endl;
 			std::cout << "\t\t\t\t\t\t2 - Bank Transfer\n" << std::endl;
@@ -317,7 +327,7 @@ int newRegisteredClientService(MovingCompany& company){
 
 		}
 
-		company.getClients()[idClient-1]->addNewService(svcT);
+		company.getClients()[index]->addNewService(svcT);
 
 	}
 	else if(response == "y" || response == "Y"){					//WAREHOUSING
@@ -396,7 +406,7 @@ int newRegisteredClientService(MovingCompany& company){
 
 		int option;
 
-		if(company.getClients()[idClient-1]->isParticular()){
+		if(company.getClients()[index]->isParticular()){
 			std::cout << "\t\t\t\t\t\t1 - ATM" << std::endl;
 			std::cout << "\t\t\t\t\t\t2 - Bank Transfer\n" << std::endl;
 			std::cout << "\t\t\t\t\t\t   Option: ";
@@ -504,7 +514,7 @@ int newRegisteredClientService(MovingCompany& company){
 
 		}
 
-		company.getClients()[idClient-1]->addNewService(svcW);
+		company.getClients()[index]->addNewService(svcW);
 	}
 
 	else if(response == "0") return 0;
@@ -875,18 +885,18 @@ int newService(MovingCompany& company){
 
 	int option;
 
-	std::cout << "\n\n\t\t\t\t\t\t\tREQUEST NEW SERVICE FORM\n" << std::endl;
-	std::cout << "\t\t\tPlease enter if you want to request a service to an already REGISTERED client or to an UNREGISTERED client." << std::endl;
-	std::cout << "\n\t\t\t\t\t\t\t1 - Registered Client" << std::endl;
-	std::cout << "\t\t\t\t\t\t\t2 - Unregistered Client\n" << std::endl;
-	std::cout << "\t\t\t\t\t\t\t0 - Go back" << std::endl;
-	std::cout << "\t\t\t\t\t\t       -1 - Exit Program\n" << std::endl;
-
-	std::cout << "\n\t\t\t\t\tPlease enter an option: ";
-	std::cin >> option;
-
 	while(option != -1){
 		int instruction;
+
+		std::cout << "\n\n\t\t\t\t\t\t\tREQUEST NEW SERVICE FORM\n" << std::endl;
+		std::cout << "\t\t\tPlease enter if you want to request a service to an already REGISTERED client or to an UNREGISTERED client." << std::endl;
+		std::cout << "\n\t\t\t\t\t\t\t1 - Registered Client" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t2 - Unregistered Client\n" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t0 - Go back" << std::endl;
+		std::cout << "\t\t\t\t\t\t       -1 - Exit Program\n" << std::endl;
+
+		std::cout << "\n\t\t\t\t\tPlease enter an option: ";
+		std::cin >> option;
 
 		switch(option){
 			case 1:
@@ -915,12 +925,24 @@ int printClientsServices(MovingCompany& company){
 
 	std::cin >> id;
 
+	int index;
+
+	try{
+		index = binarySearch(company.getClients(), id);
+		if(index == -1)
+			throw NonExistingClient(id);
+	}
+	catch(NonExistingClient& c){
+		std::cout << "\n\t\t\t\t\t There is no client with the ID: " << c.getID() << std::endl;
+		return 0;
+	}
+
 	if(std::cin.fail()){
 		std::cout << "Not a valid option." << std::endl;
 		return 0;
 	}
 
-	company.printClientServices(id);
+	company.printClientServices(index);
 
 	return 0;
 }
@@ -934,15 +956,27 @@ int checkClientsServiceStatus(MovingCompany& company){
 
 	std::cin >> id;
 
+	int index;
+
 	if(std::cin.fail()){
 		std::cout << "Not a valid option." << std::endl;
+		return 0;
+	}
+
+	try{
+		index = binarySearch(company.getClients(), id);
+		if(index == -1)
+			throw NonExistingClient(id);
+	}
+	catch(NonExistingClient& c){
+		std::cout << "\n\t\t\t\t\t There is no client with the ID: " << c.getID() << std::endl;
 		return 0;
 	}
 
 	if(id == 0) return 0;
 	else if(id == -1) return -1;
 
-	return company.checkClientServiceStatus(id);
+	return company.checkClientServiceStatus(index);
 }
 
 int validateClientsPayment(MovingCompany& company){
@@ -959,10 +993,22 @@ int validateClientsPayment(MovingCompany& company){
 		return 0;
 	}
 
+	int index;
+
+	try{
+		index = binarySearch(company.getClients(), id);
+		if(index == -1)
+			throw NonExistingClient(id);
+	}
+	catch(NonExistingClient& c){
+		std::cout << "\n\t\t\t\t\t There is no client with the ID: " << c.getID() << std::endl;
+		return 0;
+	}
+
 	if(id == 0) return 0;
 	else if(id == -1) return -1;
 
-	return company.validateClientService(id);
+	return company.validateClientService(index);
 }
 
 

@@ -13,7 +13,19 @@ std::string saveParticularClient(Client* c){
 	std::stringstream ss;
 	std::string delimiter = "/";
 
-	line = "\nP/";
+	line = "P/";
+
+	//ID
+	std::string id;
+	int auxID = c->getId();
+
+	ss << auxID;
+	ss >> id;
+
+	ss.clear();
+	ss.str(std::string());
+
+	line.append(id).append(delimiter);
 
 	// Name
 	std::string name;
@@ -102,18 +114,29 @@ std::string saveParticularClient(Client* c){
 	line.append(name).append(delimiter).append(age).append(delimiter).append(nif).append(delimiter).append(streetAddress).
 			append(delimiter).append(zipCode).append(delimiter).append(city).append(delimiter).append(country).append(delimiter).
 			append(day).append(delimiter).append(month).append(delimiter).append(year).append(delimiter).append(hour).
-			append(":").append(min);
+			append(":").append(min).append("\n");
 
 	return line;
 }
 
 std::string saveCompanyClient(Client* c){
-
 	std::string line;
 	std::stringstream ss;
 	std::string delimiter = "/";
 
-	line = "\nC/";
+	line = "C/";
+
+	//ID
+	std::string id;
+	int auxID = c->getId();
+
+	ss << auxID;
+	ss >> id;
+
+	line.append(id).append(delimiter);
+
+	ss.clear();
+	ss.str(std::string());
 
 	//Name
 	std::string name;
@@ -131,8 +154,6 @@ std::string saveCompanyClient(Client* c){
 	//Address
 	std::string streetAddress;
 	streetAddress = c->getAddress().getStreet();
-
-	std::cout << streetAddress;
 
 	//ZipCode
 	std::string zipCode;
@@ -194,22 +215,20 @@ std::string saveCompanyClient(Client* c){
 	line.append(name).append(delimiter).append(nif).append(delimiter).append(streetAddress).
 		append(delimiter).append(zipCode).append(delimiter).append(city).append(delimiter).append(country).append(delimiter).
 		append(day).append(delimiter).append(month).append(delimiter).append(year).append(delimiter).append(hour).
-		append(":").append(min);
+		append(":").append(min).append("\n");
 
 	return line;
 }
 
-void saveClients(MovingCompany& company, int newClients){
+void saveClients(MovingCompany& company){
 
 	int i;
 	int clientsSize = company.getClients().size();
-	int startIndex = clientsSize - newClients;
 
 	std::ofstream clientsFile;
-	clientsFile.open("InfoFiles/clients.txt", std::ios::app);
+	clientsFile.open("InfoFiles/clients.txt", std::ios::trunc);
 
-	for(i = startIndex; i < clientsSize; i++){
-	//for(i = 0; i < company.getClients().size(); i++){
+	for(i = 0; i < company.getClients().size(); i++){
 
 		std::string infoClient;
 		Client* c = company.getClients()[i];
@@ -596,10 +615,10 @@ void saveServices(MovingCompany& company){
 			std::string infoService;
 
 			if(!company.getClients()[i]->getServicesRequested()[j]->isWarehousing()){
-				infoService = saveTransportService((Transport*)company.getClients()[i]->getServicesRequested()[j], i);
+				infoService = saveTransportService((Transport*)company.getClients()[i]->getServicesRequested()[j], company.getClients()[i]->getId());
 			}
 			else{
-				infoService = saveWarehousingService((Warehousing*)company.getClients()[i]->getServicesRequested()[j], i);
+				infoService = saveWarehousingService((Warehousing*)company.getClients()[i]->getServicesRequested()[j], company.getClients()[i]->getId());
 			}
 
 			servicesFile << infoService;

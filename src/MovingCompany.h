@@ -12,6 +12,7 @@
 #include "Client.h"
 #include "Country.h"
 #include "Exceptions.h"
+#include "Algorithms.h"
 
 /**
  * @brief Class that is the "Mother of all others". It represents a company.
@@ -221,19 +222,19 @@ public:
 	 * @brief prints all services from a client of a given ID
 	 * @param id id of the client to print its services
 	 */
-	void printClientServices(int id) const;
+	void printClientServices(int index) const;
 
 	/**
 	 * @brief validates a service of a client given a certain id
 	 * @param id id of the client to validate service
 	 */
-	int validateClientService(int id);
+	int validateClientService(int index);
 
 	/**
 	 * @brief print client service status (pending/received)
 	 * @param id id of the client to check the service
 	 */
-	int checkClientServiceStatus(int id);
+	int checkClientServiceStatus(int index);
 
 	/**
 	 * @brief free all memory alocated by the company
