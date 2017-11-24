@@ -395,7 +395,6 @@ std::string saveTransportService(Transport* tService, int idC){
 	std::string payStatus = tService->getPayment()->getPaymentStatus();
 	line.append(payStatus).append("\n");
 
-	std::cout << line;
 	return line;
 }
 
@@ -570,22 +569,11 @@ std::string saveWarehousingService(Warehousing* wService, int idClient){
 
 	std::string payType;
 	std::string typePayment = wService->getPayment()->getPaymentType();
-/*
-	if(typePayment == "Bank Transfer")
-		payType = "BT";
-	if(typePayment == "Payable until the end of month")
-		payType = "EOM";
-	if(typePayment == "Credit Card")
-		payType = "CC";
-	else
-		payType = "ATM";
-*/
+
 	line.append(typePayment).append(delimiter);
 
 	std::string payStatus = wService->getPayment()->getPaymentStatus();
 	line.append(payStatus).append("\n");
-
-	std::cout << line;
 
 	return line;
 }

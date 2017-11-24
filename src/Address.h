@@ -30,23 +30,12 @@ public:
 	void setStreet(std::string s);
 	void setZipCode(std::string z);
 	void setCity(std::string c);
-	void setCountry(std::string cnt);		//Não será melhor ter uma class Country que guarda todos os paises que a empresa de mudanças opera e a sua distancia??
+	void setCountry(std::string cnt);
 	bool operator ==(const Address& a1);
 	friend std::ostream& operator <<(std::ostream& o, const Address a){
 		o << "Address: " << a.street << ", " << a.zipCode << "\n\t\t " << a.city << ", " << a.country_aux;
 		return o;
 	}
 };
-
-
-class NonExistentAddress{
-public:
-	std::string street, zipCode, country;
-	NonExistingAddress(std::string s, std::string z, std::string c, std::string cnt);
-	std::string getStreet() const{ return street; }
-	std::string getZipCode() const{ return zipCode; }
-	std::string getCountry() const{ return country; }
-};
-
 
 #endif /* COUNTRY_H_ */

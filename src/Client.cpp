@@ -9,17 +9,9 @@
 
 int Client::numberOfClients = 0;
 
-/*
- *  Client constructor
- */
-//TO BE DELETED
-Client::Client(std::string name, long int nif, std::string address, std::string zipCode, int firstDay, int firstMonth, int firstYear):
-				address(Address(address, zipCode, "Porto", "Portugal")), joiningDate(Date(firstDay, firstMonth, firstYear)){
-	numberOfClients++;
-	this->id = numberOfClients;
-	this->name = name;
-	this->NIF = nif;
-}
+/************************************************/
+/************  CLIENT CONTRUCTOR  ***************/
+/************************************************/
 
 Client::Client(std::string name, long int nif, std::string address, std::string zipCode, std::string city, std::string country, int firstDay, int firstMonth, int firstYear, int hour, int minute):
 				address(Address(address, zipCode, city, country)), joiningDate(Date(firstDay, firstMonth, firstYear, hour, minute)){
@@ -29,28 +21,46 @@ Client::Client(std::string name, long int nif, std::string address, std::string 
 	this->NIF = nif;
 }
 
-int Client::getId() const{ return id; }
+int Client::getId() const{
+	return id;
+}
 
-long int Client::getNIF() const{ return NIF; }
+long int Client::getNIF() const{
+	return NIF;
+}
 
-std::string Client::getName() const{ return name; }
+std::string Client::getName() const{
+	return name;
+}
 
-const Address& Client::getAddress() const{ return address; }
+const Address& Client::getAddress() const{
+	return address;
+}
 
-std::string Client::getZipCode() const{ return address.getZipCode(); }
+std::string Client::getZipCode() const{
+	return address.getZipCode();
+}
 
 bool Client::operator ==(const Client& c1){
 	if(this->id == c1.getId() && this->name == c1.getName()) return true;
 	return false;
 }
 
-const Date& Client::getJoiningDate() const{ return joiningDate; }
+const Date& Client::getJoiningDate() const{
+	return joiningDate;
+}
 
-std::vector<Service*> Client::getServicesRequested(){ return servicesRequested; }
+std::vector<Service*> Client::getServicesRequested(){
+	return servicesRequested;
+}
 
-void Client::addNewService(Service* s){ servicesRequested.push_back(s); }
+void Client::addNewService(Service* s){
+	servicesRequested.push_back(s);
+}
 
-int Client::getNumberOfClients(){ return numberOfClients; }
+int Client::getNumberOfClients(){
+	return numberOfClients;
+}
 
 void Client::printServices() const{
 
@@ -84,9 +94,13 @@ Company::Company(std::string name, long int nif, std::string address, std::strin
 	numberOfCompanies++;
 }
 
-int Company::getNumberOfCompanies(){ return numberOfCompanies; }
+int Company::getNumberOfCompanies(){
+	return numberOfCompanies;
+}
 
-bool Company::isParticular(){ return false; }
+bool Company::isParticular(){
+	return false;
+}
 
 
 /************************************************/
@@ -95,24 +109,23 @@ bool Company::isParticular(){ return false; }
 
 int Particular::numberOfParticulars = 0;
 
-//TO BE DELETED
-Particular::Particular(std::string name, int age, long int nif, std::string address, std::string zipCode, int firstDay, int firstMonth, int firstYear)
-: Client(name, nif, address, zipCode, firstDay, firstMonth, firstYear){
-	this->age = age;
-	numberOfParticulars++;
-}
-
 Particular::Particular(std::string name, int age, long int nif, std::string address, std::string zipCode, std::string city, std::string country, int firstDay, int firstMonth, int firstYear, int hour, int minute)
 : Client(name, nif, address, zipCode, city, country, firstDay, firstMonth, firstYear, hour, minute){
 	this->age = age;
 	numberOfParticulars++;
 }
 
-int Particular::getAge(){ return age; }
+int Particular::getAge(){
+	return age;
+}
 
-bool Particular::isParticular(){ return true; }
+bool Particular::isParticular(){
+	return true;
+}
 
-int Particular::getNumberOfParticulars(){ return numberOfParticulars; }
+int Particular::getNumberOfParticulars(){
+	return numberOfParticulars;
+}
 
 
 

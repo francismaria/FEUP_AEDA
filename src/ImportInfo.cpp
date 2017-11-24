@@ -274,16 +274,6 @@ void importCountriesZones(MovingCompany& company){
 		}
 	}
 
-	/*for(unsigned int k = 0; k < company.getCountriesToOperate().size(); k++){
-		std::cout << company.getCountriesToOperate()[k]->getName() << std::endl;
-			for(unsigned int l = 0; l < company.getCountriesToOperate()[k]->getCountriesInfo().size(); l++){
-				std::cout << company.getCountriesToOperate()[k]->getCountriesInfo()[l].getName() << " ";
-				std::cout << company.getCountriesToOperate()[k]->getCountriesInfo()[l].getZone() << " ";
-				std::cout << company.getCountriesToOperate()[k]->getCountriesInfo()[l].getBaseRate() << "ACABOU";
-			}
-		std::cout << std::endl << std::endl;
-	}*/
-
 	countriesZonesFile.close();
 }
 
@@ -538,21 +528,6 @@ void importServices(MovingCompany& company){
 				pay->validate();
 			}
 
-
-			//------------------AUXILIAR
-			/*std::cout << begginingTransport;
-			std::cout << endTransport;
-			std::cout << origin.getCity();
-			std::cout << destination.getCity();
-			std::cout << "\nEND TIME: " << endTransport.getHour()<<" "<< endTransport.getMinute();
-			std::cout <<"PACKAGING" << packagingB.getDay() << packagingB.getMinute();
-			std::cout <<"PACKAGING" << packagingE.getDay() << packagingE.getMinute();
-			std::cout << "\nSHIPPING" << shippingB.getDay() << shippingE.getMinute();
-			std::cout << "\nDELIVERY" << deliveryB.getDay() << deliveryE.getMinute();*/
-
-			//--------------------------
-
-
 			Transport* svcT = new Transport(origin, destination, weight, begginingTransport, endTransport);
 			int idT = svcT->getID();
 
@@ -732,20 +707,6 @@ void importServices(MovingCompany& company){
 
 			if(paymentStatus == "RECEIVED")
 				pay->validate();
-
-			/*
-			//------------------AUXILIAR
-			std::cout << begginingTransport;
-			std::cout << endTransport;
-			std::cout << origin.getCity();
-			std::cout << destination.getCity();
-			std::cout << "\nEND TIME: " << endTransport.getHour()<<" "<< endTransport.getMinute();
-			std::cout <<"PACKAGING" << packagingB.getDay() << packagingB.getMinute();
-			std::cout <<"PACKAGING" << packagingE.getDay() << packagingE.getMinute();
-			std::cout << "\nSHIPPING" << shippingB.getDay() << shippingE.getMinute();
-			std::cout << "\nDELIVERY" << deliveryB.getDay() << deliveryE.getMinute();
-			//--------------------------
-			 */
 
 			Warehousing* svcW = new Warehousing(origin, destination, weight, begginingWarehousing, endWarehousing, daysWarehousing);
 			int idW = svcW->getID();

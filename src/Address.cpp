@@ -20,7 +20,6 @@ Address::Address(std::string street, std::string zipCode, std::string city, Coun
 	this->zipCode = zipCode;
 	this->city = city;
 	this->country_aux = c->getName();
-	//this->country = c;
 }
 
 Address::Address(std::string street, std::string zipCode, std::string city, ConnectionCountryInfo& c){
@@ -31,23 +30,41 @@ Address::Address(std::string street, std::string zipCode, std::string city, Conn
 	this->country_aux = c.getName();
 }
 
-std::string Address::getStreet() const{ return street; }
+std::string Address::getStreet() const{
+	return street;
+}
 
-std::string Address::getZipCode() const{ return zipCode; }
+std::string Address::getZipCode() const{
+	return zipCode;
+}
 
-std::string Address::getCity() const{ return city; }
+std::string Address::getCity() const{
+	return city;
+}
 
-std::string Address::getCountryAux() const{ return country_aux; }
+std::string Address::getCountryAux() const{
+	return country_aux;
+}
 
-ConnectionCountryInfo& Address::getCountry(){ return country; }
+ConnectionCountryInfo& Address::getCountry(){
+	return country;
+}
 
-void Address::setStreet(std::string s){ street = s; }
+void Address::setStreet(std::string s){
+	street = s;
+}
 
-void Address::setZipCode(std::string z){ zipCode = z; }
+void Address::setZipCode(std::string z){
+	zipCode = z;
+}
 
-void Address::setCity(std::string c){ city = c; }
+void Address::setCity(std::string c){
+	city = c;
+}
 
-void Address::setCountry(std::string cnt){ country_aux = cnt; }
+void Address::setCountry(std::string cnt){
+	country_aux = cnt;
+}
 
 bool Address::operator ==(const Address& a1){
 	if(this->street == a1.getStreet() && this->city == a1.getCity()
