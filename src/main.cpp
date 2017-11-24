@@ -12,16 +12,16 @@
 #include "ExportInfo.h"
 
 
-void importInfo(MovingCompany& company, int& numberOfExistentClients){
+void importInfo(MovingCompany& company){
 
 	importCountries(company);
 	importCountriesZones(company);
-	importClients(company, numberOfExistentClients);
+	importClients(company);
 	importServices(company);
 
 }
 
-void terminateProgram(MovingCompany& company, int numberOfExistentClients){
+void terminateProgram(MovingCompany& company){
 
 	saveClients(company);
 
@@ -34,15 +34,13 @@ void terminateProgram(MovingCompany& company, int numberOfExistentClients){
 
 int main() {
 
-	int numberOfExistentClients;
-
 	MovingCompany company("EletroMoving, S.A.", "Great company with moving.", "PT50 1452 0023 14698 7456 9878 3", "14579", 10, 9, 1995);
 
-	importInfo(company, numberOfExistentClients);
+	importInfo(company);
 
 	run(company);
 
-	terminateProgram(company, numberOfExistentClients);
+	terminateProgram(company);
 
 	return 0;
 }

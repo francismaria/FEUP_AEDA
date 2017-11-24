@@ -213,8 +213,13 @@ int newRegisteredClientService(MovingCompany& company){
 		svcT->setShipping(s);
 		svcT->setDelivery(d);
 
-		svcT->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
-
+		if(destination.getCountry().getZone() == 1)
+			svcT->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
+		else{
+			float zone2Increase = company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate();
+			zone2Increase += (zone2Increase*0.1);
+			svcT->addBaseRate(zone2Increase);
+		}
 		std::cout << "\n\t\t\t\tChoose the type of payment:\n" << std::endl;
 
 		int option;

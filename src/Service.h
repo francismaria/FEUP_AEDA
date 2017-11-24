@@ -189,12 +189,12 @@ public:
 	 * @return ostream
 	 */
 	friend std::ostream& operator <<(std::ostream& o, const Service& s){
-		o << "\n\t\t\tSERVICE INFO: " << "Origin: " << s.origin.getCity() << "\tDestination: " << s.destination.getCity() <<
+		o << "\n\t\t\tSERVICE INFO:\n" << "\tOrigin: " << s.origin.getCity() << "\tDestination: " << s.destination.getCity() <<
 				"\n\tRequested on: " << s.beggining << "\tDelivered on: " << s.end << "\n\n\t\tDETAILED INFO:\n\n\t" <<
 				"Packaging started on: "<< s.getPackagingBegginingDate() << "\tPackaging ended on: " << s.getPackagingEndDate() <<
 				"\n\tShipping started on: " << s.getShippingBegginingDate() << "\tShipping ended on: " << s.getShippingEndDate() <<
 				"\n\tDelivery started on: " << s.getDeliveryBegginingDate() << "\tDelivery ended on " << s.getDeliveryEndDate() <<
-				"\n\tType of Payment: " << s.getPayment()->getPaymentType() << "\tPayment status: " << s.getPayment()->getPaymentStatus() <<
+				"\n\tType of Payment: " << s.getPayment()->getPaymentType() << "\t\tPayment status: " << s.getPayment()->getPaymentStatus() <<
 			    "\n\tTotal Price: " << s.getTotalCost();
 		return o;
 	}

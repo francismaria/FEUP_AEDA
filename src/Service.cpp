@@ -26,7 +26,7 @@ Service::Service(Address& o, Address& d, float w, Date& b, Date& e): origin(o), 
 }
 
 void Service::addBaseRate(float baseRate){
-	this->totalCost += baseRate;
+	this->totalCost += baseRate*this->weight;
 }
 
 int Service::getID() {

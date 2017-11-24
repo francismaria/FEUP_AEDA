@@ -7,7 +7,7 @@
 
 #include "ImportInfo.h"
 
-void importClients(MovingCompany& company, int& numberOfExistentClients){
+void importClients(MovingCompany& company){
 
 	std::ifstream clientsFile;
 	clientsFile.open("InfoFiles/clients.txt");
@@ -205,8 +205,6 @@ void importClients(MovingCompany& company, int& numberOfExistentClients){
 	}
 
 	clientsFile.close();
-
-	numberOfExistentClients = company.getClients().size();
 }
 
 void importCountries(MovingCompany& company){

@@ -17,9 +17,8 @@
 /**
  * @brief import clients from .txt file
  * @param company company itself
- * @param numberofExistentClients number of already existent clients
  */
-void importClients(MovingCompany& company, int& numberofExistentClients);
+void importClients(MovingCompany& company);
 
 /**
  * @brief import countries from .txt file

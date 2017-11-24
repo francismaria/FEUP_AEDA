@@ -10,7 +10,7 @@
 void run(MovingCompany& company){
 	bool exit = false;
 
-	std::cout << "\t\t\t\t\t\t\tWelcome to this Software.\n" << std::endl;
+	std::cout << "\t\t\t\t\t\t     Welcome to Company Helping Software.\n" << std::endl;
 
 	while(!exit){
 		int option = showMenu(company);

@@ -14,12 +14,10 @@ int checkClient(MovingCompany& company){
 
 		std::cout << "\n\n\t\t\t\t\t\tSearch Client:" << std::endl;
 		std::cout << "\t\t\t\t\t   How would you like to search the client?" << std::endl;
-		std::cout << "\t\t\t\t\t1 - By Name" << std::endl;
-		std::cout << "\t\t\t\t\t2 - By ID" << std::endl;
-		std::cout << "\t\t\t\t\t3 - By NIF" << std::endl;
-		std::cout << "\t\t\t\t\t4 - By Joining Date\n" << std::endl;
-		std::cout << "\t\t\t\t\t0 - Go Back" << std::endl;
-		std::cout << "\t\t\t\t\t-1 - Exit Program" << std::endl;
+		std::cout << "\n\t\t\t\t\t\t1 - By Name" << std::endl;
+		std::cout << "\t\t\t\t\t\t2 - By ID" << std::endl;
+		std::cout << "\t\t\t\t\t\t0 - Go Back" << std::endl;
+		std::cout << "\t\t\t\t\t       -1 - Exit Program" << std::endl;
 
 		std::cout << "\n\t\t\t\t\tPlease enter an option: ";
 		std::cin >> option;
@@ -30,15 +28,6 @@ int checkClient(MovingCompany& company){
 				break;
 			case 2:
 				instruction = searchClientByID(company);
-				break;
-			case 3:
-				//instruction = searchClientByNIF(company);
-				break;
-			case 4:
-				//instruction = searchClientByAddress(company);
-				break;
-			case 5:
-				//instruction = searchClientByJoiningDate(company);
 				break;
 			case 0:
 				return 0;
@@ -83,23 +72,29 @@ int searchClientByID(MovingCompany& company){
 
 	int id;
 
-	std::cout << "0 - Go Back" << std::endl;
-	std::cout << "-1 - Exit Program\n" << std::endl;
-	std::cout << "Please enter the client's ID." <<std::endl;
-	std::cout << "ID: " << std::endl;
+	std::cout << "\t\t\t\t\t\t0 - Go Back" << std::endl;
+	std::cout << "\t\t\t\t\t       -1 - Exit Program\n" << std::endl;
+	std::cout << "\t\t\t\t\tPlease enter the client's ID." <<std::endl;
+	std::cout << "\t\t\t\t\t\tID: ";
 
 	std::cin >> id;
 
 	if(id == 0) return 0;
 	if(id == -1) return -1;
 
+	int index;
+
 	try{
-		company.printClient(id);
+		index = binarySearch(company.getClients(), id);
+		if(index == -1)
+			throw NonExistingClient(id);
 	}
-	catch(NonExistingClient& nc){
-		std::cout << "\n\t\t\t\tThere is no client with the ID: " << nc.getID() << std::endl;
+	catch(NonExistingClient& c){
+		std::cout << "\n\t\t\t\t\t There is no client with the ID: " << c.getID() << std::endl;
+		return 0;
 	}
 
+	std::cout << *company.getClients()[index];
 	return 0;
 }
 
