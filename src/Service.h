@@ -189,13 +189,13 @@ public:
 	 * @return ostream
 	 */
 	friend std::ostream& operator <<(std::ostream& o, const Service& s){
-		o << "\n\t\t\tSERVICE INFO:\n" << "\tOrigin: " << s.origin.getCity() << "\tDestination: " << s.destination.getCity() <<
-				"\n\tRequested on: " << s.beggining << "\tDelivered on: " << s.end << "\n\n\t\tDETAILED INFO:\n\n\t" <<
+		o << "\n\t\t\t\tSERVICE INFO:\n" << "\t\t\tOrigin: " << s.origin.getCity() << "\t\tDestination: " << s.destination.getCity() <<
+				"\n\t\t\tRequested on: " << s.beggining << "\tDelivered on: " << s.end << "\n\n\t\tDETAILED INFO:\n\n\t\t\t" <<
 				"Packaging started on: "<< s.getPackagingBegginingDate() << "\tPackaging ended on: " << s.getPackagingEndDate() <<
-				"\n\tShipping started on: " << s.getShippingBegginingDate() << "\tShipping ended on: " << s.getShippingEndDate() <<
-				"\n\tDelivery started on: " << s.getDeliveryBegginingDate() << "\tDelivery ended on " << s.getDeliveryEndDate() <<
-				"\n\tType of Payment: " << s.getPayment()->getPaymentType() << "\t\tPayment status: " << s.getPayment()->getPaymentStatus() <<
-			    "\n\tTotal Price: " << s.getTotalCost();
+				"\n\t\t\tShipping started on: " << s.getShippingBegginingDate() << "\tShipping ended on: " << s.getShippingEndDate() <<
+				"\n\t\t\tDelivery started on: " << s.getDeliveryBegginingDate() << "\tDelivery ended on " << s.getDeliveryEndDate() <<
+				"\n\t\t\tType of Payment: " << s.getPayment()->getPaymentType() << "\t\tPayment status: " << s.getPayment()->getPaymentStatus() <<
+			    "\n\t\t\tTotal Price: " << s.getTotalCost();
 		return o;
 	}
 };

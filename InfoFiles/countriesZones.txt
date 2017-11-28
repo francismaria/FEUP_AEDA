@@ -1,9 +1,36 @@
 C Portugal
 1 Espanha 4.60
 2 Franca 5.20
+2 Alemanha 5.30
+2 Inglaterra 5.00
+2 Italia 5.20
 C Espanha 
 1 Portugal 4.60
 1 Franca 3.40
+2 Alemanha 4.80
+2 Inglaterra 6.5
+2 Italia 4.30
 C Franca 
 2 Portugal 5.20
 1 Espanha 3.60
+1 Alemanha 4.80
+2 Inglaterra 5.0
+2 Italia 4.50
+C Alemanha
+2 Portugal 5.3
+2 Espanha 4.80
+1 Franca 3.40
+1 Inglaterra 4.3
+2 Italia 5.6
+C Inglaterra
+2 Portugal 5.00
+2 Espanha 6.50
+2 Franca 5.0
+1 Alemanha 4.3
+2 Italia 7.3	
+C Italia
+2 Portugal 5.20
+2 Espanha 4.30
+2 Franca 4.60
+2 Alemanha 5.60
+2 Inglaterra 7.30

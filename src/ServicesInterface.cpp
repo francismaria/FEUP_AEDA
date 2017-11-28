@@ -155,7 +155,11 @@ int newRegisteredClientService(MovingCompany& company){
 		Date packingB = begginingDate;
 		packingB.setHour(hour+2);
 		Date packingE = begginingDate;
-		packingE.setDay(day+1);
+
+		if(day+1 <= 31)
+			packingE.setDay(day+1);
+		else
+			packingE.setDay(1);
 
 		/**** SHIPPING *****/
 		int zone1days = 5;
@@ -961,6 +965,9 @@ int checkClientsServiceStatus(MovingCompany& company){
 
 	std::cin >> id;
 
+	if(id == 0) return 0;
+	else if(id == -1) return -1;
+
 	int index;
 
 	if(std::cin.fail()){
@@ -978,8 +985,10 @@ int checkClientsServiceStatus(MovingCompany& company){
 		return 0;
 	}
 
-	if(id == 0) return 0;
-	else if(id == -1) return -1;
+	if(company.getClients()[index]->getServicesRequested().size() == 0){
+		std::cout << "\t\t\t\tThis client hans't requested any services." << std::endl;
+		return 0;
+	}
 
 	return company.checkClientServiceStatus(index);
 }
