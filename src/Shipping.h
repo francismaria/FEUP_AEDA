@@ -23,12 +23,12 @@ class Shipping{
 	float weight;
 public:
 	/**
-	 * Shipping constructor
+	 * @brief Shipping constructor
 	 */
 	Shipping(Date& b, Date& e, float w, int id);
 
 	/**
-	 * Shipping Destructor
+	 * @brief Shipping Destructor
 	 */
 	~Shipping(){};
 

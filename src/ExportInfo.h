@@ -50,4 +50,5 @@ std::string saveWarehousingService(Warehousing* wService, int idClient);
  */
 void saveServices(MovingCompany& company);
 
+
 #endif /* EXPORTINFO_H_ */

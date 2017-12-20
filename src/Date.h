@@ -26,73 +26,78 @@ public:
 	Date(){};
 
 	/**
-	 * Date constructor
+	 * @brief Date constructor
 	 */
 	Date(int d, int m, int y);
 
 	/**
-	 * Date constructor with hour and minute
+	 * @brief Date constructor with hour and minute
 	 */
 	Date(int d, int m, int y, int h, int min);
 
 	/**
+	 * @brief Gets day
 	 * @return day of the date
 	 */
 	int getDay() const;
 
 	/**
+	 * @brief Gets month
 	 * @return month of the date
 	 */
 	int getMonth() const;
 
 	/**
+	 * @brief Gets year
 	 * @return year of the date
 	 */
 	int getYear() const;
 
 	/**
+	 * @brief Gets hour
 	 * @return hour of the date
 	 */
 	int getHour() const;
 
 	/**
+	 * @brief Gets minute
 	 * @return minute of the date
 	 */
 	int getMinute() const;
 
 	/**
-	 * @brief sets day
+	 * @brief Sets day
 	 * @param d day of the date
 	 */
 	void setDay(int d);
 
 
 	/**
-	 * @brief sets month
+	 * @brief Sets month
 	 * @param m month of the date
 	 */
 	void setMonth(int m);
 
 	/**
-	 * @brief sets year
+	 * @brief Sets year
 	 * @param y year of the date
 	 */
 	void setYear(int y);
 
 	/**
-	 * @brief sets hour
+	 * @brief Sets hour
 	 * @param h hour of the date
 	 */
 	void setHour(int h);
 
 	/**
-	 * @brief sets minute
+	 * @brief Sets minute
 	 * @param m minute of the date
 	 */
 	void setMinute(int m);
 
 	/**
-	 * @brief checks if two dates are equal
+	 * @brief Checks if two dates are equal
 	 * @param d date 1
 	 * @param d1 date 2
 	 * @return true or false

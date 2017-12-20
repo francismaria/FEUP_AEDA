@@ -20,7 +20,7 @@ int checkClient(MovingCompany& company);
 
 
 /**
- * 	@brief Searchs a client thats belongs to the company by name.
+ * 	@brief Searches a client thats belongs to the company by name.
  * 	@param company The company object itself.
  * 	@return 0 or -1 depending on the input.
  */
@@ -28,7 +28,7 @@ int searchClientByName(MovingCompany& company);
 
 
 /**
- * 	@brief Searchs a client that belongs to the company by ID.
+ * 	@brief Searches a client that belongs to the company by ID.
  * 	@param company The company object itself.
  * 	@return 0 or -1 depending on the input.
  */
@@ -36,7 +36,7 @@ int searchClientByID(MovingCompany& company);
 
 
 /**
- * 	@brief Searchs a client that belongs to the company by NIF.
+ * 	@brief Searches a client that belongs to the company by NIF.
  * 	@param company The company object itself.
  * 	@return 0 or -1 depending on the input.
  */

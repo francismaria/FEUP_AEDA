@@ -27,7 +27,7 @@ class MovingCompany{
 	std::vector<Country*> countriesToOperate;
 public:
 	/**
-	 * Moving Company Constructor
+	 * @brief Moving Company Constructor
 	 */
 	MovingCompany(std::string n, std::string d, std::string iban, std::string e, int fd, int fm, int fy);
 

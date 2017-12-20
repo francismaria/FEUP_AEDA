@@ -19,40 +19,42 @@ class Country{
 	std::vector<ConnectionCountryInfo> countriesInfo;
 public:
 	/**
-	 * Country Constructor
+	 * @brief Country Constructor
 	 */
 	Country(std::string n);
 
 	/**
+	 * @brief Gets country name
 	 * @return string with name of country
 	 */
 	std::string getName() const;
 
 	/**
-	 * @brief add country to countriesInfo
+	 * @brief Adds country to countriesInfo
 	 * @param ci ConnectionCountryInfo to add to countriesInfo
 	 */
 	void addCountryConnection(ConnectionCountryInfo& ci);
 
 	/**
+	 * @brief Gets all countries
 	 * @return all countries
 	 */
 	std::vector<ConnectionCountryInfo> getCountriesInfo() const;
 
 	/**
-	 * @brief gets the destination country
+	 * @brief Gets the destination country
 	 * @param id destination country ID
 	 * @return ConnectionCountryInfo object (destination country)
 	 */
 	ConnectionCountryInfo& getDestination(int id);
 
 	/**
-	 * @brief prints all countries to which it operates to
+	 * @brief Prints all countries to which it operates to
 	 */
 	void printCountriesTo() const;
 
 	/**
-	 * @brief prints a country
+	 * @brief Prints a country
 	 * @param o ostream
 	 * @param c country
 	 * @return ostream

@@ -26,12 +26,12 @@ class Payment{
 	PaymentStatus status;
 public:
 	/**
-	 * Default constructor
+	 * @brief Default constructor
 	 */
 	Payment();
 
 	/**
-	 * Payment Constructor
+	 * @brief Payment Constructor
 	 */
 	Payment(float value);
 
