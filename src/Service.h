@@ -186,6 +186,12 @@ public:
 	virtual bool isWarehousing(){};
 
 	/**
+	 * @brief Checks if two services are the same
+	 * @return true or false
+	 */
+	bool operator ==(Service& s);
+
+	/**
 	 * @brief prints a service
 	 * @param o ostream
 	 * @param s service to be printed

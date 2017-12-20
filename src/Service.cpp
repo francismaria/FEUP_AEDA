@@ -114,6 +114,15 @@ void Service::validatePayment(){
 	this->payment->validate();
 }
 
+bool Service::operator ==(Service& s){
+	if(beggining == s.getBeggining() && end == s.getEnd()){
+		if(origin == s.getOrigin() && destination == s.getDestination())
+			return true;
+		return false;
+	}
+	return false;
+}
+
 /********************************************************/
 /******************* TRANSPORT **************************/
 /********************************************************/
