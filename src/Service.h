@@ -36,17 +36,17 @@ class Service{
 	static int numberOfServices;
 public:
 	/**
-	 * Service Default Contructor
+	 * @brief Service Default Contructor
 	 */
 	Service(){}
 
 	/**
-	 * Service Default Destructor
+	 * @brief Service Default Destructor
 	 */
 	~Service();
 
 	/**
-	 * Service Constructor
+	 * @brief Service Constructor
 	 */
 	Service(Address& o, Address& d, float w, Date& b, Date& e);
 
@@ -98,16 +98,19 @@ public:
 	Payment* getPayment() const;
 
 	/**
+	 * @brief Gets total weight of the packages
 	 * @return weight of the package
 	 */
 	float getWeight() const;
 
 	/**
+	 * @brief Gets the total cost of the packages
 	 * @return total cost of the service
 	 */
 	float getTotalCost() const;
 
 	/**
+	 * @brief Gets the total number of services
 	 * @return total amount of services
 	 */
 	static int getNumberOfServices();
@@ -206,11 +209,12 @@ public:
 class Transport: public Service{
 public:
 	/**
-	 * Transport Constructor
+	 * @brief Transport Constructor
 	 */
 	Transport(Address& o, Address& d, float w, Date& b, Date& e);
 
 	/**
+	 * @brief Checks if service has or not warehousing option
 	 * @return false
 	 */
 	bool isWarehousing(){ return false; }
@@ -223,7 +227,7 @@ class Warehousing: public Transport{
 	int daysWarehouse;
 public:
 	/**
-	 * Warehousing constructor
+	 * @brief Warehousing constructor
 	 */
 	Warehousing(Address& o, Address& d, float w, Date& b, Date& e, int daysWarehouse);
 
@@ -234,6 +238,7 @@ public:
 	int getDaysWarehouse() const;
 
 	/**
+	 * @brief Checks if service has or not warehousing option
 	 * @return true
 	 */
 	bool isWarehousing(){ return true; }

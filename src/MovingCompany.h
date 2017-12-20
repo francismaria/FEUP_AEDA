@@ -13,6 +13,7 @@
 #include "Country.h"
 #include "Exceptions.h"
 #include "Algorithms.h"
+#include "BST.h"
 
 /**
  * @brief Class that is the "Mother of all others". It represents a company.
@@ -25,7 +26,9 @@ class MovingCompany{
 	Date foundingDate;
 	std::vector<Client*> clients;
 	std::vector<Country*> countriesToOperate;
+	BST<Service> servicesHistory;
 public:
+
 	/**
 	 * @brief Moving Company Constructor
 	 */
