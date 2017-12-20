@@ -22,36 +22,39 @@ class Address{
 	ConnectionCountryInfo country;
 public:
 	/**
-	 * Default Constructor
+	 * @brief Default Constructor
 	 */
 	Address(){}
 
 	/**
-	 * Constructor with country as string
+	 * @brief Constructor with country as string
 	 */
 	Address(std::string street, std::string zipCode, std::string city, std::string country);
 
 	/**
-	 * Constructor with country as pointer
+	 * @brief Constructor with country as pointer
 	 */
 	Address(std::string street, std::string zipCode, std::string city, Country* c);
 
 	/**
-	 * Constructor with country as ConnectionCountryInfo object
+	 * @brief Constructor with country as ConnectionCountryInfo object
 	 */
 	Address(std::string street, std::string zipCode, std::string city, ConnectionCountryInfo& c);
 
 	/**
+	 * @brief Gets street from address
 	 * @return string with street address
 	 */
 	std::string getStreet() const;
 
 	/**
+	 * @brief Gets zip code from address
 	 * @return string with zip code
 	 */
 	std::string getZipCode() const;
 
 	/**
+	 * @brief Gets city from address
 	 * @return string with city
 	 */
 	std::string getCity() const;
@@ -64,38 +67,38 @@ public:
 	ConnectionCountryInfo& getCountry();
 
 	/**
-	 * @brief sets street address
+	 * @brief Sets street address
 	 * @param s
 	 */
 	void setStreet(std::string s);
 
 	/**
-	 * @brief sets zip code
+	 * @brief Sets zip code
 	 * @param z
 	 */
 	void setZipCode(std::string z);
 
 	/**
-	 * @brief sets city name
+	 * @brief Sets city name
 	 * @param c
 	 */
 	void setCity(std::string c);
 
 	/**
-	 * @brief sets country
+	 * @brief Sets country
 	 * @param cnt
 	 */
 	void setCountry(std::string cnt);
 
 	/**
-	 * @brief compares two addresses
+	 * @brief Compares two addresses
 	 * @param a1
 	 * @return true or false if addresses are equal
 	 */
 	bool operator ==(const Address& a1);
 
 	/**
-	 * @brief prints address in determined way
+	 * @brief Prints address in determined way
 	 * @param o ostream
 	 * @param a an address
 	 * @return ostream

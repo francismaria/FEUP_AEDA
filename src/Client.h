@@ -26,112 +26,116 @@ class Client{
 	static int numberOfClients;
 public:
 	/**
-	 * Default Constructor
+	 * @brief Default Constructor
 	 */
 	Client(){};
 
 	/**
-	 * Default Destructor
+	 * @brief Default Destructor
 	 */
 	~Client(){};
 
 	/**
-	 * Constructor to new Client
+	 * @brief Constructor to new Client
 	 */
 	Client(std::string name, long int nif, std::string address, std::string zipCode, std::string city, std::string country, int firstDay, int firstMonth, int firstYear, int hour, int minute);
 
 	/**
-	 * Client constructor w/ ID (already existing clients)
+	 * @brief Client constructor w/ ID (already existing clients)
 	 */
 	Client(int ID, std::string name, long int nif, std::string address, std::string zipCode, std::string city, std::string country, int firstDay, int firstMonth, int firstYear, int hour, int minute);
 
 	/**
-	 * @brief gets client ID
+	 * @brief Gets client ID
 	 * @return ID number
 	 */
 	int getId() const;
 
 	/**
-	 * @brief gets client NIF
+	 * @brief Gets client NIF
 	 * @return NIF number
 	 */
 	long int getNIF() const;
 
 	/**
-	 * @brief gets client name
+	 * @brief Gets client name
 	 * @return string with name
 	 */
 	std::string getName() const;
 
 	/**
-	 * @brief gets client address
+	 * @brief Gets client address
 	 * @return address
 	 */
 	const Address& getAddress() const;
 
+	/**
+	 * @brief Gets zip code address
+	 * @return zip code
+	 */
 	std::string getZipCode() const;
 
 	/**
-	 * @brief checks if clients are equal
+	 * @brief Checks if clients are equal
 	 * @param c1 another client
 	 * @return true or false
 	 */
 	bool operator ==(const Client& c1);
 
 	/**
-	 * @brief gets clients joining date to the company
+	 * @brief Gets clients joining date to the company
 	 * @return joining date
 	 */
 	const Date& getJoiningDate() const;
 
 	/**
-	 * @brief gets all clients services requested
+	 * @brief Gets all clients services requested
 	 * @return vector of services requested by the client
 	 */
 	std::vector<Service*> getServicesRequested();
 
 	/**
-	 * @brief adds new service to the clients service requested
+	 * @brief Adds new service to the clients service requested
 	 * @param s service pointer
 	 */
 	void addNewService(Service* s);
 
 	/**
-	 * @brief prints all services requested by the client
+	 * @brief Prints all services requested by the client
 	 */
 	void printServices() const;
 
 	/**
-	 * @brief prints the status of the clients service passed as parameter by ID
+	 * @brief Prints the status of the clients service passed as parameter by ID
 	 * @param sID service ID to check service status
 	 */
 	void checkServiceStatus(int sID) const;
 
 	/**
-	 * @brief validates client service
+	 * @brief Validates client service
 	 * @param sID represents the service ID to validate its payment
 	 */
 	void validatePayment(int sID);
 
 	/**
-	 * @brief deletes all of the services associated w/ the client
+	 * @brief Deletes all of the services associated w/ the client
 	 */
 	void deleteServices();
 
 	/**
-	 * @brief checks if a client is particular
+	 * @brief Checks if a client is particular
 	 * @return true or false if is or not a particular client
 	 */
 	virtual bool isParticular() {};
 
 	/**
-	 * @brief gets client age if particular
+	 * @brief Gets client age if particular
 	 * @return client's age
 	 */
 	virtual int getAge() {}
 
 	/**
-	 * @brief gets the total amount of clients registered in the company
+	 * @brief Gets the total amount of clients registered in the company
 	 * @return total amount
 	 */
 	static int getNumberOfClients();
