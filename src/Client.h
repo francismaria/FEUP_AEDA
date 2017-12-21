@@ -123,6 +123,12 @@ public:
 	void deleteServices();
 
 	/**
+	 * @brief Checks if two clients are the same
+	 * @return true or false
+	 */
+	bool operator ==(Client& c);
+
+	/**
 	 * @brief Checks if a client is particular
 	 * @return true or false if is or not a particular client
 	 */
@@ -160,12 +166,15 @@ class Company: public Client{
 	static int numberOfCompanies;
 public:
 	/**
-	 * Constructor to the Company client
+	 * @brief Constructor to the Company client
 	 */
 	Company(std::string name, long int nif, std::string address, std::string zipCode, std::string city, std::string country, int firstDay, int firstMonth, int firstYear, int hour, int minute);
 
-
+	/**
+	 * @brief Constructor to the Company Client
+	 */
 	Company(int id, std::string name, long int nif, std::string address, std::string zipCode, std::string city, std::string country, int firstDay, int firstMonth, int firstYear, int hour, int minute);
+
 	/**
 	 * @brief gets the total amount of company clients registered in the company
 	 * @return total amount of companies
@@ -173,6 +182,7 @@ public:
 	static int getNumberOfCompanies();
 
 	/**
+	 * @brief Check if is or not a particular client
 	 * @return false
 	 */
 	bool isParticular();
@@ -185,12 +195,17 @@ class Particular: public Client{
 	int age;
 	static int numberOfParticulars;
 public:
+
 	/**
-	 * Constructor to Particular Client
+	 * @brief Constructor to Particular Client
 	 */
 	Particular(std::string name, int age, long int nif, std::string address, std::string zipCode, std::string city, std::string country, int firstDay, int firstMonth, int firstYear, int hour, int minute);
 
+	/**
+	 * @brief Constructor to Particular Client
+	 */
 	Particular(int id, std::string name, int age, long int nif, std::string address, std::string zipCode, std::string city, std::string country, int firstDay, int firstMonth, int firstYear, int hour, int minute);
+
 	/**
 	 * @brief gets particular client age
 	 * @return age
@@ -198,11 +213,13 @@ public:
 	int getAge();
 
 	/**
+	 * @brief checks if it is or not a particular client
 	 * @return true;
 	 */
 	bool isParticular();
 
 	/**
+	 * @brief get total number of particulars
 	 * @return amount of particular clients
 	 */
 	static int getNumberOfParticulars();

@@ -16,7 +16,7 @@ int checkClient(MovingCompany& company){
 		std::cout << "\t\t\t\t\t   How would you like to search the client?" << std::endl;
 		std::cout << "\n\t\t\t\t\t\t1 - By Name" << std::endl;
 		std::cout << "\t\t\t\t\t\t2 - By ID" << std::endl;
-		std::cout << "\t\t\t\t\t\t0 - Go Back" << std::endl;
+		std::cout << "\n\t\t\t\t\t\t0 - Go Back" << std::endl;
 		std::cout << "\t\t\t\t\t       -1 - Exit Program" << std::endl;
 
 		std::cout << "\n\t\t\t\t\tPlease enter an option: ";
@@ -102,12 +102,11 @@ int newParticularClient(MovingCompany& company){
 
 	std::cout << "\n\t\t\t\t\t\t     NEW PARTICULAR CLIENT FORM\n" << std::endl;
 	std::cout << "\t\t\t\t\t\t0 - Cancel\t-1 - Exit program\n" << std::endl;
+	std::cout <<"\t\t\t\t\tPlease fill out this form in order to add the new client.\n\t\t\t\t\tYou can cancel or exit the "
+			"program at any time just enter 0 to cancel or -1 to exit.\n\n"<< std::endl;
 
 	std::string input;
 	std::stringstream ss;
-
-	std::cout <<"\t\t\t\t\tPlease fill out this form in order to add the new client.\n\t\t\t\t\tYou can cancel or exit the "
-			"program at any time just enter 0 to cancel or -1 to exit.\n\n"<< std::endl;
 
 	std::cin.ignore();
 
@@ -122,7 +121,7 @@ int newParticularClient(MovingCompany& company){
 
 	input.clear();
 
-		// -- AGE							//verificar int
+		// -- AGE
 	int age;
 	std::cout << "\n\t\t\t\tAge: ";
 	std::cin >> age;
@@ -156,7 +155,6 @@ int newParticularClient(MovingCompany& company){
 	std::string address = input;
 
 	input.clear();
-	//std::cin.ignore();
 
 		//-- ZIPCODE
 	std::cout << "\n\t\t\t\tZip Code: ";
@@ -220,12 +218,11 @@ int newCompanyClient(MovingCompany& company){
 
 	std::cout << "\n\t\t\t\t\t\t     NEW COMPANY CLIENT FORM\n" << std::endl;
 	std::cout << "\t\t\t\t\t\t0 - Cancel\t-1 - Exit program\n" << std::endl;
+	std::cout <<"\t\t\t\t\tPlease fill out this form in order to add the new client.\n\t\t\t\t\tYou can cancel or exit the "
+			"program at any time just enter 0 to cancel or -1 to exit.\n\n"<< std::endl;
 
 	std::string input;
 	std::stringstream ss;
-
-	std::cout <<"\t\t\t\t\tPlease fill out this form in order to add the new client.\n\t\t\t\t\tYou can cancel or exit the "
-			"program at any time just enter 0 to cancel or -1 to exit.\n\n"<< std::endl;
 
 	std::cin.ignore();
 

@@ -87,8 +87,6 @@ void Client::checkServiceStatus(int sID) const{
 void Client::validatePayment(int sID){
 
 	servicesRequested[sID-1]->validatePayment();
-
-	//throw not existing service
 }
 
 void Client::deleteServices(){
@@ -98,8 +96,17 @@ void Client::deleteServices(){
 	}
 }
 
+bool Client::operator ==(Client& c){
+
+	if(NIF == c.getNIF())
+		return true;
+	return false;
+}
+
+
+
 /************************************************/
-/************  COMPANY CONTRUCTOR  **************/
+/*****************  COMPANY  ********************/
 /************************************************/
 
 int Company::numberOfCompanies = 0;
@@ -123,8 +130,9 @@ bool Company::isParticular(){
 }
 
 
+
 /************************************************/
-/**********  PARTICULAR CONTRUCTOR  *************/
+/****************  PARTICULAR  ******************/
 /************************************************/
 
 int Particular::numberOfParticulars = 0;

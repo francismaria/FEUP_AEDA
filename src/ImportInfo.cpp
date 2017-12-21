@@ -741,6 +741,8 @@ void importServices(MovingCompany& company){
 
 			svcW->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
 
+			company.addServiceBill(company.getClients()[index], svcW);
+
 			company.getClients()[index]->addNewService(svcW);
 		}
 	}

@@ -7,6 +7,10 @@
 
 #include "ServicesInterface.h"
 
+// Shipping duration
+const int zone1days = 5;
+const int zone2days = 15;
+
 int newRegisteredClientService(MovingCompany& company){
 
 	int idClient;
@@ -670,9 +674,6 @@ int newUnregisteredClientService(MovingCompany& company){
 		packingE.setDay(day+1);
 
 		/**** SHIPPING *****/
-		int zone1days = 5;
-		int zone2days = 15;
-
 		Date shippingB = begginingDate;
 		shippingB.setDay(day+1); shippingB.setHour(hour+3);
 		Date shippingE = begginingDate;
@@ -783,9 +784,6 @@ int newUnregisteredClientService(MovingCompany& company){
 		packingE.setDay(day+1);
 
 		/**** SHIPPING *****/
-		const int zone1days = 5;			//MELHORAR ISTO
-		const int zone2days = 15;
-
 		Date shippingB = begginingDate;
 		shippingB.setDay(day+1); shippingB.setHour(hour+3);
 		Date shippingE = begginingDate;

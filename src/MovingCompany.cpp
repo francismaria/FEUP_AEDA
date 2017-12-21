@@ -8,7 +8,8 @@
 #include "MovingCompany.h"
 #include <algorithm>
 
-MovingCompany::MovingCompany(std::string n, std::string d, std::string iban, std::string e, int fd, int fm, int fy): foundingDate(Date(fd,fm,fy)){
+MovingCompany::MovingCompany(std::string n, std::string d, std::string iban, std::string e, int fd, int fm, int fy): foundingDate(Date(fd,fm,fy)),
+	servicesBills(ServiceBill()){
 	this->name = n;
 	this->description = d;
 	this->IBAN = iban;
@@ -68,6 +69,12 @@ Country* MovingCompany::getCountry(std::string name) const{
 
 void MovingCompany::addClient(Client* c){
 	clients.push_back(c);
+}
+
+void MovingCompany::addServiceBill(Client* c, Service* s){
+
+	ServiceBill sb(c,s);
+	servicesBills.insert(sb);
 }
 
 void MovingCompany::addCountry(Country* c){

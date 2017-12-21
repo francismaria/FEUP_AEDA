@@ -16,36 +16,41 @@
 class ServiceBill{
 	Client* client;
 	Service* service;
-	int serviceID;
 public:
+
+	/**
+	 * @brief ServiceBill default constructor
+	 */
+	ServiceBill();
+
 	/**
 	 * @brief ServiceBill constructor
 	 */
-	ServiceBill(Client* c, int sID);
+	ServiceBill(Client* c, Service* s);
 
 	/**
 	 * @brief Gets client
 	 * @return client
 	 */
-	Client* getClient();
+	Client* getClient() const;
 
 	/**
 	 * @brief Gets serviceID
 	 * @return ID
 	 */
-	int getServiceID() const;
+	Service* getService() const;
 
 	/**
 	 * @brief Checks which the two of the ServiceBill objects is the "lesser"
 	 * @return true or false
 	 */
-	bool operator <(const ServiceBill& sb);
+	bool operator <(const ServiceBill& sb) const;
 
 	/**
 	 * @brief Checks if two ServiceBill objects are the same
 	 * @return true or false
 	 */
-	bool operator ==(const ServiceBill& sb);
+	bool operator ==(const ServiceBill& sb) const;
 };
 
 

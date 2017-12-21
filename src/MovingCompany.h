@@ -13,6 +13,7 @@
 #include "Country.h"
 #include "Exceptions.h"
 #include "Algorithms.h"
+#include "ServiceBill.h"
 #include "BST.h"
 
 /**
@@ -26,7 +27,7 @@ class MovingCompany{
 	Date foundingDate;
 	std::vector<Client*> clients;
 	std::vector<Country*> countriesToOperate;
-	BST<Service> servicesHistory;
+	BST<ServiceBill> servicesBills;
 public:
 
 	/**
@@ -126,6 +127,13 @@ public:
 	 * @param c new client
 	 */
 	void addClient(Client* c);
+
+	/**
+	 * @brief adds a new service bill
+	 * @param c client to add bill
+	 * @param s service of the bill
+	 */
+	void addServiceBill(Client* c, Service* s);
 
 	/**
 	 * @brief removes client given a certain ID
