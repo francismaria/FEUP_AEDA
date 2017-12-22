@@ -54,4 +54,11 @@ int checkClientsServiceStatus(MovingCompany& company);
  */
 int validateClientsPayment(MovingCompany& company);
 
+/**
+ * @brief prints service bill
+ * @param company company itself
+ * @return 0 or -1 depending on the user input
+ */
+int printServicesBill(MovingCompany& company);
+
 #endif /* SERVICESINTERFACE_H_ */

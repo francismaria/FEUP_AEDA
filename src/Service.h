@@ -35,6 +35,7 @@ class Service{
 	float totalCost;
 	static int numberOfServices;
 public:
+
 	/**
 	 * @brief Service Default Contructor
 	 */
@@ -152,7 +153,13 @@ public:
 	Date& getPackagingEndDate() const;
 
 	/**
-	 * @brief gets shipping beggining date
+	 * @brief gets packaging cost
+	 * @return packaging cost
+	 */
+	float getPackagingCost() const;
+
+	/**
+	 * @brief gets shipping beginning date
 	 * @return date
 	 */
 	Date& getShippingBegginingDate() const;
@@ -164,7 +171,13 @@ public:
 	Date& getShippingEndDate() const;
 
 	/**
-	 * @brief gets delivery beggining date
+	 * @brief gets shipping cost
+	 * @return shipping cost
+	 */
+	float getShippingCost() const;
+
+	/**
+	 * @brief gets delivery beginning date
 	 * @return date
 	 */
 	Date& getDeliveryBegginingDate() const;
@@ -174,6 +187,17 @@ public:
 	 * @return date
 	 */
 	Date& getDeliveryEndDate() const;
+
+	/**
+	 * @brief gets delivery cost
+	 * @return delivery cost
+	 */
+	float getDeliveryCost() const;
+
+	/**
+	 * @brief prints a little resume of the service
+	 */
+	void printResume() const;
 
 	/**
 	 * @brief confirms/validate payment

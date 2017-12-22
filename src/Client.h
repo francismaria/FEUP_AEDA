@@ -106,6 +106,11 @@ public:
 	void printServices() const;
 
 	/**
+	 * @brief Prints all services resumed
+	 */
+	void printServicesResume() const;
+
+	/**
 	 * @brief Prints the status of the clients service passed as parameter by ID
 	 * @param sID service ID to check service status
 	 */

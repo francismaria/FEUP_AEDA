@@ -65,6 +65,8 @@ Country* MovingCompany::getCountry(std::string name) const{
 		if((*it)->getName() == name)
 			return *it;
 	}
+
+	return NULL;
 }
 
 void MovingCompany::addClient(Client* c){
@@ -152,6 +154,19 @@ void MovingCompany::removeClientByJoiningDate(int d, int m, int y){
 		}
 	}
 	throw NonExistingDate(d,m,y);
+}
+
+void MovingCompany::printBill(Client* c, Service* s){
+
+	BSTItrIn<ServiceBill> it(servicesBills);
+
+	while(!it.isAtEnd()){
+		if((it.retrieve().getClient() == c) && (it.retrieve().getService() == s)){
+			std::cout << "\n\t\t" << it.retrieve();
+			return;
+		}
+		it.advance();
+	}
 }
 
 void MovingCompany::printClient(std::string name) const{

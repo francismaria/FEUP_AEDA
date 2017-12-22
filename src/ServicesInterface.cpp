@@ -1000,6 +1000,9 @@ int validateClientsPayment(MovingCompany& company){
 
 	std::cin >> id;
 
+	if(id == 0) return 0;
+	else if(id == -1) return -1;
+
 	if(std::cin.fail()){
 		std::cout << "Not a valid option." << std::endl;
 		return 0;
@@ -1017,10 +1020,57 @@ int validateClientsPayment(MovingCompany& company){
 		return 0;
 	}
 
-	if(id == 0) return 0;
-	else if(id == -1) return -1;
-
 	return company.validateClientService(index);
 }
 
+int printServicesBill(MovingCompany& company){
 
+	int id;
+
+	std::cout << "\n\t\t\t\t\t\t\tPRINT SERVICE BILL\n" << std::endl;
+	std::cout << "\t\t\t\t\tEnter the ID of the client to validate service payment: ";
+
+	std::cin >> id;
+
+	if(id == 0) return 0;
+	else if(id == -1) return -1;
+
+	if(std::cin.fail()){
+		std::cout << "Not a valid option." << std::endl;
+		return 0;
+	}
+
+	int index;
+
+	try{
+		index = binarySearch(company.getClients(), id);
+		if(index == -1)
+			throw NonExistingClient(id);
+	}
+	catch(NonExistingClient& c){
+		std::cout << "\n\t\t\t\t\t There is no client with the ID: " << c.getID() << std::endl;
+		return 0;
+	}
+
+	if(company.getClients()[index]->getServicesRequested().size() == 0){
+		std::cout << "\n\t\t\t\t\t\tThere are no services associated with this client." << std::endl;
+		return 0;
+	}
+
+	company.getClients()[index]->printServicesResume();
+
+	int serviceOption;
+
+	std::cout << "\n\t\t\tChoose the service you'd like to get the bill: ";
+	std::cin >> serviceOption;
+
+	if((std::cin.fail()) || (serviceOption < -1) || (serviceOption > (int)company.getClients()[index]->getServicesRequested().size())){
+		std::cout << "Not a valid option." << std::endl;
+		return 0;
+	}
+
+	if(serviceOption == 0) return 0;
+	else if(serviceOption == -1) return -1;
+
+	company.printBill(company.getClients()[index], company.getClients()[index]->getServicesRequested()[serviceOption-1]);
+}

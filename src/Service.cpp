@@ -94,6 +94,10 @@ Date& Service::getPackagingEndDate() const{
 	return this->pack->getEnd();
 }
 
+float Service::getPackagingCost() const{
+	return this->pack->getCost();
+}
+
 Date& Service::getShippingBegginingDate() const{
 	return this->shipping->getBeggining();
 }
@@ -102,12 +106,26 @@ Date& Service::getShippingEndDate() const{
 	return this->shipping->getEnd();
 }
 
+float Service::getShippingCost() const{
+	return this->shipping->getCost();
+}
+
 Date& Service::getDeliveryBegginingDate() const{
 	return this->delivery->getBeggining();
 }
 
 Date& Service::getDeliveryEndDate() const{
 	return this->delivery->getEnd();
+}
+
+float Service::getDeliveryCost() const{
+	return this->delivery->getCost();
+}
+
+void Service::printResume() const{
+
+	std::cout << "\tOrigin: " << origin.getCity() << "\t\tDestination: " << destination.getCity() <<
+			"\n\t\t\tRequested on: " << beggining << "\tDelivered on: " << end << "\n\t\t\tTotal Cost: " << totalCost << std::endl;
 }
 
 void Service::validatePayment(){
@@ -124,7 +142,7 @@ bool Service::operator ==(Service& s){
 }
 
 /********************************************************/
-/******************* TRANSPORT **************************/
+/******************** TRANSPORT *************************/
 /********************************************************/
 
 Transport::Transport(Address& o, Address& d, float w, Date& b, Date& e): Service(o, d, w, b, e){}

@@ -79,6 +79,16 @@ void Client::printServices() const{
 	}
 }
 
+void Client::printServicesResume() const{
+
+	unsigned int i;
+
+	for(i = 0; i < servicesRequested.size(); i++){
+		std::cout << "\n\t\t" << i+1 << " -";
+		servicesRequested[i]->printResume();
+	}
+}
+
 void Client::checkServiceStatus(int sID) const{
 
 	std::cout << "STATUS: " << servicesRequested[sID-1]->getPayment()->getPaymentStatus();

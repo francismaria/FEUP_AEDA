@@ -155,6 +155,13 @@ public:
 	void removeClientByJoiningDate(int d, int m, int y);
 
 	/**
+	 * @brief prints bill of a service associated with the given client (searches through the BST)
+	 * @param c client which has the bill
+	 * @param s service of the client to print bill
+	 */
+	void printBill(Client* c, Service* s);
+
+	/**
 	 * @brief prints client given a certain name using binary search
 	 * @param name name of the client to print
 	 */
@@ -248,7 +255,7 @@ public:
 	int checkClientServiceStatus(int index);
 
 	/**
-	 * @brief free all memory alocated by the company
+	 * @brief free all memory allocated by the company
 	 */
 	void freeMemory();
 };

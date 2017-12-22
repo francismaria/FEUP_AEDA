@@ -51,6 +51,21 @@ public:
 	 * @return true or false
 	 */
 	bool operator ==(const ServiceBill& sb) const;
+
+	/**
+	 * @brief Operator to print ServiceBill object
+	 * @param o ostream
+	 * @param sb const ServiceBill&
+	 * @return ostream object
+	 */
+	friend std::ostream& operator <<(std::ostream& o, const ServiceBill& sb){
+		o << "\n\t\t\t\t\t\tSERVICE BILL" << "\n\t\t\t\tName: " << sb.getClient()->getName() <<
+				"\n\t\t\t\tNIF: " << sb.getClient()->getNIF() << "\n\t\t\t\tDate: " << sb.getService()->getBeggining() <<
+				"\n\t\t\t\t\tServices: " << "\n\t\t\t\tPackaging: " << sb.getService()->getPackagingCost() <<
+				"\n\t\t\t\tShipping: " << sb.getService()->getShippingCost() << "\n\t\t\t\tDelivery: " <<
+				sb.getService()->getDeliveryCost() << "\n\n\t\t\t\tTotal Cost: " << sb.getService()->getTotalCost() << std::endl;
+		return o;
+	}
 };
 
 

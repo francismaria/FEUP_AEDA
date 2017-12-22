@@ -58,7 +58,7 @@ bool showClientsMenu(MovingCompany& company){
 		std::cout << "\t\t\t\t\t\t\t4 - Print particular clients" << std::endl;
 		std::cout << "\t\t\t\t\t\t\t5 - Print company clients" << std::endl;
 		std::cout << "\t\t\t\t\t\t\t6 - Print all clients" << std::endl;
-		//std::cout << "\t\t\t\t\t\t\t7 - Update Client's Info\n" << std::endl;
+		//std::cout << "\t\t\t\t\t\t\t8 - Update Client's Info\n" << std::endl;
 		std::cout << "\t\t\t\t\t\t\t0 - Go back" << std::endl;
 		std::cout << "\t\t\t\t\t\t       -1 - Exit program.\n" << std::endl;
 
@@ -112,7 +112,8 @@ bool showServicesMenu(MovingCompany& company){
 		std::cout << "\t\t\t\t\t\t\t1 - Request New Service" << std::endl;
 		std::cout << "\t\t\t\t\t\t\t2 - Check Service Status" << std::endl;
 		std::cout << "\t\t\t\t\t\t\t3 - Print Client's Services History" << std::endl;
-		std::cout << "\t\t\t\t\t\t\t4 - Validate Payment\n" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t4 - Validate Payment" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t5 - Show service bill\n" << std::endl;
 		std::cout << "\t\t\t\t\t\t\t0 - Go back" << std::endl;
 		std::cout << "\t\t\t\t\t\t       -1 - Exit program.\n" << std::endl;
 
@@ -133,6 +134,9 @@ bool showServicesMenu(MovingCompany& company){
 				break;
 			case 4:
 				instruction = validateClientsPayment(company);
+				break;
+			case 5:
+				instruction = printServicesBill(company);
 				break;
 			case 0:
 				return false;

@@ -561,6 +561,7 @@ void importServices(MovingCompany& company){
 
 			svcT->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
 
+			company.addServiceBill(company.getClients()[index], svcT);
 			company.getClients()[index]->addNewService(svcT);
 		}
 		if(aux == "W"){
@@ -742,7 +743,6 @@ void importServices(MovingCompany& company){
 			svcW->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
 
 			company.addServiceBill(company.getClients()[index], svcW);
-
 			company.getClients()[index]->addNewService(svcW);
 		}
 	}
