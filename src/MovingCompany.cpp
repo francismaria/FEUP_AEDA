@@ -182,11 +182,13 @@ void MovingCompany::printClient(std::string name) const{
 
 void MovingCompany::printClient(int id) const{
 
-	for(unsigned int i = 0; i < clients.size(); i++){
-		if(clients[i]->getId() == id)
-			std::cout << *clients[i];
+	int index = binarySearch(clients, id);
+
+	if(index == -1){
+		throw NonExistingClient(id);
 	}
-	throw NonExistingClient(id);
+
+	std::cout << *clients[index];
 }
 
 //  GENERAL PRINT
@@ -337,7 +339,6 @@ int MovingCompany::validateClientService(int index){
 
 	return 0;
 }
-
 
 void MovingCompany::freeMemory(){
 

@@ -62,6 +62,14 @@ std::vector<Service*> Client::getServicesRequested(){
 	return servicesRequested;
 }
 
+void Client::updateAddress(Address& a){
+	address = a;
+}
+
+void Client::updateNIF(long int nif){
+	NIF = nif;
+}
+
 void Client::addNewService(Service* s){
 	servicesRequested.push_back(s);
 }

@@ -83,5 +83,12 @@ int printCompanies(MovingCompany& company);
 int printClients(MovingCompany& company);
 
 
+/**
+ * @brief Updates a certain client information
+ * @param company The company object itself
+ * @return 0 or -1 depending on the input.
+ */
+int updateClientsInfo(MovingCompany& company);
+
 
 #endif /* CLIENTSINTERFACE_H_ */

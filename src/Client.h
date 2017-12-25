@@ -101,6 +101,18 @@ public:
 	void addNewService(Service* s);
 
 	/**
+	 * @brief Updates client Address
+	 * @param a new address
+	 */
+	void updateAddress(Address& a);
+
+	/**
+	 * @brief Updates client's NIF
+	 * @param nif new nif
+	 */
+	void updateNIF(long int nif);
+
+	/**
 	 * @brief Prints all services requested by the client
 	 */
 	void printServices() const;

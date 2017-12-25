@@ -565,6 +565,7 @@ int printCompanies(MovingCompany& company){
 }
 
 int printClients(MovingCompany& company){
+
 	int option;
 
 	while(option != -1){
@@ -604,8 +605,122 @@ int printClients(MovingCompany& company){
 				break;
 		}
 	}
+	return 0;
+}
+
+int updateClientInfoAddress(MovingCompany& company, int index){
+
+	std::cin.ignore();
+
+	std::cout << "\n\n\t\t\t\tUPDATE " << company.getClients()[index]->getName() << " ADDRESS" << std::endl;
+	std::cout << "\t\t\t\tPlease insert the new information:\n\t\t\t\tStreet: ";
+
+	std::string newStreet;
+	std::getline(std::cin, newStreet);
+
+	std::string newCity;
+	std::cout << "\n\t\t\t\tCity: ";
+	std::getline(std::cin, newCity);
+
+	std::string newZipCode;
+	std::cout << "\n\t\t\t\tZip Code: ";
+	std::getline(std::cin, newZipCode);
+
+	std::string newCountry;
+	std::cout << "\n\t\t\t\tCountry: ";
+	std::getline(std::cin, newCountry);
+
+	Address newAddress(newStreet, newZipCode, newCity, newCountry);
+
+	company.getClients()[index]->updateAddress(newAddress);
+
+	std::cout << "\n\t\t\t\tAddress was successful updated." << std::endl;
 
 	return 0;
+}
+
+int updateClientInfoNIF(MovingCompany& company, int index){
+
+	std::cout << "\n\t\t\t\tUPDATE " << company.getClients()[index]->getName() << " NIF" << std::endl;
+	std::cout << "\n\t\t\t\tPlease insert the new information.\n\n\t\t\t\tNIF: ";
+
+	long int newNif;
+
+	std::cin >> newNif;
+	company.getClients()[index]->updateNIF(newNif);
+
+	std::cout << "\n\t\t\t\NIF was successful updated." << std::endl;
+
+	return 0;
+}
+
+int updateClientInfo(MovingCompany& company, int clientID){
+
+	int index;
+
+	try{
+		index = binarySearch(company.getClients(), clientID);
+		if(index == -1)
+			throw NonExistingClient(clientID);
+	}
+	catch(NonExistingClient& c){
+		std::cout << "\n\t\t\t\t\t There is no client with the ID: " << c.getID() << std::endl;
+		return 0;
+	}
+
+	std::cout << "\t\t\t\t\tWhat would you like to update?\n" << std::endl;
+	std::cout << "\t\t\t\t\t\t1 - Address" << std::endl;
+	std::cout << "\t\t\t\t\t\t2 - NIF" << std::endl;
+	std::cout << "\t\t\t\tInsert the option you would like to update: ";
+
+	int option;
+
+	while(option != -1){
+		std::cin >> option;
+
+		switch(option){
+			case 1:
+				return updateClientInfoAddress(company, index);
+			case 2:
+				return updateClientInfoNIF(company, index);
+			case 0:
+				return 0;
+			case -1:
+				return -1;
+			default:
+				std::cout << "\t\t\t\tPlease insert a valid option: ";
+				break;
+		}
+	}
+
+	return 0;
+}
+
+int updateClientsInfo(MovingCompany& company){
+
+	if(company.getClients().size() == 0){
+		std::cout << "There are no client registered in the company." << std::endl;
+		return 0;
+	}
+
+	int enteredID;
+
+	std::cout << "\n\t\t\t\t\t\t\tUPDATE CLIENT INFO\n" << std::endl;
+	std::cout << "\t\t\t\tInsert the client ID you would like to update info: ";
+	std::cin >> enteredID;
+
+	if(enteredID == 0) return 0;
+	if(enteredID == -1) return -1;
+
+	try{
+		company.printClient(enteredID);
+	}
+	catch(NonExistingClient& nc){
+		std::cout << "There is no client with the ID: " << nc.getID() << std::endl;
+		return 0;
+	}
+
+	return updateClientInfo(company, enteredID);
 }
 
 
