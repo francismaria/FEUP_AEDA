@@ -59,6 +59,10 @@ public:
 	 */
 	std::string getCity() const;
 
+	/**
+	 * @brief Gets only the string with the name of the country
+	 * @return country name
+	 */
 	std::string getCountryAux() const;
 
 	/**

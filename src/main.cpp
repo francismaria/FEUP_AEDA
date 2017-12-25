@@ -24,9 +24,7 @@ void importInfo(MovingCompany& company){
 void terminateProgram(MovingCompany& company){
 
 	saveClients(company);
-
 	saveServices(company);
-
 	company.freeMemory();
 
 	std::cout << "\n\n\t\tProgram terminated." << std::endl;

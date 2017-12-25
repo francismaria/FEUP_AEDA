@@ -33,6 +33,8 @@ class Service{
 	Delivery* delivery;
 	Payment* payment;
 	float totalCost;
+	int zone;
+	float baseRate;
 	static int numberOfServices;
 public:
 
@@ -56,6 +58,18 @@ public:
 	 * @param baseRate base rate of the country destination service
 	 */
 	void addBaseRate(float baseRate);
+
+	/**
+	 * @brief Adds zone of the service
+	 * @param zone zone of the service
+	 */
+	void addZone(int zone);
+
+	/**
+	 * @brief Adds extra cost for extra services (warehousing, etc)
+	 * @param cost cost to be added
+	 */
+	void addExtraCost(int cost);
 
 	/**
 	 * @return service ID
@@ -109,6 +123,18 @@ public:
 	 * @return total cost of the service
 	 */
 	float getTotalCost() const;
+
+	/**
+	 * @brief Gets base rate of the service
+	 * @return base rate
+	 */
+	float getBaseRate() const;
+
+	/**
+	 * @brief Gets zone of the service (1/2)
+	 * @return zone
+	 */
+	int getZone() const;
 
 	/**
 	 * @brief Gets the total number of services
@@ -255,6 +281,7 @@ public:
  */
 class Warehousing: public Transport{
 	int daysWarehouse;
+	float warehousingCost;
 public:
 	/**
 	 * @brief Warehousing constructor
@@ -266,6 +293,12 @@ public:
 	 * @return warehouse days
 	 */
 	int getDaysWarehouse() const;
+
+	/**
+	 * @brief gets the cost of keeping the packages in warehouse
+	 * @return warehousing cost
+	 */
+	float getWarehousingCost() const;
 
 	/**
 	 * @brief Checks if service has or not warehousing option

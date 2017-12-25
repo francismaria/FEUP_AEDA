@@ -576,11 +576,11 @@ int printClients(MovingCompany& company){
 
 		std::cout << "\n\t\t\t\t\t\t\tPrint All Clients" << std::endl;
 		std::cout << "\t\t\t\t\t\tHow would you like to print the clients?\n" << std::endl;
-		std::cout << "\t\t\t\t\t\t  1 - By ID" << std::endl;
-		std::cout << "\t\t\t\t\t\t  2 - By Name" << std::endl;
-		std::cout << "\t\t\t\t\t\t  3 - By joining date\n" << std::endl;
-		std::cout << "\t\t\t\t\t\t  0 - Go back" << std::endl;
-		std::cout << "\t\t\t\t\t         -1 - Exit program.\n" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t1 - By ID" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t2 - By Name" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t3 - By joining date\n" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t0 - Go back" << std::endl;
+		std::cout << "\t\t\t\t\t\t       -1 - Exit program.\n" << std::endl;
 
 		std::cout << "\t\t\t\tPlease insert your option: ";
 		std::cin >> option;

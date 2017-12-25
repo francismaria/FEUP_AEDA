@@ -63,7 +63,17 @@ public:
 				"\n\t\t\t\tNIF: " << sb.getClient()->getNIF() << "\n\t\t\t\tDate: " << sb.getService()->getBeggining() <<
 				"\n\t\t\t\t\tServices: " << "\n\t\t\t\tPackaging: " << sb.getService()->getPackagingCost() <<
 				"\n\t\t\t\tShipping: " << sb.getService()->getShippingCost() << "\n\t\t\t\tDelivery: " <<
-				sb.getService()->getDeliveryCost() << "\n\n\t\t\t\tTotal Cost: " << sb.getService()->getTotalCost() << std::endl;
+				sb.getService()->getDeliveryCost();
+
+		if(sb.getService()->isWarehousing()){
+			Warehousing* svcW = (Warehousing*)sb.getService();
+			o << "\n\t\t\t\tWarehousing [" << svcW->getDaysWarehouse() << " days]: " << svcW->getWarehousingCost();
+		}
+
+		o << "\n\t\t\t\tZONE " << sb.getService()->getZone() << " [Base Rate]: " << sb.getService()->getBaseRate()*sb.getService()->getWeight() <<
+				"\t[" << sb.getService()->getBaseRate() << "/kg]";
+		o << "\n\n\t\t\t\tTotal Cost: " << sb.getService()->getTotalCost() << std::endl;
+
 		return o;
 	}
 };

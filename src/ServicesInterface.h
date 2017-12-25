@@ -11,6 +11,9 @@
 #include "MovingCompany.h"
 #include <ctime>
 
+const int ZONE_1 = 1;
+const int ZONE_2 = 2;
+
 /**
  * @brief creates new service
  * @param company company itself
