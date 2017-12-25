@@ -559,7 +559,15 @@ void importServices(MovingCompany& company){
 			svcT->setDelivery(d);
 			svcT->setPayment(pay);
 
-			svcT->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
+			if(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getZone() == 1){
+				svcT->addZone(ZONE_1);
+				svcT->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
+			}
+			else{
+				svcT->addZone(ZONE_2);
+				float zone2Increase = company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate();
+				svcT->addBaseRate(zone2Increase);
+			}
 
 			company.addServiceBill(company.getClients()[index], svcT);
 			company.getClients()[index]->addNewService(svcT);
@@ -740,14 +748,18 @@ void importServices(MovingCompany& company){
 			svcW->setDelivery(d);
 			svcW->setPayment(pay);
 
-			svcW->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
+			if(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getZone() == 1){
+				svcW->addZone(ZONE_1);
+				svcW->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
+			}
+			else{
+				svcW->addZone(ZONE_2);
+				float zone2Increase = company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate();
+				svcW->addBaseRate(zone2Increase);
+			}
 
 			company.addServiceBill(company.getClients()[index], svcW);
 			company.getClients()[index]->addNewService(svcW);
 		}
 	}
 }
-
-
-
-

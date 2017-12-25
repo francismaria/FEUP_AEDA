@@ -23,15 +23,39 @@ Service::~Service(){
 Service::Service(Address& o, Address& d, float w, Date& b, Date& e): origin(o), destination(d), weight(w), beggining(b), end(e), totalCost(0){
 	this->ID = numberOfServices;
 	numberOfServices++;
+	zone = 0;
+	baseRate = 0;
+}
+/*
+Service::Service(Address& o, Address& d, float w, Date& b, Date& e, float bRate, int z):
+		origin(o), destination(d), weight(w), beggining(b), end(e), baseRate(bRate), zone(z){
+	this->totalCost += baseRate*weight;
+	this->ID = numberOfServices;
+	numberOfServices++;
+}
+*/
+
+void Service::addZone(int zone){
+	this->zone = zone;
 }
 
 void Service::addBaseRate(float baseRate){
+	this->baseRate = baseRate;
 	this->totalCost += baseRate*this->weight;
+
+	if(zone == 2){
+		this->totalCost += (this->totalCost*0.1);
+	}
+}
+
+void Service::addExtraCost(float cost){
+	this->totalCost += cost;
 }
 
 int Service::getID() {
 	return ID;
 }
+
 float Service::getWeight() const{
 	return weight;
 }
@@ -53,6 +77,14 @@ Address& Service::getOrigin(){
 
 Address& Service::getDestination(){
 	return destination;
+}
+
+float Service::getBaseRate() const{
+	return baseRate;
+}
+
+int Service::getZone() const{
+	return zone;
 }
 
 void Service::setID(int id){
@@ -157,11 +189,19 @@ Warehousing::Warehousing(Address& o, Address& d, float w, Date& b, Date& e, int 
 
 	if(this->daysWarehouse > 5){
 		float tax = w * TAX_WAREHOUSING_DAY;
-		this->addBaseRate((this->daysWarehouse - 5) * tax);
+		warehousingCost = (this->daysWarehouse - 5) * tax;
+		this->addExtraCost(warehousingCost);
+	}
+	else{
+		warehousingCost = 0;
 	}
 }
 
 int Warehousing::getDaysWarehouse() const{
 	return daysWarehouse;
+}
+
+float Warehousing::getWarehousingCost() const{
+	return warehousingCost;
 }
 

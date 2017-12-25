@@ -221,13 +221,28 @@ int newRegisteredClientService(MovingCompany& company){
 		svcT->setShipping(s);
 		svcT->setDelivery(d);
 
-		if(destination.getCountry().getZone() == 1)
+		/*if(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getZone() == 1){
 			svcT->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
+			svcT->addZone(ZONE_1);
+		}
 		else{
 			float zone2Increase = company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate();
 			zone2Increase += (zone2Increase*0.1);
 			svcT->addBaseRate(zone2Increase);
+			svcT->addZone(ZONE_2);
+		}*/
+		if(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getZone() == 1){
+			svcT->addZone(ZONE_1);
+			svcT->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
 		}
+		else{
+			svcT->addZone(ZONE_2);
+			float zone2Increase = company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate();
+			svcT->addBaseRate(zone2Increase);
+			//svcT->addExtraCost(zone2Increase*0.1);
+
+		}
+
 		std::cout << "\n\t\t\t\tChoose the type of payment:\n" << std::endl;
 
 		int option;
@@ -340,6 +355,7 @@ int newRegisteredClientService(MovingCompany& company){
 
 		}
 
+		company.addServiceBill(company.getClients()[index], svcT);
 		company.getClients()[index]->addNewService(svcT);
 
 	}
@@ -413,7 +429,27 @@ int newRegisteredClientService(MovingCompany& company){
 		svcW->setShipping(s);
 		svcW->setDelivery(d);
 
-		svcW->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
+		/*if(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getZone() == 1){
+			svcW->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
+			svcW->addZone(ZONE_1);
+		}
+		else{
+			float zone2Increase = company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate();
+			zone2Increase += (zone2Increase*0.1);
+			svcW->addBaseRate(zone2Increase);
+			svcW->addZone(ZONE_2);
+		}*/
+
+		if(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getZone() == 1){
+			svcW->addZone(ZONE_1);
+			svcW->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
+		}
+		else{
+			svcW->addZone(ZONE_2);
+			float zone2Increase = company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate();
+			svcW->addBaseRate(zone2Increase);
+			//svcT->addExtraCost(zone2Increase*0.1);
+		}
 
 		std::cout << "\n\t\t\t\tChoose the type of payment:\n" << std::endl;
 
@@ -522,11 +558,10 @@ int newRegisteredClientService(MovingCompany& company){
 
 			}
 			else if(option == 0) return 0;
-
 			else if(option == -1) return -1;
-
 		}
 
+		company.addServiceBill(company.getClients()[index], svcW);
 		company.getClients()[index]->addNewService(svcW);
 	}
 
@@ -726,7 +761,15 @@ int newUnregisteredClientService(MovingCompany& company){
 		svcT->setShipping(s);
 		svcT->setDelivery(d);
 
-		svcT->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
+		if(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getZone() == 1){
+			svcT->addZone(ZONE_1);
+			svcT->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
+		}
+		else{
+			svcT->addZone(ZONE_2);
+			float zone2Increase = company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate();
+			svcT->addBaseRate(zone2Increase);
+		}
 
 		std::cout << "\n\t\t\t\tChoose the type of payment:\n" << std::endl;
 		int option;
@@ -837,7 +880,15 @@ int newUnregisteredClientService(MovingCompany& company){
 		svcW->setShipping(s);
 		svcW->setDelivery(d);
 
-		svcW->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
+		if(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getZone() == 1){
+			svcW->addZone(ZONE_1);
+			svcW->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
+		}
+		else{
+			svcW->addZone(ZONE_2);
+			float zone2Increase = company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate();
+			svcW->addBaseRate(zone2Increase);
+		}
 
 		std::cout << "\n\t\t\t\tChoose the type of payment:\n" << std::endl;
 		int option;
@@ -1028,7 +1079,7 @@ int printServicesBill(MovingCompany& company){
 	int id;
 
 	std::cout << "\n\t\t\t\t\t\t\tPRINT SERVICE BILL\n" << std::endl;
-	std::cout << "\t\t\t\t\tEnter the ID of the client to validate service payment: ";
+	std::cout << "\t\t\t\t\tEnter the ID of the client to print service bill: ";
 
 	std::cin >> id;
 
@@ -1073,4 +1124,5 @@ int printServicesBill(MovingCompany& company){
 	else if(serviceOption == -1) return -1;
 
 	company.printBill(company.getClients()[index], company.getClients()[index]->getServicesRequested()[serviceOption-1]);
+	return 0;
 }

@@ -69,7 +69,7 @@ public:
 	 * @brief Adds extra cost for extra services (warehousing, etc)
 	 * @param cost cost to be added
 	 */
-	void addExtraCost(int cost);
+	void addExtraCost(float cost);
 
 	/**
 	 * @return service ID
