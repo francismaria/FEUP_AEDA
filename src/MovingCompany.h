@@ -161,6 +161,12 @@ public:
 	void addServiceBill(Client* c, Service* s);
 
 	/**
+	 * @brief adds a non active client to the hash table
+	 * @param c non active client
+	 */
+	void addNonActiveClient(Client* c);
+
+	/**
 	 * @brief removes client given a certain ID
 	 * @param id ID of the client to be removed
 	 */

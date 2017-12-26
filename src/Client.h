@@ -23,6 +23,7 @@ class Client{
 	Address address;
 	Date joiningDate;
 	std::vector<Service*> servicesRequested;
+	Date lastService;
 	static int numberOfClients;
 public:
 	/**
@@ -83,10 +84,16 @@ public:
 	bool operator ==(const Client& c1);
 
 	/**
-	 * @brief Gets clients joining date to the company
+	 * @brief Gets client's joining date to the company
 	 * @return joining date
 	 */
 	const Date& getJoiningDate() const;
+
+	/**
+	 * @brief Gets client's last service date
+	 * @return last service date
+	 */
+	const Date& getLastService() const;
 
 	/**
 	 * @brief Gets all clients services requested
@@ -111,6 +118,12 @@ public:
 	 * @param nif new nif
 	 */
 	void updateNIF(long int nif);
+
+	/**
+	 * @brief Updated client's last service date
+	 * @param d date of the last service
+	 */
+	void updateLastService(Date& d);
 
 	/**
 	 * @brief Prints all services requested by the client

@@ -21,9 +21,9 @@ class Date{
 	int minute;
 public:
 	/**
-	 * Default constructor
+	 * @brief Default constructor
 	 */
-	Date(){};
+	Date();
 
 	/**
 	 * @brief Date constructor
@@ -128,17 +128,17 @@ public:
 	friend bool operator <(const Date& d1, const Date& d2){
 		if(d1.year < d2.getYear())
 				return true;
-			else if(d1.year > d2.getYear())
-				return false;
-
-			if(d1.month < d2.getMonth())
-				return true;
-			else if(d1.month > d2.getMonth())
-				return false;
-
-			if(d1.day < d2.getDay())
-				return true;
+		else if(d1.year > d2.getYear())
 			return false;
+
+		if(d1.month < d2.getMonth())
+			return true;
+		else if(d1.month > d2.getMonth())
+			return false;
+
+		if(d1.day < d2.getDay())
+			return true;
+		return false;
 	}
 };
 

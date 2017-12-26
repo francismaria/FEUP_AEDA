@@ -38,5 +38,11 @@ void importCountriesZones(MovingCompany& company);
  */
 void importServices(MovingCompany& company);
 
+/**
+ * @brief adds non active clients to the hash table
+ * @param company company itself
+ */
+void addNonActiveClients(MovingCompany& company);
+
 
 #endif /* IMPORTINFO_H_ */

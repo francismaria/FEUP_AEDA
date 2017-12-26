@@ -7,6 +7,8 @@
 
 #include "Date.h"
 
+Date::Date(): day(0), month(0), year(0), hour(0), minute(0){}
+
 Date::Date(int d, int m, int y): day(d), month(m), year(y){
 	hour = 0;
 	minute = 0;

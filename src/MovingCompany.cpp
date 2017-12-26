@@ -83,6 +83,11 @@ void MovingCompany::addServiceBill(Client* c, Service* s){
 	servicesBills.insert(sb);
 }
 
+void MovingCompany::addNonActiveClient(Client* c){
+
+	nonActiveClients.insert(c);
+}
+
 void MovingCompany::addCountry(Country* c){
 	countriesToOperate.push_back(c);
 }

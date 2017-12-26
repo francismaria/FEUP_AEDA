@@ -569,6 +569,10 @@ void importServices(MovingCompany& company){
 				svcT->addBaseRate(zone2Increase);
 			}
 
+			if(company.getClients()[index]->getLastService() < begginingTransport){
+				company.getClients()[index]->updateLastService(begginingTransport);
+			}
+
 			company.addServiceBill(company.getClients()[index], svcT);
 			company.getClients()[index]->addNewService(svcT);
 		}
@@ -758,8 +762,77 @@ void importServices(MovingCompany& company){
 				svcW->addBaseRate(zone2Increase);
 			}
 
+			if(company.getClients()[index]->getLastService() < begginingWarehousing){
+				company.getClients()[index]->updateLastService(begginingWarehousing);
+			}
+
 			company.addServiceBill(company.getClients()[index], svcW);
 			company.getClients()[index]->addNewService(svcW);
+		}
+	}
+
+	addNonActiveClients(company);
+}
+
+void getActualDate(Date& actualDate){
+	std::stringstream ss;
+
+	int actualDay, actualMonth, actualYear;
+	time_t rawtime;
+	struct tm* timeinfo;
+	char buffer[80];
+
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+	strftime(buffer, sizeof(buffer), "%d %m %y", timeinfo);
+
+	std::string buf(buffer);
+
+	ss << buf;
+	ss >> actualDay;
+	ss >> actualMonth;
+	ss >> actualYear;
+
+	actualYear += 2000;
+
+	actualDate.setDay(actualDay);
+	actualDate.setMonth(actualMonth);
+	actualDate.setYear(actualYear);
+}
+
+bool isNonActiveClient(const Date& clientDate){
+
+	Date actualDate;
+	getActualDate(actualDate);
+
+	if(clientDate.getYear() < actualDate.getYear()){
+		if(actualDate.getYear() == (clientDate.getYear()+1)){
+			int monthAux = actualDate.getMonth()+12;
+
+			if((monthAux - clientDate.getMonth()) > 3)
+				return true;
+
+			return false;
+		}
+		return true;			// a diferença dos meses do ultimo serviço passa bem mais dos 3 meses
+	}
+	else{
+		int diffMonth = actualDate.getMonth() - clientDate.getMonth();
+
+		if(diffMonth > 3)
+			return true;
+
+		return false;
+	}
+}
+
+void addNonActiveClients(MovingCompany& company){
+
+	unsigned int i;
+
+	for(i = 0; i < company.getClients().size(); i++){
+		if(isNonActiveClient(company.getClients()[i]->getLastService())){
+			company.addNonActiveClient(company.getClients()[i]);
 		}
 	}
 }

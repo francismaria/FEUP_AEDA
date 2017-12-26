@@ -10,11 +10,13 @@
 int Client::numberOfClients = 0;
 
 /************************************************/
-/************  CLIENT CONTRUCTOR  ***************/
+/************  CLIENT CONSTRUCTOR  **************/
 /************************************************/
 
 Client::Client(std::string name, long int nif, std::string address, std::string zipCode, std::string city, std::string country, int firstDay, int firstMonth, int firstYear, int hour, int minute):
-				address(Address(address, zipCode, city, country)), joiningDate(Date(firstDay, firstMonth, firstYear, hour, minute)){
+				address(Address(address, zipCode, city, country)),
+				joiningDate(Date(firstDay, firstMonth, firstYear, hour, minute)),
+				lastService(Date(0,0,0,0,0)){
 	numberOfClients++;
 	this->id = numberOfClients;
 	this->name = name;
@@ -22,7 +24,9 @@ Client::Client(std::string name, long int nif, std::string address, std::string 
 }
 
 Client::Client(int ID, std::string name, long int nif, std::string address, std::string zipCode, std::string city, std::string country, int firstDay, int firstMonth, int firstYear, int hour, int minute):
-				address(Address(address, zipCode, city, country)), joiningDate(Date(firstDay, firstMonth, firstYear, hour, minute)){
+				address(Address(address, zipCode, city, country)),
+				joiningDate(Date(firstDay, firstMonth, firstYear, hour, minute)),
+				lastService(Date(0,0,0,0,0)){
 	numberOfClients++;
 	this->id = ID;
 	this->name = name;
@@ -58,6 +62,10 @@ const Date& Client::getJoiningDate() const{
 	return joiningDate;
 }
 
+const Date& Client::getLastService() const{
+	return lastService;
+}
+
 std::vector<Service*> Client::getServicesRequested(){
 	return servicesRequested;
 }
@@ -68,6 +76,10 @@ void Client::updateAddress(Address& a){
 
 void Client::updateNIF(long int nif){
 	NIF = nif;
+}
+
+void Client::updateLastService(Date& d){
+	lastService = d;
 }
 
 void Client::addNewService(Service* s){
@@ -99,7 +111,7 @@ void Client::printServicesResume() const{
 
 void Client::checkServiceStatus(int sID) const{
 
-	std::cout << "STATUS: " << servicesRequested[sID-1]->getPayment()->getPaymentStatus();
+	std::cout << "\n\n\t\t\t\t\tSTATUS: " << servicesRequested[sID-1]->getPayment()->getPaymentStatus();
 }
 
 void Client::validatePayment(int sID){
@@ -120,8 +132,6 @@ bool Client::operator ==(Client& c){
 		return true;
 	return false;
 }
-
-
 
 /************************************************/
 /*****************  COMPANY  ********************/
@@ -146,8 +156,6 @@ int Company::getNumberOfCompanies(){
 bool Company::isParticular(){
 	return false;
 }
-
-
 
 /************************************************/
 /****************  PARTICULAR  ******************/
