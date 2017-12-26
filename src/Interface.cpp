@@ -58,7 +58,8 @@ bool showClientsMenu(MovingCompany& company){
 		std::cout << "\t\t\t\t\t\t\t4 - Print particular clients" << std::endl;
 		std::cout << "\t\t\t\t\t\t\t5 - Print company clients" << std::endl;
 		std::cout << "\t\t\t\t\t\t\t6 - Print all clients" << std::endl;
-		std::cout << "\t\t\t\t\t\t\t7 - Update Client's Info\n" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t7 - Print non active clients" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t8 - Update Client's Info\n" << std::endl;
 		std::cout << "\t\t\t\t\t\t\t0 - Go back" << std::endl;
 		std::cout << "\t\t\t\t\t\t       -1 - Exit program.\n" << std::endl;
 
@@ -87,6 +88,9 @@ bool showClientsMenu(MovingCompany& company){
 				instruction = printClients(company);
 				break;
 			case 7:
+				instruction = printNonActiveClients(company);
+				break;
+			case 8:
 				instruction = updateClientsInfo(company);
 				break;
 			case 0:

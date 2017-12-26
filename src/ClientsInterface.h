@@ -82,6 +82,12 @@ int printCompanies(MovingCompany& company);
  */
 int printClients(MovingCompany& company);
 
+/**
+ * @brief Prints all non active clients
+ * @param The company object itself
+ * @return 0 or -1 depending on the input.
+ */
+int printNonActiveClients(MovingCompany& company);
 
 /**
  * @brief Updates a certain client information

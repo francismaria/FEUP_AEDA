@@ -57,6 +57,10 @@ std::vector<Client*> MovingCompany::getCompaniesClients() const{
 	return companies_aux;
 }
 
+tabHCli MovingCompany::getNonActiveClients() const{
+	return nonActiveClients;
+}
+
 Country* MovingCompany::getCountry(std::string name) const{
 
 	std::vector<Country*>::const_iterator it;
@@ -290,6 +294,15 @@ void MovingCompany::printCompanyClientsByJoiningDate() const{
 	std::vector<Client*> companies_aux = getCompaniesClients();
 
 	printByJoiningDate(companies_aux);
+}
+
+void MovingCompany::printNonActiveClients() const{
+
+	tabHCli::const_iterator it;
+
+	for(it = nonActiveClients.begin(); it != nonActiveClients.end(); it++){
+		std::cout << "\t\t\t\t\t" << *(*it) << std::endl;
+	}
 }
 
 void MovingCompany::printClientServices(int index) const{

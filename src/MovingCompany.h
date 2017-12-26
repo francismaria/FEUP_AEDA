@@ -15,6 +15,25 @@
 #include "Algorithms.h"
 #include "ServiceBill.h"
 #include "BST.h"
+#include <unordered_set>
+
+/**
+ * @brief Struct that handles the hash table operators
+ */
+struct cliHash{
+
+	int operator()(Client* const& c) const{
+		return c->getName().size();
+	}
+
+	int operator()(Client const* c1, Client const* c2) const{
+		if(c1->getNIF() == c2->getNIF())
+			return true;
+		return false;
+	}
+};
+
+typedef std::unordered_set<Client*, cliHash, cliHash> tabHCli;
 
 /**
  * @brief Class that is the "Mother of all others". It represents a company.
@@ -28,6 +47,7 @@ class MovingCompany{
 	std::vector<Client*> clients;
 	std::vector<Country*> countriesToOperate;
 	BST<ServiceBill> servicesBills;
+	tabHCli nonActiveClients;
 public:
 
 	/**
@@ -72,6 +92,12 @@ public:
 	std::vector<Client*> getCompaniesClients() const;
 
 	/**
+	 * @brief gets all non active clients
+	 * @return non active clients
+	 */
+	tabHCli getNonActiveClients() const;
+
+	/**
 	 * @brief gets countries to which the company operate
 	 * @return countries
 	 */
@@ -108,7 +134,6 @@ public:
 	 * @return ConnectionCountryInfo object representing the country destination info
 	 */
 	ConnectionCountryInfo& getCountryDestination(Country* c, int idDestination);
-
 
 	/**
 	 * @brief gets the IBAN of the company
@@ -235,6 +260,11 @@ public:
 	 * @brief print all company clients by ID
 	 */
 	void printCompanyClientsByJoiningDate() const;
+
+	/**
+	 * @brief prints all non active members
+	 */
+	void printNonActiveClients() const;
 
 	/**
 	 * @brief prints all services from a client of a given ID

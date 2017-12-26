@@ -571,7 +571,7 @@ int printClients(MovingCompany& company){
 	while(option != -1){
 
 		if(company.getClients().size() == 0){
-			std::cout << "There are no client registered." << std::endl;
+			std::cout << "\t\t\t\t\tThere are no clients registered." << std::endl;
 			break;
 		}
 
@@ -605,6 +605,24 @@ int printClients(MovingCompany& company){
 				break;
 		}
 	}
+	return 0;
+}
+
+int printNonActiveClients(MovingCompany& company){
+
+	if(company.getClients().size() == 0){
+		std::cout << "\t\t\t\t\tThere are no clients registered." << std::endl;
+		return 0;
+	}
+
+	if(company.getNonActiveClients().size() == 0){
+		std::cout << "\t\t\t\t\tThere are no non active clients registered." << std::endl;
+		return 0;
+	}
+
+	std::cout << "\t\t\t\t\t\tPRINT ALL NON ACTIVE CLIENTS" << std::endl;
+
+	company.printNonActiveClients();
 	return 0;
 }
 
@@ -649,7 +667,7 @@ int updateClientInfoNIF(MovingCompany& company, int index){
 	std::cin >> newNif;
 	company.getClients()[index]->updateNIF(newNif);
 
-	std::cout << "\n\t\t\t\NIF was successful updated." << std::endl;
+	std::cout << "\n\t\t\t\tNIF was successful updated." << std::endl;
 
 	return 0;
 }
