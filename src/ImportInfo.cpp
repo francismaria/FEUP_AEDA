@@ -816,12 +816,15 @@ bool isNonActiveClient(const Date& clientDate){
 		}
 		return true;			// a diferença dos meses do ultimo serviço passa bem mais dos 3 meses
 	}
-	else{
+	else if((clientDate.getYear() == actualDate.getYear())){
 		int diffMonth = actualDate.getMonth() - clientDate.getMonth();
 
 		if(diffMonth > 3)
 			return true;
 
+		return false;
+	}
+	else{
 		return false;
 	}
 }
