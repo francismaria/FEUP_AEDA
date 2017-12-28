@@ -36,4 +36,11 @@ bool showClientsMenu(MovingCompany& company);
  */
 bool showServicesMenu(MovingCompany& company);
 
+/**
+ * @brief prints clients menu
+ * @param company company itself
+ */
+bool showVehiclesMenu(MovingCompany& company);
+
+
 #endif /* INTERFACE_H_ */

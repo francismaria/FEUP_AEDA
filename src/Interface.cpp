@@ -22,6 +22,9 @@ void run(MovingCompany& company){
 			case 2:
 				exit = showServicesMenu(company);
 				break;
+			case 3:
+				exit = showVehiclesMenu(company);
+				break;
 			case -1:
 				exit = true;
 				break;
@@ -40,6 +43,7 @@ int showMenu(MovingCompany& company){
 	std::cout << "\t\t\t\t\t\t\t\tMENU\n" << std::endl;
 	std::cout << "\t\t\t\t\t\t\t1 - Clients" << std::endl;
 	std::cout << "\t\t\t\t\t\t\t2 - Services" << std::endl;
+	std::cout << "\t\t\t\t\t\t\t3 - Vehicles" << std::endl;
 	std::cout << "\n\t\t\t\t\t\t       -1 - Exit Program\n\n" << std::endl;
 	std::cout << "\n\t\t\t\t\tPlease enter an option: ";
 
@@ -149,6 +153,9 @@ bool showServicesMenu(MovingCompany& company){
 				return false;
 			case -1:
 				return true;
+			default:
+				std::cout << "Please insert a valid option.";
+				break;
 		}
 
 		if(instruction == 0) continue;
@@ -158,5 +165,38 @@ bool showServicesMenu(MovingCompany& company){
 	return true;
 }
 
+bool showVehiclesMenu(MovingCompany& company){
+	int option;
+
+	while(option != -1){
+		std::cout << "\n\n\t\t\t\t\t\t\t\tVEHICLES" << std::endl;
+		std::cout << "\n\t\t\t\t\t\t\t1 - Print all vehicles" << std::endl;
+		std::cout << "\n\t\t\t\t\t\t\t0 - Go back" << std::endl;
+		std::cout << "\t\t\t\t\t\t       -1 - Exit program" << std::endl;
+
+		int instruction;
+
+		std::cout << "\n\t\t\t\t\tPlease enter an option: ";
+		std::cin >> option;
+
+		switch(option){
+			case 1:
+				instruction = printVehicles(company);
+				break;
+			case 0:
+				return false;
+			case -1:
+				return true;
+			default:
+				std::cout << "Please insert a valid option.";
+				break;
+		}
+
+		if(instruction == 0) continue;
+		if(instruction == -1) return true;
+	}
+
+	return true;
+}
 
 

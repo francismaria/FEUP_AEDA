@@ -608,6 +608,19 @@ int printClients(MovingCompany& company){
 	return 0;
 }
 
+int printVehicles(MovingCompany& company){
+
+	std::cout << "\t\t\t\t\t\t      PRINT VEHICLES INFORMATION\n" << std::endl;
+
+	if(company.getVehicles().size() == 0){
+		std::cout << "\t\t\t\t\tThere are no vehicles associated with the company.\n" << std::endl;
+		return 0;
+	}
+
+	company.printAllVehicles();
+	return 0;
+}
+
 int printNonActiveClients(MovingCompany& company){
 
 	if(company.getClients().size() == 0){

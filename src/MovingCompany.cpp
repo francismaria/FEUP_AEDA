@@ -318,6 +318,15 @@ void MovingCompany::printNonActiveClients() const{
 	}
 }
 
+void MovingCompany::printAllVehicles() const{
+
+	unsigned int i = 0;
+
+	for(i = 0; i < allVehicles.size(); i++){
+		std::cout << *allVehicles[i];
+	}
+}
+
 void MovingCompany::printClientServices(int index) const{
 	clients[index]->printServices();
 }

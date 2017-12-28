@@ -76,11 +76,18 @@ int printCompanies(MovingCompany& company);
 
 
 /**
- * 	@brief Prints all clients of the company.
- * 	@param company The company object itself.
- * 	@return 0 or -1 depending on the input.
+ * 	@brief Prints all clients of the company
+ * 	@param company The company object itself
+ * 	@return 0 or -1 depending on the input
  */
 int printClients(MovingCompany& company);
+
+/**
+ * @brief Prints all vehicles of the company.
+ * @param company The company object itself
+ * @return 0 or -1 depending on the input
+ */
+int printVehicles(MovingCompany& company);
 
 /**
  * @brief Prints all non active clients

@@ -50,8 +50,8 @@ public:
 	 * @return o ostream
 	 */
 	friend std::ostream& operator <<(std::ostream& o, const Vehicle& v){
-		std::cout << "\t\t\t\t\t\tVEHICLE INFO\n\n\t\t\t\tID: " << v.getID()
-				<< "\n\t\t\t\tMax Cargo Supported: " << v.getMaxWeight() << std::endl;
+		std::cout << "\t\t\t\t\t\t\tVEHICLE INFO\n\n\t\t\t\t\tID: " << v.getID()
+				<< "\n\t\t\t\t\tMax Cargo Supported: " << v.getMaxWeight() << std::endl;
 		return o;
 	}
 };

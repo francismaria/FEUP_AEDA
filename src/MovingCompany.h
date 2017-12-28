@@ -295,6 +295,11 @@ public:
 	void printClientServices(int index) const;
 
 	/**
+	 * @brief prints all vehicles
+	 */
+	void printAllVehicles() const;
+
+	/**
 	 * @brief validates a service of a client given a certain id
 	 * @param id id of the client to validate service
 	 */
