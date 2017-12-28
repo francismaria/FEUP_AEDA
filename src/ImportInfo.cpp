@@ -789,6 +789,9 @@ void importVehicles(MovingCompany& company){
 		float maxWeight;
 
 		std::sscanf(line.c_str(), "%d %f", &vehicleID, &maxWeight);
+
+		Vehicle* v = new Vehicle(vehicleID, maxWeight);
+		company.addVehicle(v);
 	}
 
 	vehiclesFile.close();

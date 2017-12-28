@@ -61,6 +61,10 @@ tabHCli MovingCompany::getNonActiveClients() const{
 	return nonActiveClients;
 }
 
+vector<Vehicle*> MovingCompany::getVehicles() const{
+	return allVehicles;
+}
+
 Country* MovingCompany::getCountry(std::string name) const{
 
 	std::vector<Country*>::const_iterator it;
@@ -90,6 +94,10 @@ void MovingCompany::addNonActiveClient(Client* c){
 
 void MovingCompany::addCountry(Country* c){
 	countriesToOperate.push_back(c);
+}
+
+void MovingCompany::addVehicle(Vehicle* v){
+	allVehicles.push_back(v);
 }
 
 std::vector<Country*> MovingCompany::getCountriesToOperate() const{

@@ -102,6 +102,12 @@ public:
 	tabHCli getNonActiveClients() const;
 
 	/**
+	 * @brief gets all vehicles which belong to the company
+	 * @return vehicles of the company
+	 */
+	vector<Vehicle*> getVehicles() const;
+
+	/**
 	 * @brief gets countries to which the company operate
 	 * @return countries
 	 */
@@ -119,6 +125,12 @@ public:
 	 * @param c country to add to the company
 	 */
 	void addCountry(Country* c);
+
+	/**
+	 * @brief adds a new vehicle to the company
+	 * @param v new vehicle to add to the country
+	 */
+	void addVehicle(Vehicle* v);
 
 	/**
 	 * @brief prints all countries to which the company operates
