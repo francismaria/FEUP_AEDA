@@ -15,6 +15,7 @@
 #include "Shipping.h"
 #include "Delivery.h"
 #include "Payment.h"
+#include "Vehicle.h"
 
 const float TAX_WAREHOUSING_DAY = 0.01;		//  1%
 

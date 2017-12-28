@@ -17,6 +17,7 @@ void importInfo(MovingCompany& company){
 	importCountries(company);
 	importCountriesZones(company);
 	importClients(company);
+	importVehicles(company);
 	importServices(company);
 
 }

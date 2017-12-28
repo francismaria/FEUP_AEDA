@@ -13,6 +13,7 @@
 #include "Algorithms.h"
 #include <fstream>
 #include <ctime>
+#include <cstdio>
 
 /**
  * @brief import clients from .txt file
@@ -37,6 +38,12 @@ void importCountriesZones(MovingCompany& company);
  * @param company company itself
  */
 void importServices(MovingCompany& company);
+
+/**
+ * @brief import vehicles from .txt file
+ * @param company company itself
+ */
+void importVehicles(MovingCompany& company);
 
 /**
  * @brief adds non active clients to the hash table

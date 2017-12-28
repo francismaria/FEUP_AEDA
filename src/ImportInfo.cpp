@@ -774,6 +774,26 @@ void importServices(MovingCompany& company){
 	addNonActiveClients(company);
 }
 
+void importVehicles(MovingCompany& company){
+
+	std::ifstream vehiclesFile;
+	vehiclesFile.open("InfoFiles/vehicles.txt");
+
+	if(!vehiclesFile.good())
+		std::cout << "Couldn't access vehicles.txt file. Error reading from File." << std::endl;
+
+	std::string line;
+
+	while(std::getline(vehiclesFile, line)){
+		int vehicleID;
+		float maxWeight;
+
+		std::sscanf(line.c_str(), "%d %f", &vehicleID, &maxWeight);
+	}
+
+	vehiclesFile.close();
+}
+
 void getActualDate(Date& actualDate){
 	std::stringstream ss;
 

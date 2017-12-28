@@ -16,6 +16,7 @@
 #include "ServiceBill.h"
 #include "BST.h"
 #include <unordered_set>
+#include <queue>
 
 /**
  * @brief Struct that handles the hash table operators
@@ -48,6 +49,9 @@ class MovingCompany{
 	std::vector<Country*> countriesToOperate;
 	BST<ServiceBill> servicesBills;
 	tabHCli nonActiveClients;
+	std::vector<Vehicle*> allVehicles;
+	std::priority_queue<Vehicle*> availableVehicles;
+	//std::queue<ServiceRequest*> servicesWaiting;
 public:
 
 	/**
