@@ -52,6 +52,10 @@ void Service::addExtraCost(float cost){
 	this->totalCost += cost;
 }
 
+void Service::addVehicle(Vehicle* v){
+	vehiclesUsed.push_back(v);
+}
+
 int Service::getID() {
 	return ID;
 }
@@ -85,6 +89,10 @@ float Service::getBaseRate() const{
 
 int Service::getZone() const{
 	return zone;
+}
+
+std::list<Vehicle*> Service::getVehiclesUsed() const{
+	return vehiclesUsed;
 }
 
 void Service::setID(int id){

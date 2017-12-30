@@ -623,7 +623,7 @@ int printVehicles(MovingCompany& company){
 
 int printNonActiveClients(MovingCompany& company){
 
-	if(company.getClients().size() == 0){
+	if(!company.existsClients()){
 		std::cout << "\t\t\t\t\tThere are no clients registered." << std::endl;
 		return 0;
 	}
@@ -729,7 +729,7 @@ int updateClientInfo(MovingCompany& company, int clientID){
 
 int updateClientsInfo(MovingCompany& company){
 
-	if(company.getClients().size() == 0){
+	if(!company.existsClients()){
 		std::cout << "There are no client registered in the company." << std::endl;
 		return 0;
 	}

@@ -16,6 +16,7 @@
 #include "Delivery.h"
 #include "Payment.h"
 #include "Vehicle.h"
+#include <list>
 
 const float TAX_WAREHOUSING_DAY = 0.01;		//  1%
 
@@ -36,6 +37,7 @@ class Service{
 	float totalCost;
 	int zone;
 	float baseRate;
+	std::list<Vehicle*> vehiclesUsed;
 	static int numberOfServices;
 public:
 
@@ -71,6 +73,12 @@ public:
 	 * @param cost cost to be added
 	 */
 	void addExtraCost(float cost);
+
+	/**
+	 * @brief Adds a new vehicle to the service
+	 * @param v new vehicle used by the service
+	 */
+	void addVehicle(Vehicle* v);
 
 	/**
 	 * @return service ID
@@ -136,6 +144,12 @@ public:
 	 * @return zone
 	 */
 	int getZone() const;
+
+	/**
+	 * @brief Gets the list of vehicles used in the transport of the service
+	 * @return list of vehicles used
+	 */
+	std::list<Vehicle*> getVehiclesUsed() const;
 
 	/**
 	 * @brief Gets the total number of services
