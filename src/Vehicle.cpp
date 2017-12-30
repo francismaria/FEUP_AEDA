@@ -25,4 +25,9 @@ int Vehicle::getNumberOfVehicles(){
 	return numberOfVehicles;
 }
 
+bool Vehicle::operator ==(const Vehicle& v){
+	if(id == v.getID())
+		return true;
+	return false;
+}
 

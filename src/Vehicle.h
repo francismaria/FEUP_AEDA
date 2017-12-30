@@ -44,7 +44,14 @@ public:
 	static int getNumberOfVehicles();
 
 	/**
-	 * @brief prints a vehicle
+	 * @brief Checks if two vehicles are the same
+	 * @param v Vehicle to be compared
+	 * @return True or false depending on the conditions
+	 */
+	bool operator ==(const Vehicle& v);
+
+	/**
+	 * @brief Prints a vehicle
 	 * @param o ostream
 	 * @param v vehicle to be printed
 	 * @return o ostream

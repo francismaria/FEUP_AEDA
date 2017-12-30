@@ -95,6 +95,12 @@ public:
 	void setCountry(std::string cnt);
 
 	/**
+	 * @brief Sets country
+	 * @param cnt
+	 */
+	void setCountry(ConnectionCountryInfo& cnt);
+
+	/**
 	 * @brief Compares two addresses
 	 * @param a1
 	 * @return true or false if addresses are equal

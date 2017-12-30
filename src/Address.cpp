@@ -66,6 +66,11 @@ void Address::setCountry(std::string cnt){
 	country_aux = cnt;
 }
 
+void Address::setCountry(ConnectionCountryInfo& cnt){
+	country = cnt;
+	country_aux = cnt.getName();
+}
+
 bool Address::operator ==(const Address& a1){
 	if(this->street == a1.getStreet() && this->city == a1.getCity()
 			&& this->zipCode == a1.getZipCode() && this->country_aux == a1.getCountryAux())
