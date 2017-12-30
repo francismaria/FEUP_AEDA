@@ -121,6 +121,12 @@ public:
 	Country* getCountry(std::string) const;
 
 	/**
+	 * @brief Checks if there are clients registered in the company
+	 * @return true or false depending on the existence of clients
+	 */
+	bool existsClients() const;
+
+	/**
 	 * @brief adds a new country to operate to the company
 	 * @param c country to add to the company
 	 */

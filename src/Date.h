@@ -115,7 +115,13 @@ public:
 	 * @return ostream
 	 */
 	friend std::ostream& operator <<(std::ostream& o, const Date& d){
-		o << d.day << "/" << d.month << "/" << d.year << " " << d.hour << ":" << d.minute;
+		o << d.day << "/" << d.month << "/" << d.year << " " << d.hour << ":";
+
+		if(d.minute < 10)
+			o << "0" << d.minute;
+		else
+			o << d.minute;
+
 		return o;
 	}
 

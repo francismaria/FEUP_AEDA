@@ -77,6 +77,10 @@ Country* MovingCompany::getCountry(std::string name) const{
 	return NULL;
 }
 
+bool MovingCompany::existsClients() const{
+	return (clients.size() != 0);
+}
+
 void MovingCompany::addClient(Client* c){
 	clients.push_back(c);
 }
