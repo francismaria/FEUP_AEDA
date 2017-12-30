@@ -11,34 +11,45 @@
 const int zone1days = 5;
 const int zone2days = 15;
 
-int newRegisteredClientService(MovingCompany& company){
+void getClientIndex(int& index, MovingCompany& company, int idClient){
 
-	int idClient;
+	index = binarySearch(company.getClients(), idClient);
 
-	std::cout << "\n\n\t\t\t\t\t     REQUEST SERVICE TO REGISTERED CLIENT\n" << std::endl;
+	if(index == -1)
+		throw NonExistingClient(idClient);
+}
 
-	std::cout << "\t\t\t\t    Enter the ID of the client to add a new service: ";
-	std::cin >> idClient;
+void getActualDateService(Date& actualDate){
 
-	int index;
+	time_t rawtime;
+	struct tm* timeinfo;
+	char buffer[80];
 
-	try{
-		index = binarySearch(company.getClients(), idClient);
-		if(index == -1)
-			throw NonExistingClient(idClient);
-	}
-	catch(NonExistingClient& c){
-		std::cout << "\n\t\t\t\t\t There is no client with the ID: " << c.getID() << std::endl;
-		return 0;
-	}
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+	strftime(buffer, sizeof(buffer), "%d %m %y %H %M", timeinfo);
 
-	if(idClient == 0) return 0;
-	else if(idClient == -1) return -1;
+	int day_now, month_now, year_now, hour_now, minute_now;
+	std::string bufs(buffer);
+	std::stringstream aux;
 
-	std::cout << "\n\n\t\t\t\t    Fill out this form in order to create a new service.\n" << std::endl;
+	aux << bufs;
+
+	aux >> day_now;
+	aux >> month_now;
+	aux >> year_now;
+	year_now += 2000;
+	aux >> hour_now;
+	aux >> minute_now;
+
+	actualDate.setDay(day_now); actualDate.setMonth(month_now);
+	actualDate.setYear(year_now); actualDate.setHour(hour_now);
+	actualDate.setMinute(minute_now);
+}
+
+int getOriginInfo(MovingCompany& company, int& weight, Address& origin){
+
 	std::cout << "\t\t\t\t    ORIGIN INFO:\n";
-
-	int weight;
 	std::cout << "\n\t\t\t\tEnter the total weight of the volumes (KG): ";
 	std::cin >> weight;
 
@@ -66,10 +77,15 @@ int newRegisteredClientService(MovingCompany& company){
 	std::string zipCode;
 	std::getline(std::cin, zipCode);
 
-	Address origin(address, zipCode, city, company.getCountriesToOperate()[idOrigin-1]);
-	address.clear();
-	zipCode.clear();
-	city.clear();
+	origin.setStreet(address);
+	origin.setCity(city);
+	origin.setZipCode(zipCode);
+	origin.setCountry(company.getCountriesToOperate()[idOrigin-1]->getName());
+
+	return idOrigin;
+}
+
+int getDestinationInfo(MovingCompany& company, int idOrigin, Address& destination){
 
 	std::cout << "\n\n\t\t\t\t\t     DESTINATION INFO:\n";
 
@@ -77,75 +93,219 @@ int newRegisteredClientService(MovingCompany& company){
 	company.printCountriesToOperateFrom(company.getCountriesToOperate()[idOrigin-1]);
 
 	int idDestination;
-	std::cout << "\n\t\t\t\tCountry: ";
+	std::cout << "\n\n\t\t\t\tCountry: ";
 	std::cin >> idDestination;
 
 	std::cout << "\n\t\t\t\tCity: ";
+	std::string city;
 	std::cin.ignore();
 	std::getline(std::cin, city);
 
 	std::cout << "\n\t\t\t\tStreet Address: ";
+	std::string address;
 	std::getline(std::cin, address);
 
 	std::cout << "\n\t\t\t\tZip Code: ";
+	std::string zipCode;
 	std::getline(std::cin, zipCode);
 
-	Address destination(address, zipCode, city, company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination));
+	destination.setStreet(address);
+	destination.setZipCode(zipCode);
+	destination.setCity(city);
+	destination.setCountry(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination));
 
-	int day, month, year, hour, minute;
+	return idDestination;
+}
+
+int getBeginningServiceDate(Date& beginningDate){
+
+	int day, month, year, hour, minutes;
+
 	std::cout << "\n\n\t\t\t\t\t\tDATE INFO:" << std::endl;
+
 	std::cout << "\n\n\t\t\t\tDay: ";
 	std::cin >> day;
+	if(day < 1 || day > 31){
+		std::cout << "\n\t\t\t\t\tThe day you entered is not valid." << std::endl;
+		return 0;
+	}
+
 	std::cout << "\n\n\t\t\t\tMonth: ";
 	std::cin >> month;
+	if(month < 1 || month > 12){
+		std::cout << "\n\t\t\t\t\tThe month you entered is not valid." << std::endl;
+		return 0;
+	}
+
 	std::cout << "\n\n\t\t\t\tYear: ";
 	std::cin >> year;
 	std::cout << "\n\n\t\t\t\tHour: ";
 	std::cin >> hour;
-	std::cout << "\n\n\t\t\t\tMinute: ";
-	std::cin >> minute;
-
-	Date begginingDate(day, month, year, hour, minute);
-
-	/* CHECK INSERTED DATE */
-	time_t rawtime;
-	struct tm* timeinfo;
-	char buffer[80];
-
-	time(&rawtime);
-	timeinfo = localtime(&rawtime);
-	strftime(buffer, sizeof(buffer), "%d %m %y %H %M", timeinfo);
-
-	int day_now, month_now, year_now, hour_now, minute_now;
-	std::string bufs(buffer);
-	std::stringstream aux;
-
-	aux << bufs;
-
-	aux >> day_now;
-	aux >> month_now;
-	aux >> year_now;
-	aux >> hour_now;
-	aux >> minute_now;
-
-	year_now += 2000;
-
-	if(year < year_now){
-		std::cout << "Invalid year";
+	if(hour < 0 || hour > 24){
+		std::cout << "\n\t\t\t\t\tThe year you have entered is not valid." << std::endl;
 		return 0;
 	}
 
-	else if(year == year_now){
-		if(month < month_now){
-			std::cout << "Invalid Month";
-			return 0;
+	std::cout << "\n\n\t\t\t\tMinute: ";
+	std::cin >> minutes;
+	if(minutes < 0 || minutes > 60){
+		std::cout << "\n\t\t\t\t\tThe minute you have entered is not valid." << std::endl;
+		return 0;
+	}
+
+	beginningDate.setDay(day); beginningDate.setMonth(month);
+	beginningDate.setYear(year); beginningDate.setHour(hour);
+	beginningDate.setMinute(minutes);
+}
+
+int getRandomNumberBetweenValues(int minValue, int maxValue){
+	return rand()%(maxValue - minValue + 1)+minValue;
+}
+
+int getRandomHour(){			//Só trabalha das 8h as 19h
+	return getRandomNumberBetweenValues(8, 19);
+}
+
+int getRandomMinute(){
+	return getRandomNumberBetweenValues(0, 59);
+}
+
+int getShippingZone1Duration(){
+	return getRandomNumberBetweenValues(5, 8);
+}
+
+int getShippingZone2Duration(){
+	return getRandomNumberBetweenValues(14, 20);
+}
+
+void setPackagingDates(Date& packagingBeginning, Date& packagingEnding, Date& beginningDate){
+
+	packagingBeginning = beginningDate;
+
+	packagingBeginning.setHour(beginningDate.getHour()+2);
+
+	packagingEnding.setHour(getRandomHour());
+	packagingEnding.setMinute(getRandomMinute());
+
+	if(packagingBeginning.getDay() < 31){
+		packagingEnding.setDay(beginningDate.getDay()+1);
+		packagingEnding.setMonth(beginningDate.getMonth());
+		packagingEnding.setYear(beginningDate.getYear());
+	}
+	else{
+		packagingEnding.setDay(1);
+
+		if(packagingBeginning.getMonth() >= 12){
+			packagingEnding.setMonth(1);
+			packagingEnding.setYear(beginningDate.getYear()+1);
+		}else{
+			packagingEnding.setMonth(beginningDate.getMonth()+1);
+			packagingEnding.setYear(beginningDate.getYear());
 		}
-		if(month == month_now){
-			if(day < day_now){
-				std::cout << "Invalid Day";
-				return 0;
-			}
+	}
+}
+
+void setShippingDates(Date& shippingBeginning, Date& shippingEnding, Date& beginningDate, int zone){
+
+	int endingDay, shippingDays;
+
+	shippingBeginning = beginningDate;
+	shippingBeginning.setHour(beginningDate.getHour()+2);
+	shippingBeginning.setMinute(getRandomMinute());
+
+	if(zone == 1){
+		shippingDays = getShippingZone1Duration();				// 5 to 7 days
+	}
+	else{
+		shippingDays = getShippingZone2Duration();				// 14 to 20 days
+	}
+
+	endingDay = shippingBeginning.getDay() + shippingDays;
+
+	if(endingDay > 31){
+		shippingEnding.setDay((endingDay%31) + 1);
+		if(beginningDate.getMonth() == 12){
+			shippingEnding.setMonth(1);
+			shippingEnding.setYear(beginningDate.getYear()+1);
+		}else{
+			shippingEnding.setMonth(beginningDate.getMonth()+1);
+			shippingEnding.setYear(beginningDate.getYear());
 		}
+	}else{
+		shippingEnding.setDay(endingDay); shippingEnding.setMonth(beginningDate.getMonth());
+		shippingEnding.setYear(beginningDate.getYear());
+	}
+
+	shippingEnding.setHour(getRandomHour()); shippingEnding.setMinute(getRandomMinute());
+}
+
+void setDeliveryDates(Date& deliveryBeginning, Date& deliveryEnding, Date& beginningDate){
+
+	deliveryBeginning = beginningDate;
+	deliveryBeginning.setHour(beginningDate.getHour()+2);
+	deliveryBeginning.setMinute(getRandomMinute());
+
+	int endingDate = deliveryBeginning.getDay()+1;
+
+	if(endingDate <= 31){
+		deliveryEnding.setDay(deliveryBeginning.getDay()+1);
+		deliveryEnding.setMonth(deliveryBeginning.getMonth());
+		deliveryEnding.setYear(deliveryBeginning.getYear());
+	}else{
+		deliveryEnding.setDay(1);
+		if(deliveryBeginning.getMonth() == 12){
+			deliveryEnding.setMonth(1);
+			deliveryEnding.setYear(deliveryBeginning.getYear()+1);
+		}else{
+			deliveryEnding.setMonth(deliveryBeginning.getMonth()+1);
+			deliveryEnding.setYear(deliveryBeginning.getYear());
+		}
+	}
+	deliveryEnding.setHour(getRandomHour()); deliveryEnding.setMinute(getRandomMinute());
+}
+
+int newRegisteredClientService(MovingCompany& company){
+
+	int idClient;
+
+	std::cout << "\n\n\t\t\t\t\t     REQUEST SERVICE TO REGISTERED CLIENT\n" << std::endl;
+
+	std::cout << "\t\t\t\t    Enter the ID of the client to add a new service: ";
+	std::cin >> idClient;
+
+	if(idClient == 0) return 0;
+	else if(idClient == -1) return -1;
+
+	int index;
+
+	try{
+		getClientIndex(index, company, idClient);
+	}
+	catch(NonExistingClient& c){
+		std::cout << "\n\t\t\t\t\t There is no client with the ID: " << c.getID() << std::endl;
+		return 0;
+	}
+
+	std::cout << "\n\n\t\t\t\t    Fill out this form in order to create a new service.\n" << std::endl;
+
+	int weight, idOrigin, idDestination;
+	Address origin, destination;
+
+	idOrigin = getOriginInfo(company, weight, origin);
+	idDestination = getDestinationInfo(company, idOrigin, destination);
+
+	Date beginningDate;
+	int check = getBeginningServiceDate(beginningDate);
+
+	if(check == 0) return 0;
+	else if(check == -1) return -1;
+
+	Date actualDate;
+	getActualDateService(actualDate);
+
+	if(beginningDate < actualDate){
+		std::cout << "\t\t\t\t\tYou have entered a non valid date (this date is before today).";
+		return 0;
 	}
 
 	std::string response;
@@ -153,67 +313,27 @@ int newRegisteredClientService(MovingCompany& company){
 	std::cout << "\n\t\t\t\tDo the volumes need warehousing? [y | n] : ";
 	std::getline(std::cin, response);
 
+	int day, hour, minute, month, year;
+	srand(time(NULL));
+
+	// This service does not require warehousing so it is a "Transport service"
 	if(response == "n" || response == "N"){				//TRANSPORT
 
-		/**** PACKING ******/
-		Date packingB = begginingDate;
-		packingB.setHour(hour+2);
-		Date packingE = begginingDate;
+		Date packagingB, packagingE, shippingB,
+				shippingE, deliveryB, deliveryE;
 
-		if(day+1 <= 31)
-			packingE.setDay(day+1);
-		else
-			packingE.setDay(1);
+		setPackagingDates(packagingB, packagingE, beginningDate);
+		setShippingDates(shippingB, shippingE, packagingE, destination.getCountry().getZone());
+		setDeliveryDates(deliveryB, deliveryE, shippingE);
 
-		/**** SHIPPING *****/
-		int zone1days = 5;
-		int zone2days = 15;
+		Date endingDate = deliveryE;
+		endingDate.setHour(deliveryE.getHour() + getRandomNumberBetweenValues(1, 3));
+		endingDate.setMinute(getRandomMinute());
 
-		Date shippingB = begginingDate;
-		shippingB.setDay(day+1); shippingB.setHour(hour+3);
-		Date shippingE = begginingDate;
-
-		/*** DELIVERY ****/
-		Date deliveryB = begginingDate;
-		Date deliveryE;
-		Date endingDate;
-																			//VERIFICAR DIAS
-		if(destination.getCountry().getZone() == 1){
-			shippingE.setDay(day+zone1days);					//ZONE 1  -> TIME OF SHIPPING
-			if(hour < 12){
-				deliveryB.setDay(day+zone1days);
-				deliveryE = deliveryB;
-				deliveryE.setHour(hour+5);
-				endingDate = deliveryE;
-			}
-			else{
-				deliveryB = shippingE;
-				deliveryB.setDay(day+zone1days+1);
-				deliveryE = deliveryB;
-				deliveryE.setHour(hour+5);
-				endingDate = deliveryE;
-			}
-		}
-		else{
-			shippingE.setDay(day+zone2days);					//ZONE 2  -> TIME OF SHIPPING
-			if(hour < 12){
-				deliveryB = shippingE;
-				deliveryE = deliveryB;
-				deliveryE.setHour(hour+5);
-				endingDate = deliveryE;
-			}
-			else{
-				deliveryB.setDay(day+zone2days+1);
-				deliveryE = deliveryB;
-				deliveryE.setHour(hour+5);
-				endingDate = deliveryE;
-			}
-		}
-
-		Transport* svcT = new Transport(origin, destination, weight, begginingDate, endingDate);
+		Transport* svcT = new Transport(origin, destination, weight, beginningDate, endingDate);
 		int idT = svcT->getID();
 
-		Packaging* p = new Packaging(packingB, packingE, weight, idT);
+		Packaging* p = new Packaging(packagingB, packagingE, weight, idT);
 		Shipping* s = new Shipping(shippingB, shippingE, weight, idT);
 		Delivery* d = new Delivery(deliveryB, deliveryE, weight, idT);
 
@@ -221,16 +341,6 @@ int newRegisteredClientService(MovingCompany& company){
 		svcT->setShipping(s);
 		svcT->setDelivery(d);
 
-		/*if(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getZone() == 1){
-			svcT->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
-			svcT->addZone(ZONE_1);
-		}
-		else{
-			float zone2Increase = company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate();
-			zone2Increase += (zone2Increase*0.1);
-			svcT->addBaseRate(zone2Increase);
-			svcT->addZone(ZONE_2);
-		}*/
 		if(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getZone() == 1){
 			svcT->addZone(ZONE_1);
 			svcT->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
@@ -239,7 +349,6 @@ int newRegisteredClientService(MovingCompany& company){
 			svcT->addZone(ZONE_2);
 			float zone2Increase = company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate();
 			svcT->addBaseRate(zone2Increase);
-			//svcT->addExtraCost(zone2Increase*0.1);
 
 		}
 
@@ -367,21 +476,21 @@ int newRegisteredClientService(MovingCompany& company){
 		std::cin >> daysWarehouse;
 
 		/**** PACKING ******/
-		Date packingB = begginingDate;
+		Date packingB = beginningDate;
 		packingB.setHour(hour+2);
-		Date packingE = begginingDate;
+		Date packingE = beginningDate;
 		packingE.setDay(day+1);
 
 		/**** SHIPPING *****/
 		const int zone1days = 5;			//MELHORAR ISTO
 		const int zone2days = 15;
 
-		Date shippingB = begginingDate;
+		Date shippingB = beginningDate;
 		shippingB.setDay(day+1); shippingB.setHour(hour+3);
-		Date shippingE = begginingDate;
+		Date shippingE = beginningDate;
 
 		/*** DELIVERY ****/
-		Date deliveryB = begginingDate;
+		Date deliveryB = beginningDate;
 		Date deliveryE;
 		Date endingDate;
 																			//VERIFICAR DIAS
@@ -418,7 +527,7 @@ int newRegisteredClientService(MovingCompany& company){
 			}
 		}
 
-		Warehousing* svcW = new Warehousing(origin, destination, weight, begginingDate, endingDate, daysWarehouse);
+		Warehousing* svcW = new Warehousing(origin, destination, weight, beginningDate, endingDate, daysWarehouse);
 		int idW = svcW->getID();
 
 		Packaging* p = new Packaging(packingB, packingE, weight, idW);

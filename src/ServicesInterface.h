@@ -9,6 +9,7 @@
 #define SERVICESINTERFACE_H_
 
 #include "MovingCompany.h"
+#include <cstdlib>
 #include <ctime>
 
 const int ZONE_1 = 1;
