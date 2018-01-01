@@ -405,7 +405,6 @@ int setTypeOfPaymentCompany(MovingCompany& company, Service* s){
 		default:
 			break;
 	}
-
 	return 1;
 }
 
@@ -458,7 +457,6 @@ int newRegisteredClientService(MovingCompany& company){
 	std::cout << "\n\t\t\t\t\tDo the volumes need warehousing? [y | n] : ";
 	std::getline(std::cin, response);
 
-	int day, hour, minute, month, year;
 	srand(time(NULL));
 
 	// This service does not require warehousing so it is a "Transport service"
