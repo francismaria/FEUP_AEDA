@@ -264,6 +264,151 @@ void setDeliveryDates(Date& deliveryBeginning, Date& deliveryEnding, Date& begin
 	deliveryEnding.setHour(getRandomHour()); deliveryEnding.setMinute(getRandomMinute());
 }
 
+void setDeliveryDates(Date& deliveryBeginning, Date& deliveryEnding, Date& beginningDate, int daysWarehouse){
+
+	Date warehousingEnd = beginningDate;
+	int warehouseFinalDay = beginningDate.getDay()+daysWarehouse;
+
+	if(warehouseFinalDay > 31){
+		warehousingEnd.setDay(warehouseFinalDay%31);
+
+		if(beginningDate.getMonth() == 12){
+			warehousingEnd.setMonth(1);
+			warehousingEnd.setYear(beginningDate.getYear()+1);
+		}
+		else{
+			warehousingEnd.setMonth(beginningDate.getMonth()+1);
+		}
+	}
+	else
+		warehousingEnd.setDay(warehouseFinalDay);
+
+	warehousingEnd.setHour(12);			//o Warehousing acaba sempre no último dia às 12h
+	warehousingEnd.setMinute(0);
+
+	setDeliveryDates(deliveryBeginning, deliveryEnding, warehousingEnd);
+}
+void setATMPayment(MovingCompany& company, Service* s){
+
+	ATM* atm = new ATM(company.getEntity());
+	s->setPayment(atm);
+
+	std::cout << "\n\t\t\t\t\tPAYMENT DETAILS:\n" << std::endl;
+	std::cout << "\n\t\t\t\t    Entity: ";
+	std::cout << atm->getEntity();
+	std::cout << "\n\t\t\t\t    Reference: ";
+	std::cout << atm->getReference();
+	std::cout << "\n\t\t\t\t    Montant: ";
+	std::cout << s->getTotalCost();
+}
+
+void setCreditCardPayment(MovingCompany& company, Service* s){
+
+	int month;
+	std::string ccNumber;
+
+	std::cout << "\n\t\t\t\t\tPAYMENT DETAILS:\n" << std::endl;
+	std::cout << "\n\t\t\t\t Credit Card Number: ";
+	std::cin >> ccNumber;
+	std::cout << "\n\t\t\t\t Validation month: ";
+	std::cin >> month;
+	std::cout << "\n\t\t\t\t Montant: " << s->getTotalCost();
+}
+
+void setBankTransferPayment(MovingCompany& company, Service* s){
+
+	BankTransfer* bt = new BankTransfer(company.getIBAN());
+	s->setPayment(bt);
+
+	std::cout << "\n\t\t\t\t\tPAYMENT DETAILS:\n" << std::endl;
+	std::cout << "\n\t\t\t\t   IBAN: " << bt->getIBAN();
+	std::cout << "\n\t\t\t\t   Montant: " << s->getTotalCost();
+}
+
+void setEndOfMonthPayment(MovingCompany& company, Service* s){
+
+	EndOfMonth* eom = new EndOfMonth();
+	s->setPayment(eom);
+
+	std::cout << "\n\t\t\t\tThis service has been added to client's debt. It is payable until the end of the month.";
+	std::cout << "\n\t\t\t\t\t   Montant: " << s->getTotalCost() << std::endl;
+	std::cout << s->getPayment()->getPaymentType();
+}
+
+// Returns 0 or -1 depending on user input or 1 if succeeded.
+int setTypeOfPaymentParticular(MovingCompany& company, Service* s){
+
+	std::cout << "\t\t\t\t\t\t1 - ATM" << std::endl;
+	std::cout << "\t\t\t\t\t\t2 - Bank Transfer\n" << std::endl;
+	std::cout << "\t\t\t\t\t\t   Option: ";
+
+	int option;
+	std::cin >> option;
+
+	while(std::cin.fail()){
+		std::cout << "\t\t\t\t\t\tNot a valid option.";
+		std::cout << "\t\t\t\t\t\t    Option: ";
+		std::cin >> option;
+	}
+
+	switch(option){
+		case 1:
+			setATMPayment(company, s);
+			break;
+		case 2:
+			setBankTransferPayment(company, s);
+			break;
+		case 0:
+			return 0;
+		case -1:
+			return -1;
+		default:
+			break;
+	}
+	return 1;
+}
+
+// Returns 0 or -1 depending on user input or 1 if succeeded.
+int setTypeOfPaymentCompany(MovingCompany& company, Service* s){
+
+	std::cout << "\t\t\t\t\t\t1 - ATM" << std::endl;
+	std::cout << "\t\t\t\t\t\t2 - Credit Card" << std::endl;
+	std::cout << "\t\t\t\t\t\t3 - Bank Transfer" << std::endl;
+	std::cout << "\t\t\t\t\t\t4 - End of the Month\n" << std::endl;
+
+	int option;
+	std::cin >> option;
+
+	while(std::cin.fail()){
+		std::cout << "\t\t\t\t\t\tNot a valid option.";
+		std::cout << "\t\t\t\t\t\t    Option: ";
+		std::cin >> option;
+	}
+
+	switch(option){
+		case 1:
+			setATMPayment(company, s);
+			break;
+		case 2:
+			setCreditCardPayment(company, s);
+			break;
+		case 3:
+			setBankTransferPayment(company, s);
+			break;
+		case 4:
+			setEndOfMonthPayment(company, s);
+			break;
+		case 0:
+			return 0;
+		case -1:
+			return -1;
+		default:
+			break;
+	}
+
+	return 1;
+}
+
 int newRegisteredClientService(MovingCompany& company){
 
 	int idClient;
@@ -310,7 +455,7 @@ int newRegisteredClientService(MovingCompany& company){
 
 	std::string response;
 	std::cin.ignore();
-	std::cout << "\n\t\t\t\tDo the volumes need warehousing? [y | n] : ";
+	std::cout << "\n\t\t\t\t\tDo the volumes need warehousing? [y | n] : ";
 	std::getline(std::cin, response);
 
 	int day, hour, minute, month, year;
@@ -347,122 +492,21 @@ int newRegisteredClientService(MovingCompany& company){
 		}
 		else{
 			svcT->addZone(ZONE_2);
-			float zone2Increase = company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate();
-			svcT->addBaseRate(zone2Increase);
+			svcT->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
 
 		}
 
 		std::cout << "\n\t\t\t\tChoose the type of payment:\n" << std::endl;
 
-		int option;
+		int checkReturn;
 
-		if(company.getClients()[index]->isParticular()){		//PARTICULAR
+		if(company.getClients()[index]->isParticular())					// PARTICULAR CLIENT
+			checkReturn = setTypeOfPaymentParticular(company, svcT);
+		else															//   COMPANY  CLIENT
+			checkReturn = setTypeOfPaymentCompany(company, svcT);
 
-			std::cout << "\t\t\t\t\t\t1 - ATM" << std::endl;
-			std::cout << "\t\t\t\t\t\t2 - Bank Transfer\n" << std::endl;
-			std::cout << "\t\t\t\t\t\t   Option: ";
-
-			std::cin >> option;
-
-			while(std::cin.fail()){
-				std::cout << "\t\t\t\t\t\tNot a valid option.";
-				std::cout << "\t\t\t\t\t\t    Option: ";
-				std::cin >> option;
-			}
-
-			if(option == 1){							//ATM
-				ATM* atm = new ATM(company.getEntity());
-				svcT->setPayment(atm);
-
-				std::cout << "\n\t\t\t\t\tPAYMENT DETAILS:\n" << std::endl;
-				std::cout << "\n\t\t\t\t    Entity: ";
-				std::cout << atm->getEntity();
-				std::cout << "\n\t\t\t\t    Reference: ";
-				std::cout << atm->getReference();
-				std::cout << "\n\t\t\t\t    Montant: ";
-				std::cout << svcT->getTotalCost();
-			}
-
-			else if(option == 2){						// Bank Transfer
-				BankTransfer* bt = new BankTransfer(company.getIBAN());
-				svcT->setPayment(bt);
-
-				std::cout << "\n\t\t\t\t\tPAYMENT DETAILS:\n" << std::endl;
-				std::cout << "\n\t\t\t\t   IBAN: " << bt->getIBAN();
-				std::cout << "\n\t\t\t\t   Montant: " << svcT->getTotalCost();
-
-			}
-			else if(option == 0) return 0;
-
-			else if(option == -1) return -1;
-
-		}
-		else{															//COMPANY
-			std::cout << "\t\t\t\t\t\t1 - ATM" << std::endl;
-			std::cout << "\t\t\t\t\t\t2 - Credit Card" << std::endl;
-			std::cout << "\t\t\t\t\t\t3 - Bank Transfer" << std::endl;
-			std::cout << "\t\t\t\t\t\t4 - End of the Month\n" << std::endl;
-
-			std::cin >> option;
-
-			while(std::cin.fail()){
-				std::cout << "\t\t\t\t\t\tNot a valid option.";
-				std::cout << "\t\t\t\t\t\t    Option: ";
-				std::cin >> option;
-			}
-
-			if(option == 1){					//ATM
-				ATM* atm = new ATM(company.getEntity());
-				svcT->setPayment(atm);
-
-				std::cout << "\n\t\t\t\t\tPAYMENT DETAILS:\n" << std::endl;
-				std::cout << "\n\t\t\t\t    Entity: ";
-				std::cout << atm->getEntity();
-				std::cout << "\n\t\t\t\t    Reference: ";
-				std::cout << atm->getReference();
-				std::cout << "\n\t\t\t\t    Montant: ";
-				std::cout << svcT->getTotalCost();
-
-			}
-			else if(option == 2){				//CREDIT CARD
-
-				int month;
-				std::string ccNumber;
-				std::cout << "\n\t\t\t\t\tPAYMENT DETAILS:\n" << std::endl;
-				std::cout << "\n\t\t\t\t Credit Card Number: ";
-				std::cin >> ccNumber;
-
-				std::cout << "\n\t\t\t\t Validation month: ";
-				std::cin >> month;
-
-				std::cout << "\n\t\t\t\t Montant: " << svcT->getTotalCost();
-
-			}
-			else if(option == 3){				//BANK TRANSFER
-
-				BankTransfer* bt = new BankTransfer(company.getIBAN());
-				svcT->setPayment(bt);
-
-				std::cout << "\n\t\t\t\t\tPAYMENT DETAILS:\n" << std::endl;
-				std::cout << "\n\t\t\t\t   IBAN: " << bt->getIBAN();
-				std::cout << "\n\t\t\t\t   Montant: " << svcT->getTotalCost();
-
-			}
-			else if(option == 4){
-
-				EndOfMonth* eom = new EndOfMonth();
-				svcT->setPayment(eom);
-
-				std::cout << "\n\t\t\t\tThis service has been added to client's debt. It is payable until the end of the month.";
-				std::cout << "\n\t\t\t\t\t   Montant: " << svcT->getTotalCost() << std::endl;
-
-				std::cout << svcT->getPayment()->getPaymentType();
-			}
-
-			else if(option == 0) return 0;
-			else if(option == -1) return -1;
-
-		}
+		if(checkReturn == 0) return 0;
+		else if(checkReturn == -1) return -1;
 
 		company.addServiceBill(company.getClients()[index], svcT);
 		company.getClients()[index]->addNewService(svcT);
@@ -475,62 +519,23 @@ int newRegisteredClientService(MovingCompany& company){
 		std::cout << "\n\t\t\t\tHow many days will the volumes be in the warehouse? ";
 		std::cin >> daysWarehouse;
 
-		/**** PACKING ******/
-		Date packingB = beginningDate;
-		packingB.setHour(hour+2);
-		Date packingE = beginningDate;
-		packingE.setDay(day+1);
+		Date packagingB, packagingE, shippingB,
+				shippingE, deliveryB, deliveryE, warehousingE;
 
-		/**** SHIPPING *****/
-		const int zone1days = 5;			//MELHORAR ISTO
-		const int zone2days = 15;
+		setPackagingDates(packagingB, packagingE, beginningDate);
+		setShippingDates(shippingB, shippingE, packagingE, destination.getCountry().getZone());
+		setDeliveryDates(deliveryB, deliveryE, shippingE, daysWarehouse);
 
-		Date shippingB = beginningDate;
-		shippingB.setDay(day+1); shippingB.setHour(hour+3);
-		Date shippingE = beginningDate;
+		std::cout << packagingB << std::endl << shippingE << std::endl << deliveryB;
+		Date endingDate = deliveryE;
+		endingDate.setHour(deliveryE.getHour() + getRandomNumberBetweenValues(1, 3));		//O serviço acaba quando funcionário concluir
+		endingDate.setMinute(getRandomMinute());											//o serviço (entre 1 a 3 horas após a entrega)
 
-		/*** DELIVERY ****/
-		Date deliveryB = beginningDate;
-		Date deliveryE;
-		Date endingDate;
-																			//VERIFICAR DIAS
-		if(destination.getCountry().getZone() == 1){
-			shippingE.setDay(day+zone1days);					//ZONE 1  -> TIME OF SHIPPING
-			if(hour < 12){
-				deliveryB.setDay(day+zone1days+daysWarehouse);		//+daysWarehouse
-				deliveryE = deliveryB;
-				deliveryE.setHour(hour+5);
-				endingDate = deliveryE;
-			}
-			else{
-				deliveryB = shippingE;
-				deliveryB.setDay(day+zone1days+1+daysWarehouse);		//+daysWarehouse
-				deliveryE = deliveryB;
-				deliveryE.setHour(hour+5);
-				endingDate = deliveryE;
-			}
-		}
-		else{
-			shippingE.setDay(day+zone2days);					//ZONE 2  -> TIME OF SHIPPING
-			if(hour < 12){
-				deliveryB = shippingE;						//+daysWarehouse
-				deliveryB.setDay(day+zone1days+1+daysWarehouse);
-				deliveryE = deliveryB;
-				deliveryE.setHour(hour+5);
-				endingDate = deliveryE;
-			}
-			else{
-				deliveryB.setDay(day+zone2days+1+daysWarehouse);			//+daysWarehouse
-				deliveryE = deliveryB;
-				deliveryE.setHour(hour+5);
-				endingDate = deliveryE;
-			}
-		}
 
 		Warehousing* svcW = new Warehousing(origin, destination, weight, beginningDate, endingDate, daysWarehouse);
 		int idW = svcW->getID();
 
-		Packaging* p = new Packaging(packingB, packingE, weight, idW);
+		Packaging* p = new Packaging(packagingB, packagingE, weight, idW);
 		Shipping* s = new Shipping(shippingB, shippingE, weight, idW);
 		Delivery* d = new Delivery(deliveryB, deliveryE, weight, idW);
 
@@ -550,127 +555,22 @@ int newRegisteredClientService(MovingCompany& company){
 
 		std::cout << "\n\t\t\t\tChoose the type of payment:\n" << std::endl;
 
-		int option;
+		int checkReturn;
 
-		if(company.getClients()[index]->isParticular()){
-			std::cout << "\t\t\t\t\t\t1 - ATM" << std::endl;
-			std::cout << "\t\t\t\t\t\t2 - Bank Transfer\n" << std::endl;
-			std::cout << "\t\t\t\t\t\t   Option: ";
-
-			std::cin >> option;
-
-			while(std::cin.fail()){
-				std::cout << "\t\t\t\t\t\tNot a valid option.";
-				std::cout << "\t\t\t\t\t\t    Option: ";
-				std::cin >> option;
-			}
-
-			if(option == 1){							//ATM
-				ATM* atm = new ATM(company.getEntity());
-				svcW->setPayment(atm);
-
-				std::cout << "\n\t\t\t\t\tPAYMENT DETAILS:\n" << std::endl;
-				std::cout << "\n\t\t\t\t    Entity: ";
-				std::cout << atm->getEntity();
-				std::cout << "\n\t\t\t\t    Reference: ";
-				std::cout << atm->getReference();
-				std::cout << "\n\t\t\t\t    Montant: ";
-				std::cout << svcW->getTotalCost();
-			}
-
-			else if(option == 2){						// Bank Transfer
-				BankTransfer* bt = new BankTransfer(company.getIBAN());
-				svcW->setPayment(bt);
-
-				std::cout << "\n\t\t\t\t\tPAYMENT DETAILS:\n" << std::endl;
-				std::cout << "\n\t\t\t\t   IBAN: " << bt->getIBAN();
-				std::cout << "\n\t\t\t\t   Montant: " << svcW->getTotalCost();
-
-			}
-			else if(option == 0) return 0;
-
-			else if(option == -1) return -1;
-
-		}
-		else{															//COMPANY
-			std::cout << "\t\t\t\t\t\t1 - ATM" << std::endl;
-			std::cout << "\t\t\t\t\t\t2 - Credit Card" << std::endl;
-			std::cout << "\t\t\t\t\t\t3 - Bank Transfer" << std::endl;
-			std::cout << "\t\t\t\t\t\t4 - End of the Month" << std::endl;
-
-			std::cin >> option;
-
-			while(std::cin.fail()){
-				std::cout << "\t\t\t\t\t\tNot a valid option.";
-				std::cout << "\t\t\t\t\t\t    Option: ";
-				std::cin >> option;
-			}
-
-			if(option == 1){					//ATM
-				ATM* atm = new ATM(company.getEntity());
-				svcW->setPayment(atm);
-
-				std::cout << "\n\t\t\t\t\tPAYMENT DETAILS:\n" << std::endl;
-				std::cout << "\n\t\t\t\t    Entity: ";
-				std::cout << atm->getEntity();
-				std::cout << "\n\t\t\t\t    Reference: ";
-				std::cout << atm->getReference();
-				std::cout << "\n\t\t\t\t    Montant: ";
-				std::cout << svcW->getTotalCost();
-
-			}
-			else if(option == 2){				//CREDIT CARD
-
-				int month;
-				std::string ccNumber;
-				std::cout << "\n\t\t\t\t\tPAYMENT DETAILS:\n" << std::endl;
-				std::cout << "\n\t\t\t\t Credit Card Number: ";
-				std::cin >> ccNumber;
-
-				std::cout << "\n\t\t\t\t Validation month: ";
-				std::cin >> month;
-
-				std::cout << "\n\t\t\t\t Montant: " << svcW->getTotalCost();
-
-			}
-			else if(option == 3){				//BANK TRANSFER
-
-				BankTransfer* bt = new BankTransfer(company.getIBAN());
-				svcW->setPayment(bt);
-
-				std::cout << "\n\t\t\t\t\tPAYMENT DETAILS:\n" << std::endl;
-				std::cout << "\n\t\t\t\t   IBAN: " << bt->getIBAN();
-				std::cout << "\n\t\t\t\t   Montant: " << svcW->getTotalCost();
-
-			}
-			else if(option == 4){
-
-				EndOfMonth* eom = new EndOfMonth();
-				svcW->setPayment(eom);
-
-				std::cout << "\n\t\t\t\tThis service has been added to client's debt. It is payable until the end of the month.";
-				std::cout << "\n\t\t\t\t\t   Montant: " << svcW->getTotalCost() << std::endl;
-
-				std::cout << svcW->getPayment()->getPaymentType();
-
-			}
-			else if(option == 0) return 0;
-			else if(option == -1) return -1;
-		}
+		if(company.getClients()[index]->isParticular())					// PARTICULAR CLIENT
+			checkReturn = setTypeOfPaymentParticular(company, svcW);
+		else															//   COMPANY  CLIENT
+			checkReturn = setTypeOfPaymentCompany(company, svcW);
 
 		company.addServiceBill(company.getClients()[index], svcW);
 		company.getClients()[index]->addNewService(svcW);
 	}
-
 	else if(response == "0") return 0;
-
 	else if(response == "-1") return -1;
-
 	else{
 		std::cout << "\n\t\t\t\tNot a valid entry." << std::endl;
 		return 0;
 	}
-
 	return 0;
 }
 
