@@ -7,10 +7,6 @@
 
 #include "ServicesInterface.h"
 
-// Shipping duration
-const int zone1days = 5;
-const int zone2days = 15;
-
 void getClientIndex(int& index, MovingCompany& company, int idClient){
 
 	index = binarySearch(company.getClients(), idClient);
@@ -459,6 +455,15 @@ int newRegisteredClientService(MovingCompany& company){
 
 	srand(time(NULL));
 
+	vector<Vehicle*> vehiclesToTransport;
+
+	if(!company.existsAvailableCarsToTransport(weight, vehiclesToTransport)){
+		std::cout << "\t\t\tWARNING: At the moment there are no vehicles available for transport."
+				"\n\t\t\tYour service will be on hold until "
+				"vehicles are freed." << std::endl;
+		return 0;
+	}
+
 	// This service does not require warehousing so it is a "Transport service"
 	if(response == "n" || response == "N"){				//TRANSPORT
 
@@ -491,7 +496,6 @@ int newRegisteredClientService(MovingCompany& company){
 		else{
 			svcT->addZone(ZONE_2);
 			svcT->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
-
 		}
 
 		std::cout << "\n\t\t\t\tChoose the type of payment:\n" << std::endl;
@@ -563,6 +567,7 @@ int newRegisteredClientService(MovingCompany& company){
 		company.addServiceBill(company.getClients()[index], svcW);
 		company.getClients()[index]->addNewService(svcW);
 	}
+
 	else if(response == "0") return 0;
 	else if(response == "-1") return -1;
 	else{

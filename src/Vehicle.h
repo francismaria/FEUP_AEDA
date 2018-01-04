@@ -15,7 +15,9 @@
  */
 class Vehicle{
 	int id;
+	int maintenanceDays;
 	float maxWeight;
+	bool available;
 	static int numberOfVehicles;
 public:
 	/**
@@ -23,13 +25,19 @@ public:
 	 * @param ID id of the vehicle
 	 * @param maxW max weight of the vehicle
 	 */
-	Vehicle(int ID, float maxW);
+	Vehicle(int ID, int mDays, float maxW);
 
 	/**
 	 * @brief Gets vehicle ID
 	 * @return ID of the vehicle
 	 */
 	int getID() const;
+
+	/**
+	 * @brief Gets total days of maintenance the car has to have after a service
+	 * @return Maintenance days
+	 */
+	int getMaintenanceDays() const;
 
 	/**
 	 * @brief Gets max weight of cargo of the vehicle
@@ -44,11 +52,24 @@ public:
 	static int getNumberOfVehicles();
 
 	/**
+	 * @brief Checks if vehicle is available to transport
+	 * @return true or false depending on its availability
+	 */
+	bool isAvailable() const;
+
+	/**
 	 * @brief Checks if two vehicles are the same
-	 * @param v Vehicle to be compared
+	 * @param v Vehicle to be compared with
 	 * @return True or false depending on the conditions
 	 */
 	bool operator ==(const Vehicle& v);
+
+	/**
+	 * @brief Checks which of the two vehicles is less than the other
+	 * @param v Vehicle to be compared with
+	 * @return True or false depending on the conditions
+	 */
+	bool operator <(const Vehicle& v);
 
 	/**
 	 * @brief Prints a vehicle
@@ -57,8 +78,10 @@ public:
 	 * @return o ostream
 	 */
 	friend std::ostream& operator <<(std::ostream& o, const Vehicle& v){
-		std::cout << "\t\t\t\t\t\t\tVEHICLE INFO\n\n\t\t\t\t\tID: " << v.getID()
-				<< "\n\t\t\t\t\tMax Cargo Supported: " << v.getMaxWeight() << std::endl;
+		std::cout << "\n\t\t\t\t\t\t\t\tVEHICLE INFO\n\n\t\t\t\t\t\t\tID: " << v.getID()
+				<< "\n\t\t\t\t\t\t\tMax Cargo Supported: " << v.getMaxWeight()
+				<< "\n\n\t\t\t\t\t\t\t( Maintenance Days: " << v.getMaintenanceDays() <<
+				" )" << std::endl;
 		return o;
 	}
 };

@@ -52,6 +52,25 @@ class MovingCompany{
 	std::vector<Vehicle*> allVehicles;
 	std::priority_queue<Vehicle*> availableVehicles;
 	//std::queue<ServiceRequest*> servicesWaiting;
+
+	// This next three funtions are private because they shall be accessed from the outside as they are critical to the good
+	//function of the program.
+
+	/**
+	 * @brief deletes all clients and its associated services from the program (frees memory)
+	 */
+	void deleteClients();
+
+	/**
+	 * @brief deletes all countries associated with the company (frees memory)
+	 */
+	void deleteCountries();
+
+	/**
+	 * @brief deletes all vehicles associated with the company (frees memory)
+	 */
+	void deleteVehicles();
+
 public:
 
 	/**
@@ -106,6 +125,12 @@ public:
 	 * @return vehicles of the company
 	 */
 	vector<Vehicle*> getVehicles() const;
+
+	/**
+	 * @brief gets all vehicles available in the company to start a new transport
+	 * @return available vehicles to start transportation
+	 */
+	std::priority_queue<Vehicle*> getAvailableVehicles() const;
 
 	/**
 	 * @brief gets countries to which the company operate
@@ -318,7 +343,14 @@ public:
 	int checkClientServiceStatus(int index);
 
 	/**
-	 * @brief free all memory allocated by the company
+	 * @brief checks if exists in the company available cars to transport the packages of the service
+	 * @param weight weight of the packages
+	 * @return true or false depending on the availability of the cars
+	 */
+	bool existsAvailableCarsToTransport(int weight, std::vector<Vehicle*>& vehiclesToTransport) const;
+
+	/**
+	 * @brief frees all memory allocated by the company
 	 */
 	void freeMemory();
 };

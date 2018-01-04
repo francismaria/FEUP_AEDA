@@ -785,12 +785,12 @@ void importVehicles(MovingCompany& company){
 	std::string line;
 
 	while(std::getline(vehiclesFile, line)){
-		int vehicleID;
+		int vehicleID, maintenanceDays;
 		float maxWeight;
 
-		std::sscanf(line.c_str(), "%d %f", &vehicleID, &maxWeight);
+		std::sscanf(line.c_str(), "%d %d %f", &vehicleID, &maintenanceDays, &maxWeight);
 
-		Vehicle* v = new Vehicle(vehicleID, maxWeight);
+		Vehicle* v = new Vehicle(vehicleID, maintenanceDays, maxWeight);
 		company.addVehicle(v);
 	}
 

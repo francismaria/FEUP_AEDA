@@ -65,6 +65,10 @@ vector<Vehicle*> MovingCompany::getVehicles() const{
 	return allVehicles;
 }
 
+std::priority_queue<Vehicle*> MovingCompany::getAvailableVehicles() const{
+	return availableVehicles;
+}
+
 Country* MovingCompany::getCountry(std::string name) const{
 
 	std::vector<Country*>::const_iterator it;
@@ -92,7 +96,6 @@ void MovingCompany::addServiceBill(Client* c, Service* s){
 }
 
 void MovingCompany::addNonActiveClient(Client* c){
-
 	nonActiveClients.insert(c);
 }
 
@@ -102,6 +105,7 @@ void MovingCompany::addCountry(Country* c){
 
 void MovingCompany::addVehicle(Vehicle* v){
 	allVehicles.push_back(v);
+	availableVehicles.push(v);
 }
 
 std::vector<Country*> MovingCompany::getCountriesToOperate() const{
@@ -379,7 +383,31 @@ int MovingCompany::validateClientService(int index){
 	return 0;
 }
 
-void MovingCompany::freeMemory(){
+bool MovingCompany::existsAvailableCarsToTransport(int weight, std::vector<Vehicle*>& vehiclesToTransport) const{
+
+	int leftWeight = weight;
+	std::priority_queue<Vehicle*> auxVehicles = availableVehicles;
+
+	while(!auxVehicles.empty()){
+		Vehicle* v = auxVehicles.top();
+
+		if(leftWeight <= v->getMaxWeight()){
+			vehiclesToTransport.push_back(v);
+			return true;
+		}
+		else{
+			leftWeight -= v->getMaxWeight();
+			vehiclesToTransport.push_back(v);
+		}
+
+		auxVehicles.pop();
+	}
+
+	if(leftWeight > 0) return false;
+	return true;
+}
+
+void MovingCompany::deleteClients(){
 
 	unsigned int i;
 
@@ -389,5 +417,26 @@ void MovingCompany::freeMemory(){
 		}
 		delete(clients[i]);
 	}
+}
+
+void MovingCompany::deleteCountries(){
+
+	for(unsigned int i = 0; i < countriesToOperate.size(); i++){
+		delete(countriesToOperate[i]);
+	}
+}
+
+void MovingCompany::deleteVehicles(){
+
+	for(unsigned int i = 0; i < allVehicles.size(); i++){
+		delete(allVehicles[i]);
+	}
+}
+
+void MovingCompany::freeMemory(){
+
+	deleteClients();
+	deleteCountries();
+	deleteVehicles();
 }
 

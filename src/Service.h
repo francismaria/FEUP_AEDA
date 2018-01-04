@@ -37,6 +37,7 @@ class Service{
 	float totalCost;
 	int zone;
 	float baseRate;
+	//int status;
 	std::list<Vehicle*> vehiclesUsed;
 	static int numberOfServices;
 public:

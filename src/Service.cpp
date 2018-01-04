@@ -26,14 +26,6 @@ Service::Service(Address& o, Address& d, float w, Date& b, Date& e): origin(o), 
 	zone = 0;
 	baseRate = 0;
 }
-/*
-Service::Service(Address& o, Address& d, float w, Date& b, Date& e, float bRate, int z):
-		origin(o), destination(d), weight(w), beggining(b), end(e), baseRate(bRate), zone(z){
-	this->totalCost += baseRate*weight;
-	this->ID = numberOfServices;
-	numberOfServices++;
-}
-*/
 
 void Service::addZone(int zone){
 	this->zone = zone;
