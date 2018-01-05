@@ -37,6 +37,12 @@ public:
 	 */
 	Service* getService() const;
 
+	/**
+	 * @brief prints a service request
+	 * @param o ostream
+	 * @param sr service request to be printed
+	 * @return o ostream
+	 */
 	friend std::ostream& operator <<(std::ostream& o, const ServiceRequest& sr){
 		std::cout << "\n\t\t\t\t\t\tSERVICE REQUEST INFO\n\t\t\t\t\tClient ID: " << sr.clientID <<
 				"\n\t\t\t\t\tService request date: " << sr.getService()->getBeggining() << std::endl;

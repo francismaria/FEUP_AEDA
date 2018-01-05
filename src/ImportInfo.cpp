@@ -363,6 +363,86 @@ int readAddress(MovingCompany& company, std::stringstream& auxSS, Address& addre
 	}
 }
 
+void readServiceRequest(MovingCompany& company, std::stringstream& line){
+
+	int clientID, weight;
+	bool transportType = false;
+	Date beginningDate;
+
+	std::string aux;
+	std::stringstream auxSS;
+
+	std::getline(line, aux, '/');
+	auxSS << aux;
+	auxSS >> clientID;
+
+	aux.clear();			//Clears buffers
+	auxSS.clear();
+	auxSS.str(std::string());
+
+	std::getline(line, aux, '/');
+
+	if(aux == "T"){
+		transportType = true;
+	}
+
+	aux.clear();			//Clears buffers
+	auxSS.clear();
+	auxSS.str(std::string());
+
+	std::getline(line, aux, '/');
+	auxSS << aux;
+	auxSS >> weight;
+
+	aux.clear();			//Clears buffers
+	auxSS.clear();
+	auxSS.str(std::string());
+
+	std::getline(line, aux, '[');
+	auxSS << aux;
+	readDate(auxSS, beginningDate);
+
+	aux.clear();			//Clears buffers
+	auxSS.clear();
+	auxSS.str(std::string());
+
+	Address origin, destination;
+
+	std::getline(line, aux, ']');
+	auxSS << aux;
+	int idOrigin = readAddress(company, auxSS, origin);
+
+	aux.clear();			//Clears buffers
+	auxSS.clear();
+	auxSS.str(std::string());
+
+	std::getline(line, aux, ']');
+	auxSS << aux;
+	int idDestination = readAddress(company, auxSS, destination);
+
+	aux.clear();			//Clears buffers
+	auxSS.clear();
+	auxSS.str(std::string());
+
+	std::getline(line, aux, '/');
+
+	aux.clear();			//Clears buffers
+	auxSS.clear();
+	auxSS.str(std::string());
+
+	std::getline(line, aux, '/');
+
+	std::list<Vehicle*> vehiclesToTransport;
+	if(company.existsAvailableCarsToTransport(weight,vehiclesToTransport)){
+		if(transportType){
+			std::cout << "TRANSPORT!";
+		}
+		else{
+			std::cout << "WAREHOUSING!";
+		}
+	}
+}
+
 void importServices(MovingCompany& company){
 
 	std::ifstream servicesFile;
@@ -381,6 +461,12 @@ void importServices(MovingCompany& company){
 		std::stringstream auxSS;
 
 		std::getline(ss, aux, '/');
+
+		if(aux == "R"){
+			readServiceRequest(company, ss);
+			continue;
+		}
+
 		auxSS << aux;
 		auxSS >> idClient;
 
