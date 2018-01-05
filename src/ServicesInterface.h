@@ -36,7 +36,6 @@ int newRegisteredClientService(MovingCompany& company);
  */
 int newUnregisteredClientService(MovingCompany& company);
 
-
 /**
  * @brief prints all services of a certain client
  * @param company company itself
@@ -64,5 +63,13 @@ int validateClientsPayment(MovingCompany& company);
  * @return 0 or -1 depending on the user input
  */
 int printServicesBill(MovingCompany& company);
+
+/**
+ * @brief prints all services that are waiting for available vehicles
+ * @param company company itself
+ * @return 0 or -1 depending on the user input
+ */
+int printServicesRequests(MovingCompany& company);
+
 
 #endif /* SERVICESINTERFACE_H_ */

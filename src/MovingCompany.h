@@ -15,6 +15,7 @@
 #include "Algorithms.h"
 #include "ServiceBill.h"
 #include "BST.h"
+#include "ServiceRequest.h"
 #include <unordered_set>
 #include <queue>
 
@@ -51,11 +52,10 @@ class MovingCompany{
 	tabHCli nonActiveClients;
 	std::vector<Vehicle*> allVehicles;
 	std::priority_queue<Vehicle*> availableVehicles;
-	//std::queue<ServiceRequest*> servicesWaiting;
+	std::queue<ServiceRequest*> servicesWaiting;
 
 	// This next three funtions are private because they shall be accessed from the outside as they are critical to the good
 	//function of the program.
-
 	/**
 	 * @brief deletes all clients and its associated services from the program (frees memory)
 	 */
@@ -214,6 +214,12 @@ public:
 	void addNonActiveClient(Client* c);
 
 	/**
+	 * @brief adds a new service request to the company
+	 * @param sr service request
+	 */
+	void addServiceWaiting(ServiceRequest* sr);
+
+	/**
 	 * @brief removes client given a certain ID
 	 * @param id ID of the client to be removed
 	 */
@@ -331,6 +337,11 @@ public:
 	void printAllVehicles() const;
 
 	/**
+	 * @brief prints all services that were requested by clients
+	 */
+	void printAllServicesWaiting() const;
+
+	/**
 	 * @brief validates a service of a client given a certain id
 	 * @param id id of the client to validate service
 	 */
@@ -347,7 +358,7 @@ public:
 	 * @param weight weight of the packages
 	 * @return true or false depending on the availability of the cars
 	 */
-	bool existsAvailableCarsToTransport(int weight, std::vector<Vehicle*>& vehiclesToTransport) const;
+	bool existsAvailableCarsToTransport(int weight, std::list<Vehicle*>& vehiclesToTransport) const;
 
 	/**
 	 * @brief frees all memory allocated by the company

@@ -455,17 +455,23 @@ int newRegisteredClientService(MovingCompany& company){
 
 	srand(time(NULL));
 
-	vector<Vehicle*> vehiclesToTransport;
-
-	if(!company.existsAvailableCarsToTransport(weight, vehiclesToTransport)){
-		std::cout << "\t\t\tWARNING: At the moment there are no vehicles available for transport."
-				"\n\t\t\tYour service will be on hold until "
-				"vehicles are freed." << std::endl;
-		return 0;
-	}
+	std::list<Vehicle*> vehiclesToTransport;
 
 	// This service does not require warehousing so it is a "Transport service"
 	if(response == "n" || response == "N"){				//TRANSPORT
+
+		if(!company.existsAvailableCarsToTransport(weight, vehiclesToTransport)){
+
+			Transport* waitingT= new Transport(origin, destination, weight, actualDate);
+			ServiceRequest* transportR = new ServiceRequest(company.getClients()[index]->getId(), waitingT);
+
+			company.addServiceWaiting(transportR);
+
+			std::cout << "\t\t\tWARNING: At the moment there are no vehicles available for transport."
+					"\n\t\t\tYour service will be on hold until "
+					"vehicles are freed." << std::endl;
+			return 0;
+		}
 
 		Date packagingB, packagingE, shippingB,
 				shippingE, deliveryB, deliveryE;
@@ -488,6 +494,7 @@ int newRegisteredClientService(MovingCompany& company){
 		svcT->setPackaging(p);
 		svcT->setShipping(s);
 		svcT->setDelivery(d);
+		svcT->setVehiclesUsed(vehiclesToTransport);
 
 		if(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getZone() == 1){
 			svcT->addZone(ZONE_1);
@@ -521,6 +528,19 @@ int newRegisteredClientService(MovingCompany& company){
 		std::cout << "\n\t\t\t\tHow many days will the volumes be in the warehouse? ";
 		std::cin >> daysWarehouse;
 
+		if(!company.existsAvailableCarsToTransport(weight, vehiclesToTransport)){
+
+			Warehousing* waitingW = new Warehousing(origin, destination, weight, actualDate, daysWarehouse);
+			ServiceRequest* warehousingR = new ServiceRequest(company.getClients()[index]->getId(), waitingW);
+
+			company.addServiceWaiting(warehousingR);
+
+			std::cout << "\t\t\tWARNING: At the moment there are no vehicles available for transport."
+					"\n\t\t\tYour service will be on hold until "
+					"vehicles are freed." << std::endl;
+			return 0;
+		}
+
 		Date packagingB, packagingE, shippingB,
 				shippingE, deliveryB, deliveryE, warehousingE;
 
@@ -532,7 +552,6 @@ int newRegisteredClientService(MovingCompany& company){
 		Date endingDate = deliveryE;
 		endingDate.setHour(deliveryE.getHour() + getRandomNumberBetweenValues(1, 3));		//O serviço acaba quando funcionário concluir
 		endingDate.setMinute(getRandomMinute());											//o serviço (entre 1 a 3 horas após a entrega)
-
 
 		Warehousing* svcW = new Warehousing(origin, destination, weight, beginningDate, endingDate, daysWarehouse);
 		int idW = svcW->getID();
@@ -561,7 +580,7 @@ int newRegisteredClientService(MovingCompany& company){
 
 		if(company.getClients()[index]->isParticular())					// PARTICULAR CLIENT
 			checkReturn = setTypeOfPaymentParticular(company, svcW);
-		else															//   COMPANY  CLIENT
+		else															// COMPANY  CLIENT
 			checkReturn = setTypeOfPaymentCompany(company, svcW);
 
 		company.addServiceBill(company.getClients()[index], svcW);
@@ -579,13 +598,17 @@ int newRegisteredClientService(MovingCompany& company){
 
 int newUnregisteredClientService(MovingCompany& company){
 
-	std::cout << "\n\t\t\t\tREQUEST SERVICE TO NEW UNREGISTERED CLIENT\n" << std::endl;
+	std::cout << "\n\t\t\t\t\tREQUEST SERVICE TO NEW UNREGISTERED CLIENT\n" << std::endl;
 	std::cout << "\t\t\t\t\tPlease fill out this form in order to create a new service." << std::endl;
 
 	int weight, idOrigin, idDestination;
 	Address origin, destination;
 
 	idOrigin = getOriginInfo(company, weight, origin);
+
+	if(idOrigin == 0) return 0;
+	else if(idOrigin == -1) return -1;
+
 	idDestination = getDestinationInfo(company, idOrigin, destination);
 
 	Date beginningDate;
@@ -736,6 +759,9 @@ int newService(MovingCompany& company){
 				return 0;
 			case -1:
 				return -1;
+			default:
+				std::cout << "\n\t\t\t\t\tPlease insert a valid option.";
+				break;
 		}
 		if(!instruction) continue;
 		if(instruction == -1) return -1;
@@ -893,5 +919,35 @@ int printServicesBill(MovingCompany& company){
 	else if(serviceOption == -1) return -1;
 
 	company.printBill(company.getClients()[index], company.getClients()[index]->getServicesRequested()[serviceOption-1]);
+	return 0;
+}
+
+int printServicesRequests(MovingCompany& company){
+
+	std::cout << "\n\t\t\t\t\t\t\tPRINT SERVICES REQUESTED\n\t\t\t\t\t\t (waiting for available vehicles)";
+	std::cout << "\n\n\t\t\t\t\t\t1 - Print all services requested" << std::endl;
+	std::cout << "\n\t\t\t\t\t\t0 - Go back" << std::endl;
+	std::cout << "\t\t\t\t\t        -1 - Exit program" << std::endl;
+
+	int option;
+
+	while(option != -1){
+
+		std::cout << "\n\t\t\t\t\tEnter your option: ";
+		std::cin >> option;
+
+		switch(option){
+			case 1:
+				company.printAllServicesWaiting();
+				break;
+			case 0:
+				return 0;
+			case -1:
+				return -1;
+			default:
+				std::cout << "\n\t\t\t\tPlease insert a valid option.";
+				break;
+		}
+	}
 	return 0;
 }

@@ -99,6 +99,10 @@ void MovingCompany::addNonActiveClient(Client* c){
 	nonActiveClients.insert(c);
 }
 
+void MovingCompany::addServiceWaiting(ServiceRequest* sr){
+	servicesWaiting.push(sr);
+}
+
 void MovingCompany::addCountry(Country* c){
 	countriesToOperate.push_back(c);
 }
@@ -328,10 +332,20 @@ void MovingCompany::printNonActiveClients() const{
 
 void MovingCompany::printAllVehicles() const{
 
-	unsigned int i = 0;
-
-	for(i = 0; i < allVehicles.size(); i++){
+	for(unsigned int i = 0; i < allVehicles.size(); i++){
 		std::cout << *allVehicles[i];
+	}
+}
+
+void MovingCompany::printAllServicesWaiting() const{
+
+	std::queue<ServiceRequest*> aux = servicesWaiting;
+
+	while(!aux.empty()){
+
+		std::cout << *(aux.front());
+
+		aux.pop();
 	}
 }
 
@@ -383,7 +397,7 @@ int MovingCompany::validateClientService(int index){
 	return 0;
 }
 
-bool MovingCompany::existsAvailableCarsToTransport(int weight, std::vector<Vehicle*>& vehiclesToTransport) const{
+bool MovingCompany::existsAvailableCarsToTransport(int weight, std::list<Vehicle*>& vehiclesToTransport) const{
 
 	int leftWeight = weight;
 	std::priority_queue<Vehicle*> auxVehicles = availableVehicles;

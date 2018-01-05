@@ -25,11 +25,11 @@ const float TAX_WAREHOUSING_DAY = 0.01;		//  1%
  */
 class Service{
 	int ID;
-	float weight;
 	Date beggining;
 	Date end;
 	Address origin;
 	Address destination;
+	float weight;
 	Packaging* pack;
 	Shipping* shipping;
 	Delivery* delivery;
@@ -51,6 +51,11 @@ public:
 	 * @brief Service Default Destructor
 	 */
 	~Service();
+
+	/**
+	 * @brief Service constructor to services with undefined ending date
+	 */
+	Service(Address& o, Address& d, float w, Date& b);
 
 	/**
 	 * @brief Service Constructor
@@ -183,6 +188,12 @@ public:
 	void setPayment(Payment* pay);
 
 	/**
+	 * @brief sets vehicles used to transport the cargo
+	 * @param list of vehicles
+	 */
+	void setVehiclesUsed(std::list<Vehicle*> vehicles);
+
+	/**
 	 * @brief gets packaging beggining date
 	 * @return date
 	 */
@@ -280,6 +291,12 @@ public:
  */
 class Transport: public Service{
 public:
+
+	/**
+	 * @brief Transport constructor to service with undefined ending date
+	 */
+	Transport(Address& o, Address& d, float w, Date& b);
+
 	/**
 	 * @brief Transport Constructor
 	 */
@@ -299,6 +316,12 @@ class Warehousing: public Transport{
 	int daysWarehouse;
 	float warehousingCost;
 public:
+
+	/**
+	 * @brief Warehousing constructor to service with undefined ending date
+	 */
+	Warehousing(Address& o, Address& d, float w, Date& b, int daysWarehouse);
+
 	/**
 	 * @brief Warehousing constructor
 	 */

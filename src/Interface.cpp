@@ -124,7 +124,8 @@ bool showServicesMenu(MovingCompany& company){
 		std::cout << "\t\t\t\t\t\t\t2 - Check Service Status" << std::endl;
 		std::cout << "\t\t\t\t\t\t\t3 - Print Client's Services History" << std::endl;
 		std::cout << "\t\t\t\t\t\t\t4 - Validate Payment" << std::endl;
-		std::cout << "\t\t\t\t\t\t\t5 - Show service bill\n" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t5 - Show service bill" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t6 - Print Requested Services\n" << std::endl;
 		std::cout << "\t\t\t\t\t\t\t0 - Go back" << std::endl;
 		std::cout << "\t\t\t\t\t\t       -1 - Exit program.\n" << std::endl;
 
@@ -148,6 +149,9 @@ bool showServicesMenu(MovingCompany& company){
 				break;
 			case 5:
 				instruction = printServicesBill(company);
+				break;
+			case 6:
+				instruction = printServicesRequests(company);
 				break;
 			case 0:
 				return false;

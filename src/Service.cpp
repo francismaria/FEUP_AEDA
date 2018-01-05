@@ -20,6 +20,12 @@ Service::~Service(){
 	delete(payment);
 }
 
+Service::Service(Address& o, Address& d, float w, Date& b): origin(o), destination(d), weight(w), beggining(b){
+	numberOfServices++;
+	zone = 0;
+	baseRate = 0;
+}
+
 Service::Service(Address& o, Address& d, float w, Date& b, Date& e): origin(o), destination(d), weight(w), beggining(b), end(e), totalCost(0){
 	this->ID = numberOfServices;
 	numberOfServices++;
@@ -114,6 +120,10 @@ void Service::setPayment(Payment* pay){
 	this->totalCost += (this->totalCost*pay->getPaymentTax());
 }
 
+void Service::setVehiclesUsed(std::list<Vehicle*> vehicles){
+	this->vehiclesUsed = vehicles;
+}
+
 Payment* Service::getPayment() const{
 	return payment;
 }
@@ -177,12 +187,27 @@ bool Service::operator ==(Service& s){
 /******************** TRANSPORT *************************/
 /********************************************************/
 
+Transport::Transport(Address& o, Address& d, float w, Date& b): Service(o, d, w, b){}
+
 Transport::Transport(Address& o, Address& d, float w, Date& b, Date& e): Service(o, d, w, b, e){}
 
 
 /********************************************************/
 /******************* WAREHOUSING ************************/
 /********************************************************/
+
+Warehousing::Warehousing(Address& o, Address& d, float w, Date& b, int daysWarehouse): Transport(o, d, w, b){
+	this->daysWarehouse = daysWarehouse;
+
+	if(this->daysWarehouse > 5){
+		float tax = w * TAX_WAREHOUSING_DAY;
+		warehousingCost = (this->daysWarehouse - 5) * tax;
+		this->addExtraCost(warehousingCost);
+	}
+	else{
+		warehousingCost = 0;
+	}
+}
 
 Warehousing::Warehousing(Address& o, Address& d, float w, Date& b, Date& e, int daysWarehouse): Transport(o,d,w,b,e){
 	this->daysWarehouse = daysWarehouse;
