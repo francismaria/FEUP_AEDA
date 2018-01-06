@@ -69,6 +69,10 @@ std::priority_queue<Vehicle*> MovingCompany::getAvailableVehicles() const{
 	return availableVehicles;
 }
 
+std::queue<ServiceRequest*> MovingCompany::getServicesRequested() const{
+	return servicesWaiting;
+}
+
 Country* MovingCompany::getCountry(std::string name) const{
 
 	std::vector<Country*>::const_iterator it;
@@ -419,6 +423,16 @@ bool MovingCompany::existsAvailableCarsToTransport(int weight, std::list<Vehicle
 
 	if(leftWeight > 0) return false;
 	return true;
+}
+
+void MovingCompany::checkNonActiveClients(Client* c){
+
+	tabHCli::iterator it = nonActiveClients.find(c);
+
+	if(it == nonActiveClients.end())
+		return;
+
+	nonActiveClients.erase(it);
 }
 
 void MovingCompany::deleteClients(){

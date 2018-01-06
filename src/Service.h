@@ -188,6 +188,12 @@ public:
 	void setPayment(Payment* pay);
 
 	/**
+	 * @brief sets last day of th service
+	 * @param e ending date
+	 */
+	void setEndingDate(Date& e);
+
+	/**
 	 * @brief sets vehicles used to transport the cargo
 	 * @param list of vehicles
 	 */

@@ -334,6 +334,7 @@ void setEndOfMonthPayment(MovingCompany& company, Service* s){
 // Returns 0 or -1 depending on user input or 1 if succeeded.
 int setTypeOfPaymentParticular(MovingCompany& company, Service* s){
 
+	std::cout << "\n\t\t\t\tChoose the type of payment:\n" << std::endl;
 	std::cout << "\t\t\t\t\t\t1 - ATM" << std::endl;
 	std::cout << "\t\t\t\t\t\t2 - Bank Transfer\n" << std::endl;
 	std::cout << "\t\t\t\t\t\t   Option: ";
@@ -367,6 +368,7 @@ int setTypeOfPaymentParticular(MovingCompany& company, Service* s){
 // Returns 0 or -1 depending on user input or 1 if succeeded.
 int setTypeOfPaymentCompany(MovingCompany& company, Service* s){
 
+	std::cout << "\n\t\t\t\tChoose the type of payment:\n" << std::endl;
 	std::cout << "\t\t\t\t\t\t1 - ATM" << std::endl;
 	std::cout << "\t\t\t\t\t\t2 - Credit Card" << std::endl;
 	std::cout << "\t\t\t\t\t\t3 - Bank Transfer" << std::endl;
@@ -463,6 +465,13 @@ int newRegisteredClientService(MovingCompany& company){
 		if(!company.existsAvailableCarsToTransport(weight, vehiclesToTransport)){
 
 			Transport* waitingT= new Transport(origin, destination, weight, actualDate);
+			int checkReturn;
+
+			if(company.getClients()[index]->isParticular())					// PARTICULAR CLIENT
+				checkReturn = setTypeOfPaymentParticular(company, waitingT);
+			else															// COMPANY  CLIENT
+				checkReturn = setTypeOfPaymentCompany(company, waitingT);
+
 			ServiceRequest* transportR = new ServiceRequest(company.getClients()[index]->getId(), waitingT);
 
 			company.addServiceWaiting(transportR);
@@ -505,8 +514,6 @@ int newRegisteredClientService(MovingCompany& company){
 			svcT->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
 		}
 
-		std::cout << "\n\t\t\t\tChoose the type of payment:\n" << std::endl;
-
 		int checkReturn;
 
 		if(company.getClients()[index]->isParticular())					// PARTICULAR CLIENT
@@ -517,6 +524,7 @@ int newRegisteredClientService(MovingCompany& company){
 		if(checkReturn == 0) return 0;
 		else if(checkReturn == -1) return -1;
 
+		company.checkNonActiveClients(company.getClients()[index]);
 		company.addServiceBill(company.getClients()[index], svcT);
 		company.getClients()[index]->addNewService(svcT);
 
@@ -531,8 +539,15 @@ int newRegisteredClientService(MovingCompany& company){
 		if(!company.existsAvailableCarsToTransport(weight, vehiclesToTransport)){
 
 			Warehousing* waitingW = new Warehousing(origin, destination, weight, actualDate, daysWarehouse);
-			ServiceRequest* warehousingR = new ServiceRequest(company.getClients()[index]->getId(), waitingW);
 
+			int checkReturn;
+
+			if(company.getClients()[index]->isParticular())					// PARTICULAR CLIENT
+				checkReturn = setTypeOfPaymentParticular(company, waitingW);
+			else															// COMPANY  CLIENT
+				checkReturn = setTypeOfPaymentCompany(company, waitingW);
+
+			ServiceRequest* warehousingR = new ServiceRequest(company.getClients()[index]->getId(), waitingW);
 			company.addServiceWaiting(warehousingR);
 
 			std::cout << "\t\t\tWARNING: At the moment there are no vehicles available for transport."
@@ -548,7 +563,6 @@ int newRegisteredClientService(MovingCompany& company){
 		setShippingDates(shippingB, shippingE, packagingE, destination.getCountry().getZone());
 		setDeliveryDates(deliveryB, deliveryE, shippingE, daysWarehouse);
 
-		std::cout << packagingB << std::endl << shippingE << std::endl << deliveryB;
 		Date endingDate = deliveryE;
 		endingDate.setHour(deliveryE.getHour() + getRandomNumberBetweenValues(1, 3));		//O serviço acaba quando funcionário concluir
 		endingDate.setMinute(getRandomMinute());											//o serviço (entre 1 a 3 horas após a entrega)
@@ -574,8 +588,6 @@ int newRegisteredClientService(MovingCompany& company){
 			svcW->addBaseRate(zone2Increase);
 		}
 
-		std::cout << "\n\t\t\t\tChoose the type of payment:\n" << std::endl;
-
 		int checkReturn;
 
 		if(company.getClients()[index]->isParticular())					// PARTICULAR CLIENT
@@ -583,6 +595,7 @@ int newRegisteredClientService(MovingCompany& company){
 		else															// COMPANY  CLIENT
 			checkReturn = setTypeOfPaymentCompany(company, svcW);
 
+		company.checkNonActiveClients(company.getClients()[index]);
 		company.addServiceBill(company.getClients()[index], svcW);
 		company.getClients()[index]->addNewService(svcW);
 	}
@@ -610,6 +623,14 @@ int newUnregisteredClientService(MovingCompany& company){
 	else if(idOrigin == -1) return -1;
 
 	idDestination = getDestinationInfo(company, idOrigin, destination);
+
+	std::list<Vehicle*> vehiclesToBeUsed;
+
+	if(!company.existsAvailableCarsToTransport(weight, vehiclesToBeUsed)){
+		std::cout << "\n\t\t\t\tWe're sorry to inform you that we have no capacity to transport your cargo\n\t\t\t\t and due to"
+				"the fact that you are not a client for the company we may not put you on hold." << std::endl;
+		return 0;
+	}
 
 	Date beginningDate;
 	int check = getBeginningServiceDate(beginningDate);
@@ -924,10 +945,10 @@ int printServicesBill(MovingCompany& company){
 
 int printServicesRequests(MovingCompany& company){
 
-	std::cout << "\n\t\t\t\t\t\t\tPRINT SERVICES REQUESTED\n\t\t\t\t\t\t (waiting for available vehicles)";
+	std::cout << "\n\t\t\t\t\t\t\tPRINT SERVICES REQUESTED\n\t\t\t\t\t\t      (waiting for available vehicles)";
 	std::cout << "\n\n\t\t\t\t\t\t1 - Print all services requested" << std::endl;
-	std::cout << "\n\t\t\t\t\t\t0 - Go back" << std::endl;
-	std::cout << "\t\t\t\t\t        -1 - Exit program" << std::endl;
+	std::cout << "\n\t\t\t\t\t\t\t0 - Go back" << std::endl;
+	std::cout << "\t\t\t\t\t\t       -1 - Exit program" << std::endl;
 
 	int option;
 

@@ -44,8 +44,8 @@ public:
 	 * @return o ostream
 	 */
 	friend std::ostream& operator <<(std::ostream& o, const ServiceRequest& sr){
-		std::cout << "\n\t\t\t\t\t\tSERVICE REQUEST INFO\n\t\t\t\t\tClient ID: " << sr.clientID <<
-				"\n\t\t\t\t\tService request date: " << sr.getService()->getBeggining() << std::endl;
+		std::cout << "\n\t\t\t\t\t\t\tSERVICE REQUEST INFO\n\t\t\t\t\tClient ID: " << sr.clientID <<
+				"\n\t\t\t\t\t\tService request date: " << sr.getService()->getBeggining() << std::endl;
 		return o;
 	}
 };

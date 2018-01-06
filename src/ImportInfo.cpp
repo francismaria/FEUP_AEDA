@@ -7,6 +7,33 @@
 
 #include "ImportInfo.h"
 
+
+void getActualDate(Date& actualDate){
+	std::stringstream ss;
+
+	int actualDay, actualMonth, actualYear;
+	time_t rawtime;
+	struct tm* timeinfo;
+	char buffer[80];
+
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+	strftime(buffer, sizeof(buffer), "%d %m %y", timeinfo);
+
+	std::string buf(buffer);
+
+	ss << buf;
+	ss >> actualDay;
+	ss >> actualMonth;
+	ss >> actualYear;
+
+	actualYear += 2000;
+
+	actualDate.setDay(actualDay);
+	actualDate.setMonth(actualMonth);
+	actualDate.setYear(actualYear);
+}
+
 void importClients(MovingCompany& company){
 
 	std::ifstream clientsFile;
@@ -363,6 +390,165 @@ int readAddress(MovingCompany& company, std::stringstream& auxSS, Address& addre
 	}
 }
 
+int getRandomNumberBetweenValuesAux(int minValue, int maxValue){
+	return rand()%(maxValue - minValue + 1)+minValue;
+}
+
+int getRandomHourAux(){			//Só trabalha das 8h as 19h
+	return getRandomNumberBetweenValuesAux(8, 19);
+}
+
+int getRandomMinuteAux(){
+	return getRandomNumberBetweenValuesAux(0, 59);
+}
+
+int getShippingZone1DurationAux(){
+	return getRandomNumberBetweenValuesAux(5, 8);
+}
+
+int getShippingZone2DurationAux(){
+	return getRandomNumberBetweenValuesAux(14, 20);
+}
+
+void setPackagingDatesAux(Date& packagingBeginning, Date& packagingEnding, Date& beginningDate){
+
+	packagingBeginning = beginningDate;
+
+	packagingBeginning.setHour(beginningDate.getHour()+2);
+
+	packagingEnding.setHour(getRandomHourAux());
+	packagingEnding.setMinute(getRandomMinuteAux());
+
+	if(packagingBeginning.getDay() < 31){
+		packagingEnding.setDay(beginningDate.getDay()+1);
+		packagingEnding.setMonth(beginningDate.getMonth());
+		packagingEnding.setYear(beginningDate.getYear());
+	}
+	else{
+		packagingEnding.setDay(1);
+
+		if(packagingBeginning.getMonth() >= 12){
+			packagingEnding.setMonth(1);
+			packagingEnding.setYear(beginningDate.getYear()+1);
+		}else{
+			packagingEnding.setMonth(beginningDate.getMonth()+1);
+			packagingEnding.setYear(beginningDate.getYear());
+		}
+	}
+}
+
+
+void setShippingDatesAux(Date& shippingBeginning, Date& shippingEnding, Date& beginningDate, int zone){
+
+	int endingDay, shippingDays;
+
+	shippingBeginning = beginningDate;
+	shippingBeginning.setHour(beginningDate.getHour()+2);
+	shippingBeginning.setMinute(getRandomMinuteAux());
+
+	if(zone == 1){
+		shippingDays = getShippingZone1DurationAux();				// 5 to 7 days
+	}
+	else{
+		shippingDays = getShippingZone2DurationAux();				// 14 to 20 days
+	}
+
+	endingDay = shippingBeginning.getDay() + shippingDays;
+
+	if(endingDay > 31){
+		shippingEnding.setDay((endingDay%31) + 1);
+		if(beginningDate.getMonth() == 12){
+			shippingEnding.setMonth(1);
+			shippingEnding.setYear(beginningDate.getYear()+1);
+		}else{
+			shippingEnding.setMonth(beginningDate.getMonth()+1);
+			shippingEnding.setYear(beginningDate.getYear());
+		}
+	}else{
+		shippingEnding.setDay(endingDay); shippingEnding.setMonth(beginningDate.getMonth());
+		shippingEnding.setYear(beginningDate.getYear());
+	}
+
+	shippingEnding.setHour(getRandomHourAux()); shippingEnding.setMinute(getRandomMinuteAux());
+}
+
+void setDeliveryDatesAux(Date& deliveryBeginning, Date& deliveryEnding, Date& beginningDate){
+
+	deliveryBeginning = beginningDate;
+	deliveryBeginning.setHour(beginningDate.getHour()+2);
+	deliveryBeginning.setMinute(getRandomMinuteAux());
+
+	int endingDate = deliveryBeginning.getDay()+1;
+
+	if(endingDate <= 31){
+		deliveryEnding.setDay(deliveryBeginning.getDay()+1);
+		deliveryEnding.setMonth(deliveryBeginning.getMonth());
+		deliveryEnding.setYear(deliveryBeginning.getYear());
+	}else{
+		deliveryEnding.setDay(1);
+		if(deliveryBeginning.getMonth() == 12){
+			deliveryEnding.setMonth(1);
+			deliveryEnding.setYear(deliveryBeginning.getYear()+1);
+		}else{
+			deliveryEnding.setMonth(deliveryBeginning.getMonth()+1);
+			deliveryEnding.setYear(deliveryBeginning.getYear());
+		}
+	}
+	deliveryEnding.setHour(getRandomHourAux()); deliveryEnding.setMinute(getRandomMinuteAux());
+}
+
+void newTransportService(Transport* svcT, int zone){
+
+	Date packagingB, packagingE, shippingB,
+			shippingE, deliveryB, deliveryE, actualDate;
+
+	getActualDate(actualDate);
+
+	setPackagingDatesAux(packagingB, packagingE, actualDate);
+	setShippingDatesAux(shippingB, shippingE, packagingE, zone);
+	setDeliveryDatesAux(deliveryB, deliveryE, shippingE);
+
+	Packaging* p = new Packaging(packagingB, packagingE, svcT->getWeight(), svcT->getID());
+	Shipping* s = new Shipping(shippingB, shippingE, svcT->getWeight(), svcT->getID());
+	Delivery* d = new Delivery(deliveryB, deliveryE, svcT->getWeight(), svcT->getID());
+
+	svcT->setPackaging(p);
+	svcT->setShipping(s);
+	svcT->setDelivery(d);
+
+	Date endingDate = deliveryE;
+	endingDate.setHour(deliveryE.getHour() + getRandomNumberBetweenValuesAux(1, 3));
+	endingDate.setMinute(getRandomMinuteAux());
+
+	svcT->setEndingDate(endingDate);
+}
+
+void newWarehousingService(Warehousing* svcW, int zone){
+
+	Date packagingB, packagingE, shippingB,
+			shippingE, deliveryB, deliveryE, actualDate;
+
+	getActualDate(actualDate);
+
+	setPackagingDatesAux(packagingB, packagingE, actualDate);
+	setShippingDatesAux(shippingB, shippingE, packagingE, zone);
+	setDeliveryDatesAux(deliveryB, deliveryE, shippingE);
+
+	Packaging* p = new Packaging(packagingB, packagingE, svcW->getWeight(), svcW->getID());
+	Shipping* s = new Shipping(shippingB, shippingE, svcW->getWeight(), svcW->getID());
+	Delivery* d = new Delivery(deliveryB, deliveryE, svcW->getWeight(), svcW->getID());
+
+	svcW->setPackaging(p);
+	svcW->setShipping(s);
+	svcW->setDelivery(d);
+
+	Date endingDate = deliveryE;
+	endingDate.setHour(deliveryE.getHour() + getRandomNumberBetweenValuesAux(1, 3));
+	endingDate.setMinute(getRandomMinuteAux());
+
+	svcW->setEndingDate(endingDate);
+}
+
 void readServiceRequest(MovingCompany& company, std::stringstream& line){
 
 	int clientID, weight;
@@ -375,6 +561,9 @@ void readServiceRequest(MovingCompany& company, std::stringstream& line){
 	std::getline(line, aux, '/');
 	auxSS << aux;
 	auxSS >> clientID;
+
+	int index = binarySearch(company.getClients(), clientID);
+	if(index == -1) return;
 
 	aux.clear();			//Clears buffers
 	auxSS.clear();
@@ -424,21 +613,110 @@ void readServiceRequest(MovingCompany& company, std::stringstream& line){
 	auxSS.clear();
 	auxSS.str(std::string());
 
-	std::getline(line, aux, '/');
+	std::string typePayment;
 
-	aux.clear();			//Clears buffers
-	auxSS.clear();
-	auxSS.str(std::string());
+	std::getline(line, typePayment, '/');
 
-	std::getline(line, aux, '/');
+	Payment* pay;
 
+	if(typePayment == "ATM"){
+		pay = new ATM(company.getEntity());
+	}
+	else if(typePayment == "CC"){
+		pay = new CreditCard();
+	}
+	else if(typePayment == "BT"){
+		pay = new BankTransfer(company.getIBAN());
+	}
+	else if(typePayment == "EOM"){
+		int actualMonth;
+		time_t rawtime;
+		struct tm* timeinfo;
+		char buffer[80];
+
+		time(&rawtime);
+		timeinfo = localtime(&rawtime);
+		strftime(buffer, sizeof(buffer), "%m", timeinfo);
+
+		std::string buf(buffer);
+
+		line << buf;
+		line >> actualMonth;
+
+		pay = new EndOfMonth(actualMonth);
+	}
+
+	std::string paymentStatus;
+	std::getline(line, paymentStatus);
+
+	if(paymentStatus == "RECEIVED"){
+		pay->validate();
+	}
+
+	int zone;
+	if(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getZone() == 1){
+		zone = 1;
+	}else{
+		zone = 2;
+	}
 	std::list<Vehicle*> vehiclesToTransport;
-	if(company.existsAvailableCarsToTransport(weight,vehiclesToTransport)){
-		if(transportType){
-			std::cout << "TRANSPORT!";
+
+	if(transportType){
+		Transport* waitingT = new Transport(origin, destination, weight, beginningDate);
+		waitingT->setPayment(pay);
+
+		//There are sufficient vehicles in the company to realize the transportation
+		if(company.existsAvailableCarsToTransport(weight,vehiclesToTransport)){
+			waitingT->setVehiclesUsed(vehiclesToTransport);
+			newTransportService(waitingT, zone);
+
+			if(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getZone() == 1){
+				waitingT->addZone(ZONE_1);
+				waitingT->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
+			}
+			else{
+				waitingT->addZone(ZONE_2);
+				float zone2Increase = company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate();
+				waitingT->addBaseRate(zone2Increase);
+			}
+
+			company.checkNonActiveClients(company.getClients()[index]);
+			company.addServiceBill(company.getClients()[index], waitingT);
+			company.getClients()[index]->addNewService(waitingT);
+		}else{
+			ServiceRequest* sr = new ServiceRequest(clientID, waitingT);
+			company.addServiceWaiting(sr);
 		}
-		else{
-			std::cout << "WAREHOUSING!";
+	}else{
+		int daysWarehouse;
+
+		std::getline(line, aux, '/');
+		auxSS << aux;
+		auxSS >> daysWarehouse;
+
+		Warehousing* waitingW = new Warehousing(origin, destination, weight, beginningDate, daysWarehouse);
+		waitingW->setPayment(pay);
+
+		if(company.existsAvailableCarsToTransport(weight,vehiclesToTransport)){
+			waitingW->setVehiclesUsed(vehiclesToTransport);
+			newWarehousingService(waitingW, zone);
+
+			if(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getZone() == 1){
+				waitingW->addZone(ZONE_1);
+				waitingW->addBaseRate(company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate());
+			}
+			else{
+				waitingW->addZone(ZONE_2);
+				float zone2Increase = company.getCountryDestination(company.getCountriesToOperate()[idOrigin-1], idDestination).getBaseRate();
+				waitingW->addBaseRate(zone2Increase);
+			}
+
+			company.checkNonActiveClients(company.getClients()[index]);
+			company.addServiceBill(company.getClients()[index], waitingW);
+			company.getClients()[index]->addNewService(waitingW);
+		}else{
+			ServiceRequest* sr = new ServiceRequest(clientID, waitingW);
+			company.addServiceWaiting(sr);
 		}
 	}
 }
@@ -881,32 +1159,6 @@ void importVehicles(MovingCompany& company){
 	}
 
 	vehiclesFile.close();
-}
-
-void getActualDate(Date& actualDate){
-	std::stringstream ss;
-
-	int actualDay, actualMonth, actualYear;
-	time_t rawtime;
-	struct tm* timeinfo;
-	char buffer[80];
-
-	time(&rawtime);
-	timeinfo = localtime(&rawtime);
-	strftime(buffer, sizeof(buffer), "%d %m %y", timeinfo);
-
-	std::string buf(buffer);
-
-	ss << buf;
-	ss >> actualDay;
-	ss >> actualMonth;
-	ss >> actualYear;
-
-	actualYear += 2000;
-
-	actualDate.setDay(actualDay);
-	actualDate.setMonth(actualMonth);
-	actualDate.setYear(actualYear);
 }
 
 bool isNonActiveClient(const Date& clientDate){

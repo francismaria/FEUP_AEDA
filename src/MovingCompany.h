@@ -133,6 +133,12 @@ public:
 	std::priority_queue<Vehicle*> getAvailableVehicles() const;
 
 	/**
+	 * @brief gets all services on "stand-by"
+	 * @return services requested
+	 */
+	std::queue<ServiceRequest*> getServicesRequested() const;
+
+	/**
 	 * @brief gets countries to which the company operate
 	 * @return countries
 	 */
@@ -359,6 +365,13 @@ public:
 	 * @return true or false depending on the availability of the cars
 	 */
 	bool existsAvailableCarsToTransport(int weight, std::list<Vehicle*>& vehiclesToTransport) const;
+
+	/**
+	 * @brief checks in the hash table if a given client is a non active client
+	 * @param c client
+	 * @return true or false depending on the activity of the client
+	 */
+	void checkNonActiveClients(Client* c);
 
 	/**
 	 * @brief frees all memory allocated by the company

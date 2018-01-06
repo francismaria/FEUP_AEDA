@@ -120,6 +120,10 @@ void Service::setPayment(Payment* pay){
 	this->totalCost += (this->totalCost*pay->getPaymentTax());
 }
 
+void Service::setEndingDate(Date& e){
+	this->end = e;
+}
+
 void Service::setVehiclesUsed(std::list<Vehicle*> vehicles){
 	this->vehiclesUsed = vehicles;
 }
