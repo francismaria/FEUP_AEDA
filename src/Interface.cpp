@@ -175,6 +175,7 @@ bool showVehiclesMenu(MovingCompany& company){
 	while(option != -1){
 		std::cout << "\n\n\t\t\t\t\t\t\t\tVEHICLES" << std::endl;
 		std::cout << "\n\t\t\t\t\t\t\t1 - Print all vehicles" << std::endl;
+		std::cout << "\t\t\t\t\t\t\t2 - Print only available vehicles" << std::endl;
 		std::cout << "\n\t\t\t\t\t\t\t0 - Go back" << std::endl;
 		std::cout << "\t\t\t\t\t\t       -1 - Exit program" << std::endl;
 
@@ -187,12 +188,15 @@ bool showVehiclesMenu(MovingCompany& company){
 			case 1:
 				instruction = printVehicles(company);
 				break;
+			case 2:
+				instruction = printAvailableVehicles(company);
+				break;
 			case 0:
 				return false;
 			case -1:
 				return true;
 			default:
-				std::cout << "Please insert a valid option.";
+				std::cout << "\n\t\t\tPlease insert a valid option.";
 				break;
 		}
 

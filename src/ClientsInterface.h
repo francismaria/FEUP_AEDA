@@ -18,14 +18,12 @@
  */
 int checkClient(MovingCompany& company);
 
-
 /**
  * 	@brief Searches a client thats belongs to the company by name.
  * 	@param company The company object itself.
  * 	@return 0 or -1 depending on the input.
  */
 int searchClientByName(MovingCompany& company);
-
 
 /**
  * 	@brief Searches a client that belongs to the company by ID.
@@ -42,14 +40,12 @@ int searchClientByID(MovingCompany& company);
  */
 int searchClientByNIF(MovingCompany& company);
 
-
 /**
  * 	@brief Adds a new company to the company.
  * 	@param company The company object itself.
  * 	@return 0 or -1 depending on the input.
  */
 int addNewClient(MovingCompany& company);
-
 
 /**
  * 	@brief Removes a client of the company.
@@ -58,14 +54,12 @@ int addNewClient(MovingCompany& company);
  */
 int removeClient(MovingCompany& company);
 
-
 /**
  * 	@brief Prints only particulars clients.
  * 	@param company The company object itself.
  * 	@return 0 or -1 depending on the input.
  */
 int printParticulars(MovingCompany& company);
-
 
 /**
  * 	@brief Prints only companies clients.
@@ -88,6 +82,13 @@ int printClients(MovingCompany& company);
  * @return 0 or -1 depending on the input
  */
 int printVehicles(MovingCompany& company);
+
+/**
+ * @brief Prints all available vehicles of the company
+ * @param company company itself
+ * @return 0 or -1 depending on the input
+ */
+int printAvailableVehicles(MovingCompany& company);
 
 /**
  * @brief Prints all non active clients

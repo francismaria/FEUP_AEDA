@@ -25,7 +25,7 @@ public:
 	 * @param ID id of the vehicle
 	 * @param maxW max weight of the vehicle
 	 */
-	Vehicle(int ID, int mDays, float maxW);
+	Vehicle(int ID, int mDays, float maxW, bool a);
 
 	/**
 	 * @brief Gets vehicle ID
@@ -50,6 +50,12 @@ public:
 	 * @rturn Number of vehicles
 	 */
 	static int getNumberOfVehicles();
+
+	/**
+	 * @brief Changes availability of the vehicle (this means it can not be used for transortation)
+	 * @param a availability (true or false)
+	 */
+	void changeAvailability(bool a);
 
 	/**
 	 * @brief Checks if vehicle is available to transport

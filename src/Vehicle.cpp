@@ -9,7 +9,7 @@
 
 int Vehicle::numberOfVehicles = 0;
 
-Vehicle::Vehicle(int ID, int mDays, float maxW): id(ID), maintenanceDays(mDays), maxWeight(maxW), available(true){
+Vehicle::Vehicle(int ID, int mDays, float maxW, bool a): id(ID), maintenanceDays(mDays), maxWeight(maxW), available(a){
 	numberOfVehicles++;
 }
 
@@ -27,6 +27,10 @@ float Vehicle::getMaxWeight() const{
 
 int Vehicle::getNumberOfVehicles(){
 	return numberOfVehicles;
+}
+
+void Vehicle::changeAvailability(bool a){
+	available = a;
 }
 
 bool Vehicle::isAvailable() const{

@@ -113,7 +113,10 @@ void MovingCompany::addCountry(Country* c){
 
 void MovingCompany::addVehicle(Vehicle* v){
 	allVehicles.push_back(v);
-	availableVehicles.push(v);
+
+	//inserts it in the priority queue of the vehicles
+	if(v->isAvailable())
+		availableVehicles.push(v);
 }
 
 std::vector<Country*> MovingCompany::getCountriesToOperate() const{
@@ -341,6 +344,20 @@ void MovingCompany::printAllVehicles() const{
 	}
 }
 
+void MovingCompany::printAvailableVehicles() const{
+
+	std::priority_queue<Vehicle*> aux = availableVehicles;
+
+	while(!aux.empty()){
+		Vehicle* v = aux.top();
+
+		if(v->isAvailable())
+			std::cout << *v;
+
+		aux.pop();
+	}
+}
+
 void MovingCompany::printAllServicesWaiting() const{
 
 	std::queue<ServiceRequest*> aux = servicesWaiting;
@@ -422,6 +439,14 @@ bool MovingCompany::existsAvailableCarsToTransport(int weight, std::list<Vehicle
 	}
 
 	if(leftWeight > 0) return false;
+
+	// Changes all the availability of the vehicles associated with the service to false
+	std::list<Vehicle*>::iterator it;
+
+	for(it = vehiclesToTransport.begin(); it != vehiclesToTransport.end(); it++){
+		(*it)->changeAvailability(false);
+	}
+
 	return true;
 }
 

@@ -621,6 +621,14 @@ int printVehicles(MovingCompany& company){
 	return 0;
 }
 
+int printAvailableVehicles(MovingCompany& company){
+
+	std::cout << "\t\t\t\t\t\t      PRINT AVAILABLE VEHICLES INFORMATION\n" << std::endl;
+
+	company.printAvailableVehicles();
+	return 0;
+}
+
 int printNonActiveClients(MovingCompany& company){
 
 	if(!company.existsClients()){

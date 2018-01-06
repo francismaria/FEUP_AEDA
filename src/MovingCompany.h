@@ -343,6 +343,11 @@ public:
 	void printAllVehicles() const;
 
 	/**
+	 * @brief prints all the vehicles ready to transport cargo
+	 */
+	void printAvailableVehicles() const;
+
+	/**
 	 * @brief prints all services that were requested by clients
 	 */
 	void printAllServicesWaiting() const;
