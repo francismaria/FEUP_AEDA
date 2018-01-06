@@ -284,55 +284,63 @@ void setDeliveryDates(Date& deliveryBeginning, Date& deliveryEnding, Date& begin
 
 	setDeliveryDates(deliveryBeginning, deliveryEnding, warehousingEnd);
 }
-void setATMPayment(MovingCompany& company, Service* s){
+void setATMPayment(MovingCompany& company, Service* s, bool show){
 
 	ATM* atm = new ATM(company.getEntity());
 	s->setPayment(atm);
 
-	std::cout << "\n\t\t\t\t\tPAYMENT DETAILS:\n" << std::endl;
-	std::cout << "\n\t\t\t\t    Entity: ";
-	std::cout << atm->getEntity();
-	std::cout << "\n\t\t\t\t    Reference: ";
-	std::cout << atm->getReference();
-	std::cout << "\n\t\t\t\t    Montant: ";
-	std::cout << s->getTotalCost() << "€";
+	if(show){
+		std::cout << "\n\t\t\t\t\tPAYMENT DETAILS:\n" << std::endl;
+		std::cout << "\n\t\t\t\t    Entity: ";
+		std::cout << atm->getEntity();
+		std::cout << "\n\t\t\t\t    Reference: ";
+		std::cout << atm->getReference();
+		std::cout << "\n\t\t\t\t    Montant: ";
+		std::cout << s->getTotalCost() << "€";
+	}
 }
 
-void setCreditCardPayment(MovingCompany& company, Service* s){
+void setCreditCardPayment(MovingCompany& company, Service* s, bool show){
 
 	int month;
 	std::string ccNumber;
 
-	std::cout << "\n\t\t\t\t\tPAYMENT DETAILS:\n" << std::endl;
-	std::cout << "\n\t\t\t\t Credit Card Number: ";
-	std::cin >> ccNumber;
-	std::cout << "\n\t\t\t\t Validation month: ";
-	std::cin >> month;
-	std::cout << "\n\t\t\t\t Montant: " << s->getTotalCost() << "€";
+	if(show){
+		std::cout << "\n\t\t\t\t\tPAYMENT DETAILS:\n" << std::endl;
+		std::cout << "\n\t\t\t\t Credit Card Number: ";
+		std::cin >> ccNumber;
+		std::cout << "\n\t\t\t\t Validation month: ";
+		std::cin >> month;
+		std::cout << "\n\t\t\t\t Montant: " << s->getTotalCost() << "€";
+	}
 }
 
-void setBankTransferPayment(MovingCompany& company, Service* s){
+void setBankTransferPayment(MovingCompany& company, Service* s, bool show){
 
 	BankTransfer* bt = new BankTransfer(company.getIBAN());
 	s->setPayment(bt);
 
-	std::cout << "\n\t\t\t\t\tPAYMENT DETAILS:\n" << std::endl;
-	std::cout << "\n\t\t\t\t   IBAN: " << bt->getIBAN();
-	std::cout << "\n\t\t\t\t   Montant: " << s->getTotalCost() << "€";
+	if(show){
+		std::cout << "\n\t\t\t\t\tPAYMENT DETAILS:\n" << std::endl;
+		std::cout << "\n\t\t\t\t   IBAN: " << bt->getIBAN();
+		std::cout << "\n\t\t\t\t   Montant: " << s->getTotalCost() << "€";
+	}
 }
 
-void setEndOfMonthPayment(MovingCompany& company, Service* s){
+void setEndOfMonthPayment(MovingCompany& company, Service* s, bool show){
 
 	EndOfMonth* eom = new EndOfMonth();
 	s->setPayment(eom);
 
-	std::cout << "\n\t\t\t\tThis service has been added to client's debt. It is payable until the end of the month.";
-	std::cout << "\n\t\t\t\t\t   Montant: " << s->getTotalCost() << "€" << std::endl;
-	std::cout << s->getPayment()->getPaymentType();
+	if(show){
+		std::cout << "\n\t\t\t\tThis service has been added to client's debt. It is payable until the end of the month.";
+		std::cout << "\n\t\t\t\t\t   Montant: " << s->getTotalCost() << "€" << std::endl;
+		std::cout << s->getPayment()->getPaymentType();
+	}
 }
 
 // Returns 0 or -1 depending on user input or 1 if succeeded.
-int setTypeOfPaymentParticular(MovingCompany& company, Service* s){
+int setTypeOfPaymentParticular(MovingCompany& company, Service* s, bool show){
 
 	std::cout << "\n\t\t\t\tChoose the type of payment:\n" << std::endl;
 	std::cout << "\t\t\t\t\t\t1 - ATM" << std::endl;
@@ -350,10 +358,10 @@ int setTypeOfPaymentParticular(MovingCompany& company, Service* s){
 
 	switch(option){
 		case 1:
-			setATMPayment(company, s);
+			setATMPayment(company, s, show);
 			break;
 		case 2:
-			setBankTransferPayment(company, s);
+			setBankTransferPayment(company, s, show);
 			break;
 		case 0:
 			return 0;
@@ -366,7 +374,7 @@ int setTypeOfPaymentParticular(MovingCompany& company, Service* s){
 }
 
 // Returns 0 or -1 depending on user input or 1 if succeeded.
-int setTypeOfPaymentCompany(MovingCompany& company, Service* s){
+int setTypeOfPaymentCompany(MovingCompany& company, Service* s, bool show){
 
 	std::cout << "\n\t\t\t\tChoose the type of payment:\n" << std::endl;
 	std::cout << "\t\t\t\t\t\t1 - ATM" << std::endl;
@@ -385,16 +393,16 @@ int setTypeOfPaymentCompany(MovingCompany& company, Service* s){
 
 	switch(option){
 		case 1:
-			setATMPayment(company, s);
+			setATMPayment(company, s, show);
 			break;
 		case 2:
-			setCreditCardPayment(company, s);
+			setCreditCardPayment(company, s, show);
 			break;
 		case 3:
-			setBankTransferPayment(company, s);
+			setBankTransferPayment(company, s, show);
 			break;
 		case 4:
-			setEndOfMonthPayment(company, s);
+			setEndOfMonthPayment(company, s, show);
 			break;
 		case 0:
 			return 0;
@@ -468,9 +476,9 @@ int newRegisteredClientService(MovingCompany& company){
 			int checkReturn;
 
 			if(company.getClients()[index]->isParticular())					// PARTICULAR CLIENT
-				checkReturn = setTypeOfPaymentParticular(company, waitingT);
+				checkReturn = setTypeOfPaymentParticular(company, waitingT, false);
 			else															// COMPANY  CLIENT
-				checkReturn = setTypeOfPaymentCompany(company, waitingT);
+				checkReturn = setTypeOfPaymentCompany(company, waitingT, false);
 
 			ServiceRequest* transportR = new ServiceRequest(company.getClients()[index]->getId(), waitingT);
 
@@ -517,9 +525,9 @@ int newRegisteredClientService(MovingCompany& company){
 		int checkReturn;
 
 		if(company.getClients()[index]->isParticular())					// PARTICULAR CLIENT
-			checkReturn = setTypeOfPaymentParticular(company, svcT);
+			checkReturn = setTypeOfPaymentParticular(company, svcT, true);
 		else															//   COMPANY  CLIENT
-			checkReturn = setTypeOfPaymentCompany(company, svcT);
+			checkReturn = setTypeOfPaymentCompany(company, svcT, true);
 
 		if(checkReturn == 0) return 0;
 		else if(checkReturn == -1) return -1;
@@ -543,9 +551,9 @@ int newRegisteredClientService(MovingCompany& company){
 			int checkReturn;
 
 			if(company.getClients()[index]->isParticular())					// PARTICULAR CLIENT
-				checkReturn = setTypeOfPaymentParticular(company, waitingW);
+				checkReturn = setTypeOfPaymentParticular(company, waitingW, false);
 			else															// COMPANY  CLIENT
-				checkReturn = setTypeOfPaymentCompany(company, waitingW);
+				checkReturn = setTypeOfPaymentCompany(company, waitingW, false);
 
 			ServiceRequest* warehousingR = new ServiceRequest(company.getClients()[index]->getId(), waitingW);
 			company.addServiceWaiting(warehousingR);
@@ -591,9 +599,9 @@ int newRegisteredClientService(MovingCompany& company){
 		int checkReturn;
 
 		if(company.getClients()[index]->isParticular())					// PARTICULAR CLIENT
-			checkReturn = setTypeOfPaymentParticular(company, svcW);
+			checkReturn = setTypeOfPaymentParticular(company, svcW, true);
 		else															// COMPANY  CLIENT
-			checkReturn = setTypeOfPaymentCompany(company, svcW);
+			checkReturn = setTypeOfPaymentCompany(company, svcW, true);
 
 		company.checkNonActiveClients(company.getClients()[index]);
 		company.addServiceBill(company.getClients()[index], svcW);
@@ -691,7 +699,7 @@ int newUnregisteredClientService(MovingCompany& company){
 
 		int checkReturn;
 
-		checkReturn = setTypeOfPaymentParticular(company, svcT);
+		checkReturn = setTypeOfPaymentParticular(company, svcT, true);
 
 		if(checkReturn == 0) return 0;
 		else if(checkReturn == -1) return -1;
@@ -742,7 +750,7 @@ int newUnregisteredClientService(MovingCompany& company){
 
 		int checkReturn;
 
-		checkReturn = setTypeOfPaymentParticular(company, svcW);
+		checkReturn = setTypeOfPaymentParticular(company, svcW, true);
 	}
 
 	else if(response == "0") return 0;
