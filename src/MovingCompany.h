@@ -369,7 +369,7 @@ public:
 	 * @param weight weight of the packages
 	 * @return true or false depending on the availability of the cars
 	 */
-	bool existsAvailableCarsToTransport(int weight, std::list<Vehicle*>& vehiclesToTransport) const;
+	bool existsAvailableCarsToTransport(int weight, std::list<Vehicle*>& vehiclesToTransport);
 
 	/**
 	 * @brief checks in the hash table if a given client is a non active client

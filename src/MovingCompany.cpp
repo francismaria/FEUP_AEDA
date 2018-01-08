@@ -348,11 +348,15 @@ void MovingCompany::printAvailableVehicles() const{
 
 	std::priority_queue<Vehicle*> aux = availableVehicles;
 
+	if(aux.empty()){
+		std::cout << "\n\t\t\t\t\tThere are no vehicles available to transport" << std::endl;
+		return;
+	}
+
 	while(!aux.empty()){
 		Vehicle* v = aux.top();
 
-		if(v->isAvailable())
-			std::cout << *v;
+		std::cout << *v;
 
 		aux.pop();
 	}
@@ -418,9 +422,9 @@ int MovingCompany::validateClientService(int index){
 	return 0;
 }
 
-bool MovingCompany::existsAvailableCarsToTransport(int weight, std::list<Vehicle*>& vehiclesToTransport) const{
+bool MovingCompany::existsAvailableCarsToTransport(int weight, std::list<Vehicle*>& vehiclesToTransport){
 
-	int leftWeight = weight;
+	int leftWeight = weight, cont = 0;
 	std::priority_queue<Vehicle*> auxVehicles = availableVehicles;
 
 	while(!auxVehicles.empty()){
@@ -428,25 +432,24 @@ bool MovingCompany::existsAvailableCarsToTransport(int weight, std::list<Vehicle
 
 		if(leftWeight <= v->getMaxWeight()){
 			vehiclesToTransport.push_back(v);
-			return true;
+			cont++;
+			break;
 		}
 		else{
 			leftWeight -= v->getMaxWeight();
 			vehiclesToTransport.push_back(v);
+			cont++;
 		}
-
 		auxVehicles.pop();
 	}
 
 	if(leftWeight > 0) return false;
 
-	// Changes all the availability of the vehicles associated with the service to false
-	std::list<Vehicle*>::iterator it;
-
-	for(it = vehiclesToTransport.begin(); it != vehiclesToTransport.end(); it++){
-		(*it)->changeAvailability(false);
+	while(!availableVehicles.empty() && cont > 0){
+		availableVehicles.top()->changeAvailability(false);
+		availableVehicles.pop();
+		cont--;
 	}
-
 	return true;
 }
 
