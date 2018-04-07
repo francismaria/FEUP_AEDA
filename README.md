@@ -6,7 +6,7 @@ The project consists of a C++ implementation of a
 moving company software on which assembles all information about the company. It was divided in two parts:
 (Note: Portuguese Only)
 
-####First Part: Base Project
+#### First Part: Base Project
 
 Uma empresa de mudanças internacionais pretende implementar um sistema informático para a gestão dos seus
 serviços. A empresa mantém uma carteira de clientes empresariais e particulares, para além de prestar serviço a
@@ -28,13 +28,13 @@ anterior). Pagamentos em multibanco e transferência bancária são permitidos a
 cartão de crédito são permitidos apenas a clientes empresariais registados, e tem um acréscimo de 5% do valor do
 serviço, pela transação do cartão
 
-####Second part: Adding features to base project using STL's data structures:
-..*Binary Search Trees:
+#### Second part: Adding features to base project using STL's data structures:
+*Binary Search Trees:
 Para efeitos de auditoria, a empresa precisa guardar o histórico dos serviços de mudança realizados. As
 faturas das mudanças executadas são então guardadas numa Árvore Binária de Pesquisa, ordenadas
 alfabeticamente pelo nome do cliente; para clientes com histórico de muitas mudanças, estas são
 ordenadas a partir das mais antigas, até às mais recentes.
-..*PrioriteQueue:
+*PrioriteQueue:
 Para melhor gerir as solicitações de mudanças, e nomeadamente as viaturas utilizadas no transporte dos
 bens, dado o aumento constante do número de clientes e a limitada capacidade da frota da empresa, o
 sistema mantém numa Fila de Prioridade as viaturas a serem utilizadas nas próximas mudanças, e numa
@@ -43,7 +43,7 @@ utilizador) em que estarão disponíveis depois de concluírem a viagem de trans
 viaturas que estiverem disponíveis mais cedo encontram-se no topo da fila de prioridade. Em algumas
 situações, algumas viaturas poderão necessitar deixar o serviço mais cedo (manutenção, por ex),
 podendo ser necessário saírem da fila dos próximos serviços.
-..*Hash Table:
+*Hash Table:
 Clientes que não utilizam os serviços da empresa por mais de um determinado tempo, são guardados
 numa Tabela de Dispersão como clientes inativos. Sempre que voltarem a utilizar um serviço, passam
 novamente a clientes ativos. As moradas são atualizadas, em campanhas promocionais, de tempos em
