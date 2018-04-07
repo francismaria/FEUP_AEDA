@@ -34,7 +34,7 @@ Para efeitos de auditoria, a empresa precisa guardar o histórico dos serviços 
 faturas das mudanças executadas são então guardadas numa Árvore Binária de Pesquisa, ordenadas
 alfabeticamente pelo nome do cliente; para clientes com histórico de muitas mudanças, estas são
 ordenadas a partir das mais antigas, até às mais recentes.
-###### * PrioriteQueue:
+###### * Priority Queue:
 Para melhor gerir as solicitações de mudanças, e nomeadamente as viaturas utilizadas no transporte dos
 bens, dado o aumento constante do número de clientes e a limitada capacidade da frota da empresa, o
 sistema mantém numa Fila de Prioridade as viaturas a serem utilizadas nas próximas mudanças, e numa
