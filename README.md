@@ -52,7 +52,7 @@ tempos, de forma a ter esta informação sempre válida no sistema, para os clie
 ### Built with
 This project was built with Eclipse C++ Neon.
 
-### Conributors
+### Contributors
 * [Francisco Maria](https://github.com/francismaria)
 * [João Gama Amaral](https://github.com/gamaamaral98)
 
