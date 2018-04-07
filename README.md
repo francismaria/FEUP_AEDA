@@ -5,7 +5,8 @@ This is the epository for 2nd year class "Algoritmos e Estruturas de Dados"  of 
 The project consists of a C++ implementation of a
 moving company software on which assembles all information about the company. It was divided in two parts:
 (Note: Portuguese Only)
-*First Part: Base Project
+
+####First Part: Base Project
 
 Uma empresa de mudanças internacionais pretende implementar um sistema informático para a gestão dos seus
 serviços. A empresa mantém uma carteira de clientes empresariais e particulares, para além de prestar serviço a
@@ -27,7 +28,7 @@ anterior). Pagamentos em multibanco e transferência bancária são permitidos a
 cartão de crédito são permitidos apenas a clientes empresariais registados, e tem um acréscimo de 5% do valor do
 serviço, pela transação do cartão
 
-* Second part: Adding features to base project using STL's data structures:
+####Second part: Adding features to base project using STL's data structures:
 ..*Binary Search Trees:
 Para efeitos de auditoria, a empresa precisa guardar o histórico dos serviços de mudança realizados. As
 faturas das mudanças executadas são então guardadas numa Árvore Binária de Pesquisa, ordenadas
